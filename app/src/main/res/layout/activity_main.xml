@@ -1,58 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/DeviderView"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center|top"
-    android:background="#FFFDFD"
-    android:backgroundTint="#CDDDDB"
-    android:fadingEdge="horizontal"
-    android:foregroundTint="#DF1B1B"
-    app:layout_insetEdge="bottom"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:ignore="MissingConstraints">
-
-        <TextView
-            android:id="@+id/Title"
-            android:layout_width="413dp"
-            android:layout_height="121dp"
-            android:background="#D6AC43"
-            android:fadingEdge="horizontal"
-            android:fontFamily="serif"
-            android:gravity="center|center_horizontal"
-            android:text="Foodiction"
-            android:textSize="48sp" />
-
-        <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/main_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/Theme.Foodiction" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-            <SearchView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:onClick="SearchButton"
-                tools:ignore="DuplicateClickableBoundsCheck" />
-
-            <EditText
-                android:id="@+id/SearchText"
-                android:layout_width="309dp"
-                android:layout_height="56dp"
-                android:ems="10"
-                android:gravity="center_horizontal|center_vertical"
-                android:inputType="textPersonName"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                tools:text="Search" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
