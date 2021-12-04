@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "240922324405",
+    "firebase_url": "https://foodiction-f372e-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "foodiction-f372e",
+    "storage_bucket": "foodiction-f372e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:240922324405:android:a7ffbc2f1e8b326a2b7dfc",
+        "android_client_info": {
+          "package_name": "com.android.foodiction"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "240922324405-8uq7ie271ahgt286ccjti9vd8e60kpe7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBr4W1365eOkAeU-UmGZtCzgSJxzUfqnXM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "240922324405-8uq7ie271ahgt286ccjti9vd8e60kpe7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:240922324405:android:1a0981bf7b8d6d722b7dfc",
+        "android_client_info": {
+          "package_name": "com.example.foodiction"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "240922324405-8uq7ie271ahgt286ccjti9vd8e60kpe7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBr4W1365eOkAeU-UmGZtCzgSJxzUfqnXM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "240922324405-8uq7ie271ahgt286ccjti9vd8e60kpe7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

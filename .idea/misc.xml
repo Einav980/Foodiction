@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Limudim/Android Project/Foodiction/app/src/main/res/layout/activity_main.xml" value="0.490036231884058" />
+        <entry key="..\:/Limudim/Android Project/Foodiction/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Limudim/Android Project/Foodiction/app/src/main/res/layout/add_recipe.xml" value="0.4429347826086957" />
+        <entry key="..\:/Limudim/Android Project/Foodiction/app/src/main/res/layout/add_recipe_activity.xml" value="0.4429347826086957" />
+        <entry key="..\:/Limudim/Android Project/Foodiction/app/src/main/res/layout/content_add_recipe.xml" value="0.4429347826086957" />
         <entry key="..\:/Limudim/Android Project/Foodiction/app/src/main/res/menu/main_menu.xml" value="0.3307291666666667" />
         <entry key="..\:/Users/einav.malcka/AndroidStudioProjects/Foodiction/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3828125" />
         <entry key="..\:/Users/einav.malcka/AndroidStudioProjects/Foodiction/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3828125" />
@@ -12,7 +15,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
