@@ -1,0 +1,2 @@
+Connect to Mongo
+mongosh "mongodb+srv://foodiction.l69uc.mongodb.net/myFirstDatabase" --username admin
