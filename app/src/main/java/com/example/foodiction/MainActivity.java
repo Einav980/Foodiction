@@ -4,10 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_recipe_activity);
+        setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
     }
@@ -86,13 +88,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void addData(){
 
-        Recipe r = new Recipe("First Recipe", "This is the first recipe");
+        Recipe r = new Recipe("Test", "This is test recipe");
 
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("recipes");
-        String key = myRef.push().getKey();
-        myRef.child(key).setValue(r);
+        DatabaseReference recipes = database.getReference("recipes");
+        String key = recipes.push().getKey();
+        recipes.child(key).setValue(r);
         Toast.makeText(MainActivity.this, "A recipe was added!", Toast.LENGTH_LONG).show();
     }
 
@@ -137,11 +139,22 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    public void listCategories(){
+    public void listRecipes(){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference recipesRef = database.getReference("recipes");
         Query query = recipesRef.orderByKey();
         query.addListenerForSingleValueEvent(queryValueListener);
+    }
+
+    public void deleteRecipe(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference recipesRef = database.getReference("recipes");
+        recipesRef.child("-MqBCr8dOUpl1eIC6I3o").removeValue();
+    }
+
+    public void activeRecipeActivity(View view) {
+        Intent intent = new Intent(this, AddRecipeActivity.class);
+        startActivity(intent);
     }
 }
 

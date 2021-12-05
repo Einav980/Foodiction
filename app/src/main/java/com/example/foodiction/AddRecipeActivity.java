@@ -1,43 +1,32 @@
 package com.example.foodiction;
 
-import android.os.Bundle;
-
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Bundle;
 import android.view.View;
-
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import com.example.foodiction.databinding.AddRecipeActivityBinding;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class AddRecipeActivity extends AppCompatActivity {
 
-    private AppBarConfiguration appBarConfiguration;
-    private AddRecipeActivityBinding binding;
-
+    private RecipeHandler recipeHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.add_recipe_activity);
 
-        binding = AddRecipeActivityBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        setSupportActionBar(binding.toolbar);
-
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_add_recipe);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        recipeHandler = new RecipeHandler();
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_add_recipe);
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
+    public void addRecipe(View view) {
+        String recipeName = ((TextView) findViewById(R.id.recipeNameTextBox)).getText().toString();
+        String recipeDescription = ((TextView) findViewById(R.id.recipeDescTextBox)).getText().toString();
+        boolean result = recipeHandler.addRecipe(recipeName, recipeDescription);
+        if (result) {
+            Toast.makeText(this, "Recipe added succesfully!", Toast.LENGTH_SHORT).show();
+            this.finish();
+        } else {
+            Toast.makeText(this, "There was an error!", Toast.LENGTH_SHORT).show();
+        }
     }
 }
