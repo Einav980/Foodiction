@@ -3,6 +3,7 @@ package com.example.foodiction;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,5 +29,12 @@ public class AddRecipeActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "There was an error!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        Log.i("FOODICTION", "Recipe stopped");
+        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.fade_out);
     }
 }

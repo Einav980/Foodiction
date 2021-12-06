@@ -152,9 +152,10 @@ public class MainActivity extends AppCompatActivity {
         recipesRef.child("-MqBCr8dOUpl1eIC6I3o").removeValue();
     }
 
-    public void activeRecipeActivity(View view) {
+    public void startRecipeActivity(View view) {
         Intent intent = new Intent(this, AddRecipeActivity.class);
         startActivity(intent);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 }
 
