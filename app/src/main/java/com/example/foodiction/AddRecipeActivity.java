@@ -35,6 +35,6 @@ public class AddRecipeActivity extends AppCompatActivity {
     protected void onPause(){
         super.onPause();
         Log.i("FOODICTION", "Recipe stopped");
-        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.fade_out);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 }
