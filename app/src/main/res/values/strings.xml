@@ -2,4 +2,7 @@
     <string name="app_name">Foodiction</string>
     <string name="title">Foodiction</string>
     <string name="title_activity_add_recipe">AddRecipeActivity</string>
+    <string name="recipe_name_placeholder">Recipe Name</string>
+    <string name="recipe_description_placeholder">Recipe Description</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque elementum, nibh non condimentum fringilla, nibh purus venenatis mi, condimentum lacinia dolor tellus vel erat. Cras interdum enim mauris, at tempor.</string>
 </resources>
