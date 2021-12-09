@@ -14,4 +14,6 @@
     <string name="action_2">action_2</string>
     <string name="add_to_favorite">add_to_favorite</string>
     <string name="recipe_title">Recipe_Title</string>
+    <string name="manu">manu</string>
+    <string name="content_description_manu">manu</string>
 </resources>

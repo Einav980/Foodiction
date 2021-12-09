@@ -10,17 +10,14 @@
 
     <item
         android:id="@+id/filter"
+        android:contentDescription="@string/content_description_search"
         android:icon="@drawable/ic_baseline_filter_alt_24"
         android:title="@string/search"
-        android:contentDescription="@string/content_description_search"
-        app:showAsAction="ifRoom"
-        />
-
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/more"
-        android:title="@string/more"
         android:contentDescription="@string/content_description_more"
-        app:showAsAction="never"
-        />
-
+        android:iconTint="#A7763B"
+        android:title="@string/more"
+        app:showAsAction="never" />
 </menu>
