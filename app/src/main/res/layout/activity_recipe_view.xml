@@ -16,13 +16,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/recipeTagsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/recipeNameTextView"
         tools:layout_editor_absoluteX="0dp">
 
         <com.google.android.material.chip.Chip
@@ -49,26 +49,10 @@
             android:clickable="false"
             android:text="Test3" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:clickable="false"
-            android:text="Test5" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:clickable="false"
-            android:text="Test6" />
-
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/recipeNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -87,6 +71,15 @@
         android:text="@string/lorem_ipsum"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/recipeTagsLayout" />
+
+    <ExpandableListView
+        android:id="@+id/recipeIngredientsListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/black"
+        android:dividerHeight="0.5dp"
+        android:groupIndicator="@null"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
