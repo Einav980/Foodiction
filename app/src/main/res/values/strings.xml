@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Foodiction</string>
     <string name="title">Foodiction</string>
-    <string name="title_activity_add_recipe">AddRecipeActivity</string>
+    <string name="add_recipe_activity_title">Add Recipe</string>
 </resources>
