@@ -10,13 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Foodiction">
         <activity
-            android:name=".OpenLogoActivity"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".AddRecipeActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".OpenLogoActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
