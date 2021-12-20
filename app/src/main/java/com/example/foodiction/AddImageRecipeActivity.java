@@ -15,33 +15,24 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.stepstone.stepper.StepperLayout;
-import com.stepstone.stepper.adapter.StepAdapter;
+public class AddImageRecipeActivity extends AppCompatActivity {
 
-public class AddRecipeActivity extends AppCompatActivity {
 
     ImageView imageView;
     Button chooseImageButton;
 
     private static final int IMAGE_PICK_CODE = 1000;
     private static final int PERMISSION_CODE = 1001;
-    private StepperLayout mStepperLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_recipe);
-
-        imageView = findViewById(R.id.recipeImage);
-        chooseImageButton = findViewById(R.id.selectImageButton);
-
-        mStepperLayout = findViewById(R.id.addRecipeStepperLayout);
-        AddRecipeStepAdapter stepAdapter = new AddRecipeStepAdapter(getSupportFragmentManager(), getApplicationContext());
-        mStepperLayout.setAdapter(stepAdapter);
+        setContentView(R.layout.activity_add_image_recipe);
+        pickImageFromGallery();
     }
 
     public void selectImage(View view){
-        Log.i("FOODICTION", "Select Image");
+        Log.i("FOODICTION", "Select Image Recipe");
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
                 // Permission not granted - request it

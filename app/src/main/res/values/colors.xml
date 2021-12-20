@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="app_main_light">#F6B057</color>
+    <color name="foodiction_btn_primary">#4281A4</color>
+    <color name="foodiction_background_primary">#E4DFDA</color>
 </resources>
