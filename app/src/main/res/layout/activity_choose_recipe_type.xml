@@ -22,6 +22,7 @@
             android:layout_margin="10dp"
             android:onClick="startAddImageRecipeActivity"
             android:text="@string/from_image_btn_txt"
+            android:textSize="20sp"
             android:theme="@style/ChooseRecipeTypeButton" />
 
         <Button
@@ -29,8 +30,9 @@
             android:layout_width="130dp"
             android:layout_height="100dp"
             android:layout_margin="10dp"
-            android:text="@string/create_recipe_btn_txt"
             android:onClick="startAddRecipeActivity"
+            android:text="@string/create_recipe_btn_txt"
+            android:textSize="20sp"
             android:theme="@style/ChooseRecipeTypeButton" />
 
     </LinearLayout>

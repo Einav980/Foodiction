@@ -5,10 +5,19 @@
     android:layout_height="match_parent"
     tools:context=".RecipeIngredientsStep">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ListView
+        android:id="@+id/addedIngredientsListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Ingredients" />
+        tools:listitem="@layout/single_added_ingredient_item" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addIngredientButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/ms_tab_container_pre_lollipop_background"
+        android:contentDescription="Test"
+        android:layout_margin="16dp"
+        android:onClick="test"/>
 </FrameLayout>

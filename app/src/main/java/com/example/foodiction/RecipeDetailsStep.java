@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.stepstone.stepper.Step;
+import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 
 import org.w3c.dom.Text;
@@ -35,15 +36,21 @@ public class RecipeDetailsStep extends Fragment implements Step {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         nameTextView = (TextView) getView().findViewById(R.id.nameInputTextEditor);
+        descriptionTextView = (TextView) getView().findViewById(R.id.descriptionInputTextEditor);
         nameTextView.requestFocus();
+//        Only if you want to set up the keyboard
 //        imgr.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
 
     @Nullable
     @Override
     public VerificationError verifyStep() {
-        return new VerificationError("Enter all details!");
-//        return null;
+        // Any of the details is empty
+        if (nameTextView.getText().toString().isEmpty() || descriptionTextView.getText().toString().isEmpty()){
+            return new VerificationError("Enter all details!");
+        }
+
+        return null;
     }
 
     @Override
@@ -53,6 +60,6 @@ public class RecipeDetailsStep extends Fragment implements Step {
 
     @Override
     public void onError(@NonNull VerificationError error) {
-        Toast.makeText(this.getActivity(), error.getErrorMessage().toString(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this.getActivity(), error.getErrorMessage().toString(), Toast.LENGTH_SHORT).show();
     }
 }

@@ -5,29 +5,29 @@ import android.os.Bundle;
 
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.stepstone.stepper.Step;
 import com.stepstone.stepper.adapter.AbstractFragmentStepAdapter;
 import com.stepstone.stepper.viewmodel.StepViewModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AddRecipeStepAdapter extends AbstractFragmentStepAdapter {
 
+    List<Step> steps;
     public AddRecipeStepAdapter(FragmentManager fm, Context context) {
         super(fm, context);
+        steps = new ArrayList<Step>();
+        steps.add(new RecipeDetailsStep());
+        steps.add(new RecipeIngredientsStep());
+        steps.add(new RecipeInstructionsStep());
     }
     @Override
     public Step createStep(int position) {
-        switch(position){
-            case 0:
-                return new RecipeDetailsStep();
-            case 1:
-                return new RecipeIngredientsStep();
-            case 2:
-                return new RecipeInstructionsStep();
-            default:
-                return null;
-        }
+        return steps.get(position);
     }
 
     @Override
