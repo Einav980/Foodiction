@@ -23,6 +23,8 @@ public class AddRecipeActivity extends AppCompatActivity {
     ImageView imageView;
     Button chooseImageButton;
 
+    public static Recipe recipe;
+
     private static final int IMAGE_PICK_CODE = 1000;
     private static final int PERMISSION_CODE = 1001;
     private StepperLayout mStepperLayout;

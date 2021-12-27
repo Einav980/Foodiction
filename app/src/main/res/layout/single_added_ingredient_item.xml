@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/addedIngredientNameTextView"
@@ -30,8 +30,8 @@
             android:elevation="3dp"
             android:outlineAmbientShadowColor="@color/black"
             android:src="@drawable/ingredient_eggs"
-            app:civ_border_color="#eeeeee"
-            app:civ_border_width="1dp"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="3dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </LinearLayout>

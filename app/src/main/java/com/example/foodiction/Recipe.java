@@ -3,6 +3,7 @@ import android.graphics.Color;
 import android.media.Image;
 import android.text.format.Time;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,9 +16,9 @@ public class Recipe {
     String description;
     Date creationDate;
     Date modifiedDate;
-    List<Ingredient> ingredients;
+    ArrayList<Ingredient> ingredients;
     Image recipeImage;
-    List<ProcedureStep> procedureSteps;
+    ArrayList<Instruction> instructions;
     List<Image> pictures;
     Color color;
     List<String> categories;
