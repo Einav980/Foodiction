@@ -11,13 +11,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 
 public class IngredientsListAdapter extends ArrayAdapter<Ingredient> {
+    Context mContext;
+    ArrayList<Ingredient> ingredients;
     public IngredientsListAdapter(Context context, ArrayList<Ingredient> ingredientArrayList){
         super(context, R.layout.single_ingredient_item, R.id.ingredientName, ingredientArrayList);
+        this.mContext = context;
+        this.ingredients = ingredientArrayList;
     }
 
 
@@ -30,8 +37,10 @@ public class IngredientsListAdapter extends ArrayAdapter<Ingredient> {
         }
 
         ImageView ingredientImage = convertView.findViewById(R.id.ingredientImage);
-        ingredientImage.setImageResource(ingredient.imageId);
-
+        Picasso.get().
+                load(ingredients.get(position).getImageUrl()).
+                placeholder(R.mipmap.ic_launcher_round).
+                into(ingredientImage);
         return super.getView(position, convertView, parent);
     }
 }

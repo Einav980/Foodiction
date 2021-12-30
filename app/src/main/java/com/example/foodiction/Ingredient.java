@@ -1,14 +1,16 @@
 package com.example.foodiction;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Ingredient {
     String name;
-    String type;
-    int imageId;
+    String imageUrl;
+    String amount = "";
 
-    public Ingredient(String name, String type, int imageId) {
+    public Ingredient(String name, String imageUrl) {
         this.name = name;
-        this.type = type;
-        this.imageId = imageId;
+        this.imageUrl = imageUrl;
     }
 
     public Ingredient(){}
@@ -21,24 +23,40 @@ public class Ingredient {
         this.name = name;
     }
 
-    public String getType() {
-        return type;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public int getImageId() {
-        return imageId;
-    }
-
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     @Override
     public String toString() {
         return getName();
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    public String toJSON(){
+        JSONObject jsonObject = new JSONObject();
+        try{
+            jsonObject.put("name", getName());
+            jsonObject.put("imageUrl", getImageUrl());
+
+            return jsonObject.toString();
+        }
+        catch(JSONException e)
+        {
+            e.printStackTrace();
+            return "";
+        }
+
     }
 }

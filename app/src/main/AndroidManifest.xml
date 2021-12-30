@@ -13,7 +13,8 @@
         android:theme="@style/Theme.Foodiction" >
         <activity
             android:name=".IngredientsListActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Choose"/>
         <activity
             android:name=".AddImageRecipeActivity"
             android:exported="false" />

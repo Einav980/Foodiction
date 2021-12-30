@@ -29,6 +29,8 @@ public class RecipeInstructionsStep extends Fragment implements Step {
     static EditText addInstructionEditText;
     Button addInstructionBtn;
 
+    static TextView noInstructionsTextView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class RecipeInstructionsStep extends Fragment implements Step {
         instructionsListView = getView().findViewById(R.id.instructionsListView);
         adapter = new AddInstructionAdapter(getContext(), instructions);
         instructionsListView.setAdapter(adapter);
+        noInstructionsTextView = getView().findViewById(R.id.noIngredientsTextView);
 
         addInstructionBtn.setOnClickListener(new View.OnClickListener() {
             @Override

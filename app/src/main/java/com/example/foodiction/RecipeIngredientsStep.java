@@ -11,13 +11,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.stepstone.stepper.Step;
 import com.stepstone.stepper.VerificationError;
 
@@ -25,9 +23,10 @@ import java.util.ArrayList;
 
 public class RecipeIngredientsStep extends Fragment implements Step {
     final int INGREDIENT_LIST_REQUEST_CODE = 1;
-    ListView addedIngredientsListView;
-    AddedIngredientListAdapter adapter;
-    ArrayList<Ingredient> addedIngredients;
+    static ListView addedIngredientsListView;
+    static AddedIngredientListAdapter adapter;
+    static ArrayList<Ingredient> addedIngredients;
+    static TextView noIngredientsTextView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -40,8 +39,9 @@ public class RecipeIngredientsStep extends Fragment implements Step {
         super.onViewCreated(view, savedInstanceState);
         addedIngredients = new ArrayList<>();
         addedIngredientsListView = getView().findViewById(R.id.addedIngredientsListView);
-        adapter = new AddedIngredientListAdapter(getContext(), addedIngredients);
+        adapter = new AddedIngredientListAdapter(getContext(), addedIngredients, MainActivity.GlobalMode.EDIT);
         addedIngredientsListView.setAdapter(adapter);
+        noIngredientsTextView = getView().findViewById(R.id.noIngredientsTextView);
 
         FloatingActionButton fab = view.findViewById(R.id.addIngredientButton);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -70,17 +70,44 @@ public class RecipeIngredientsStep extends Fragment implements Step {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        String name = data.getStringExtra("ingredientName");
-        int imageId = data.getIntExtra("ingredientImage", 0);
-        Ingredient i = new Ingredient(name, "test", imageId);
-        addedIngredients.add(i);
-        addedIngredientsListView.setAdapter(adapter);
-        Log.i("TEST", name);
+        if(resultCode == IngredientsListActivity.RESULT_OK)
+        {
+            String name = data.getStringExtra("ingredientName");
+            String imageUrl = data.getStringExtra("ingredientImage");
+            String amount = data.getStringExtra("ingredientAmount");
+
+            Ingredient i = new Ingredient(name, imageUrl);
+            i.setAmount(amount);
+
+            addedIngredients.add(i);
+
+            addedIngredientsListView.setAdapter(adapter);
+        }
+
+        if(addedIngredients.size() == 0){
+            noIngredientsTextView.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            noIngredientsTextView.setVisibility(View.INVISIBLE);
+        }
     }
 
     public void addIngredient(View v){
         Intent ingredientsListActivity = new Intent(getContext(), IngredientsListActivity.class);
         startActivityForResult(ingredientsListActivity, INGREDIENT_LIST_REQUEST_CODE);
+    }
+
+    public static void removeIngredient(int position){
+        addedIngredients.remove(position);
+        addedIngredientsListView.setAdapter(adapter);
+        if(addedIngredients.size() == 0){
+            noIngredientsTextView.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            noIngredientsTextView.setVisibility(View.INVISIBLE);
+        }
     }
 
 }

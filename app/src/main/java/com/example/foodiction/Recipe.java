@@ -15,7 +15,6 @@ public class Recipe {
     String name;
     String description;
     Date creationDate;
-    Date modifiedDate;
     ArrayList<Ingredient> ingredients;
     Image recipeImage;
     ArrayList<Instruction> instructions;

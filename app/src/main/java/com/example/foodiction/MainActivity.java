@@ -31,12 +31,12 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "FOODICTION";
     private Toolbar mToolBar;
     private FirebaseAuth mAuth;
+    public enum GlobalMode { EDIT, VIEW }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         mAuth = FirebaseAuth.getInstance();
     }
 
