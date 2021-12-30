@@ -13,6 +13,15 @@
     <!-- Secondary brand color. -->
     <color name="colorSecondaryPink">#D2B6BA</color>
     <color name="colorOnSecondaryBrown">#4C482E</color>
+
+    <!-- pink theme colors. -->
+    <color name="darkPink">#D2A3A9</color>
+    <color name="offWhite">#E6DCE5</color>
+    <color name="lightPink">#EBC3C1</color>
+    <color name="lightOrangePink">#ECAD8F</color>
+    <color name="bronzer">#AF6E4E</color>
+
+
 </resources>
 
 

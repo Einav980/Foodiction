@@ -12,17 +12,22 @@ public class RecipeHandler {
         mAuth = FirebaseAuth.getInstance();
     }
 
-    public boolean addRecipe(String name, String description){
-        if(name.isEmpty())
+    public boolean addRecipe(Recipe recipe){
+        if(recipe.getName().isEmpty())
         {
             return false;
         }
-        Recipe r = new Recipe(name, description);
+        Recipe r = new Recipe(recipe);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference recipes = database.getReference("recipes");
         String newRecipeKey = recipes.push().getKey();
         recipes.child(newRecipeKey).setValue(r);
         return true;
     }
+
+    public boolean getListRecipes(){return true;}
+    public boolean deleteRecipe(){return true;}
+    public boolean getSpecificRecipe(){return true;}
+
 
 }

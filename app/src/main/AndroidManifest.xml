@@ -11,6 +11,7 @@
         android:theme="@style/Theme.Foodiction">
         <activity
             android:name=".MainActivity"
+            android:theme="@style/Theme.Foodiction.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".AddRecipeActivity"

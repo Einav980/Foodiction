@@ -16,4 +16,34 @@
     <string name="recipe_title">Recipe_Title</string>
     <string name="manu">manu</string>
     <string name="content_description_manu">manu</string>
+    <string name="recipe_description">recipe_description</string>
+    <string name="recipe_making_time">recipe_making_time</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="threeItem">item3</string>
+    <string name="twoItem">item2</string>
+    <string name="oneItem">item1</string>
+    <string name="header_title">header_title</string>
+    <string name="header_text">header_text</string>
+    <string name="appbar_title">Foodiction</string>
+    <string name="navigation_drawer_open">open navigation Drawer</string>
+    <string name="navigation_drawer_close">close navigation Drawer</string>
+    <string name="food_types">Food Types</string>
+    <string name="foodTypeitalian">Italian</string>
+    <string name="foodTypeasia">Asia</string>
+    <string name="foodTypemeat">Meat</string>
+    <string name="foodTypehomecooking">Home Cooking</string>
+    <string name="foodTypefish">Fish</string>
+    <string name="foodTypesalad">Salads</string>
+    <string name="foodTypeindian">Indian</string>
+    <string name="foodTypesoup">Soups</string>
+    <string name="foodTypesandwich">Sandwiches</string>
+    <string name="foodTypedessert">Desserts</string>
+    <string name="foodTypepastries">Pastries</string>
+    <string name="profile">Profile</string>
+    <string name="Settings">Settings</string>
+    <string name="appbar_profile_title">Profile</string>
+    <string name="appbar_settings_title">Settings</string>
+    <string name="homePage">Home</string>
+
 </resources>
