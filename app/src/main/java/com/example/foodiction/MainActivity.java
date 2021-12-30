@@ -38,14 +38,13 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "FOODICTION";
     private FirebaseAuth mAuth;
+    public enum GlobalMode { EDIT, VIEW }
     private DrawerLayout drawer;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         mAuth = FirebaseAuth.getInstance();
         MaterialToolbar topApp = findViewById(R.id.main_toolbar);
 

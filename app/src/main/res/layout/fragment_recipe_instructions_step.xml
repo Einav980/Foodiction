@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".RecipeInstructionsStep">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
+
+        <EditText
+            android:id="@+id/instructionDescEditText"
+            android:layout_width="292dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Description"
+            android:minHeight="48dp"
+            android:padding="10dp"
+            android:inputType="textMultiLine"
+            android:maxLength="200"
+            app:counterEnabled="true"
+            app:counterMaxLength="150"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/addInstructionBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/instructionsListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/single_instruction_item" >
+
+    </ListView>
+
+</LinearLayout>
