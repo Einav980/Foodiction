@@ -22,8 +22,10 @@ public class AddRecipeActivity extends AppCompatActivity {
     public void addRecipe(View view) {
         String recipeName = ((TextView) findViewById(R.id.recipeNameTextBox)).getText().toString();
         String recipeDescription = ((TextView) findViewById(R.id.recipeDescTextBox)).getText().toString();
-        boolean result = recipeHandler.addRecipe(recipeName, recipeDescription);
+        Recipe newRecipe = new Recipe(recipeName, recipeDescription , "10min");
+        boolean result = recipeHandler.addRecipe(newRecipe);
         if (result) {
+            HomeFragment.addRecipeItem(newRecipe);
             Toast.makeText(this, "Recipe added succesfully!", Toast.LENGTH_SHORT).show();
             this.finish();
         } else {
@@ -35,6 +37,6 @@ public class AddRecipeActivity extends AppCompatActivity {
     protected void onPause(){
         super.onPause();
         Log.i("FOODICTION", "Recipe stopped");
-        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.fade_out);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 }

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:layout_width="match_parent"
+    android:theme="@style/Theme.RecipeCardView">
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+
+        <!-- Media -->
+
+        <ImageView
+            android:contentDescription="@string/content_description_media"
+            android:id="@+id/RecipeImage"
+            android:layout_height="194dp"
+            android:layout_width="match_parent"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/ic_food_picture" />
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Title, secondary and supporting text -->
+            <TextView
+                android:id="@+id/RecipeTitle"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/recipe_title"
+                android:textAppearance="?attr/textAppearanceHeadline6" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:text="@string/recipe_description"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:textColor="?android:attr/textColorSecondary" />
+
+            <TextView
+                android:id="@+id/makingTime"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:text="@string/recipe_making_time"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:textColor="?android:attr/textColorSecondary" />
+
+        </LinearLayout>
+
+        <!-- Buttons -->
+        <LinearLayout
+            android:gravity="right"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                style="?attr/borderlessButtonStyle"
+                android:gravity="center"
+                android:id="@+id/AddToFav"
+                android:layout_gravity="center"
+                android:layout_height="match_parent"
+                android:layout_width="44dp"
+                app:icon="@drawable/ic_baseline_favorite_border_24"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+            <com.google.android.material.button.MaterialButton
+                style="?attr/borderlessButtonStyle"
+                android:id="@+id/DeleteBtn"
+                android:layout_gravity="center"
+                android:layout_height="match_parent"
+                android:layout_width="46dp"
+                app:icon="@drawable/delete_recipe_24"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -21,12 +21,18 @@ public class Recipe {
     List<Image> pictures;
     Color color;
     List<String> categories;
-    Time makingDuration;
+    String makingDuration;
     Difficulty difficulty;
 
-    public Recipe(String name, String description) {
+    public Recipe(String name, String description, String makingDuration) {
         this.name = name;
         this.description = description;
+        this.makingDuration = makingDuration;
+    }
+    public Recipe(Recipe recipe){
+        this.name = recipe.getName();
+        this.description = recipe.getDescription();
+        this.makingDuration = recipe.getMakingDuration();
     }
 
     public Recipe(){}
@@ -46,6 +52,10 @@ public class Recipe {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public String getMakingDuration() { return makingDuration; }
+
+    public void setMakingDuration(String makingDuration) { this.makingDuration = makingDuration; }
 }
 
 

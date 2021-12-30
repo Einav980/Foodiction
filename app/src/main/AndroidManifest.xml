@@ -4,16 +4,20 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="Foodiction"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Foodiction">
         <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.Foodiction.NoActionBar"
+            android:exported="false" />
+        <activity
             android:name=".AddRecipeActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".OpenLogoActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

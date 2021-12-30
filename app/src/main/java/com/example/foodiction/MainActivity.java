@@ -1,19 +1,26 @@
 package com.example.foodiction;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,13 +31,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "FOODICTION";
-    private Toolbar mToolBar;
     private FirebaseAuth mAuth;
+    private DrawerLayout drawer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +47,35 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
+        MaterialToolbar topApp = findViewById(R.id.main_toolbar);
+
+
+        // TopBar Listener
+        drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, topApp,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        // Initial fragment in MainActivity
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+            navigationView.setCheckedItem(R.id.Home_page_btn);
+        }
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
+
 
     @Override
     public void onStart() {
@@ -62,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(MainActivity.this,"Login successfull", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Login successfull", Toast.LENGTH_LONG).show();
                 } else {
                     // If sign in fails, display a message to the user.
                     Toast.makeText(MainActivity.this, "Login failed", Toast.LENGTH_LONG).show();
@@ -71,24 +101,24 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void registerFunc(){
+    public void registerFunc() {
         String email = "test@example.com";
         String password = "1234";
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(MainActivity.this,"Registered successfully", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Registered successfully", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(MainActivity.this,"Registered Failed!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Registered Failed!", Toast.LENGTH_LONG).show();
                 }
             }
         });
     }
 
-    public void addData(){
+    public void addData() {
 
-        Recipe r = new Recipe("Test", "This is test recipe");
+        Recipe r = new Recipe("Test", "This is test recipe", "10min");
 
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -98,8 +128,8 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(MainActivity.this, "A recipe was added!", Toast.LENGTH_LONG).show();
     }
 
-    public void getData(){
-        Recipe r = new Recipe("First Recipe", "This is the first recipe");
+    public void getData() {
+        Recipe r = new Recipe("First Recipe", "This is the first recipe", "10min");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("recipes").child(r.getName());
 
@@ -139,14 +169,14 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    public void listRecipes(){
+    public void listRecipes() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference recipesRef = database.getReference("recipes");
         Query query = recipesRef.orderByKey();
         query.addListenerForSingleValueEvent(queryValueListener);
     }
 
-    public void deleteRecipe(){
+    public void deleteRecipe() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference recipesRef = database.getReference("recipes");
         recipesRef.child("-MqBCr8dOUpl1eIC6I3o").removeValue();
@@ -156,6 +186,37 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AddRecipeActivity.class);
         startActivity(intent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        MaterialToolbar topApp = findViewById(R.id.main_toolbar);
+
+        switch (item.getItemId()) {
+            case R.id.Profile_btn:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
+                setAppBarOptionsVisibility(View.INVISIBLE,View.INVISIBLE );
+                topApp.setTitle("Profile");
+                break;
+            case R.id.Settings_btn:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingsFragment()).commit();
+                setAppBarOptionsVisibility(View.INVISIBLE,View.INVISIBLE );
+                topApp.setTitle("Settings");
+                break;
+            case R.id.Home_page_btn:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+                setAppBarOptionsVisibility(View.VISIBLE,View.VISIBLE );
+                topApp.setTitle("Foodiction");
+                break;
+        }
+
+        drawer.closeDrawer(GravityCompat.START);
+
+        return true;
+    }
+    void setAppBarOptionsVisibility (int filterVisibilty, int SearchVisibility){
+        findViewById(R.id.filter).setVisibility(filterVisibilty);
+        findViewById(R.id.search).setVisibility(SearchVisibility);
     }
 }
 
