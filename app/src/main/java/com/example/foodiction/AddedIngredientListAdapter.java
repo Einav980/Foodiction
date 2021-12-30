@@ -60,6 +60,8 @@ public class AddedIngredientListAdapter extends ArrayAdapter<Ingredient> {
             }
         });
 
+        ingredientAmountEditText.setText(addedIngredients.get(position).getAmount());
+
         addedIngredientNameTextView.setText(addedIngredients.get(position).getName());
         Picasso.get().
                 load(addedIngredients.get(position).getImageUrl()).

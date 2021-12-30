@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.RecipeCardView" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/colorSecondaryPink</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/colorOnPrimaryOffWhite</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.card.MediumComponent</item>
+    </style>
+
+    <style name="ShapeAppearance.card.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+        <item name="strokeColor">@color/stroke_color</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="cardElevation">0dp</item>
+    </style>
+</resources>
+

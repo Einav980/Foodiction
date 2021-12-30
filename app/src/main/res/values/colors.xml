@@ -10,4 +10,16 @@
     <color name="app_main_light">#F6B057</color>
     <color name="foodiction_btn_primary">#4281A4</color>
     <color name="foodiction_background_primary">#E4DFDA</color>
+    <color name="colorPrimaryOrange">#F38C10</color>
+    <color name="colorPrimaryDarkOrange">#A7763B</color>
+    <color name="colorOnPrimaryOffWhite">#CCD7D8</color>
+    <!-- Secondary brand color. -->
+    <color name="colorSecondaryPink">#D2B6BA</color>
+    <color name="colorOnSecondaryBrown">#4C482E</color>
+    <!-- pink theme colors. -->
+    <color name="darkPink">#D2A3A9</color>
+    <color name="offWhite">#E6DCE5</color>
+    <color name="lightPink">#EBC3C1</color>
+    <color name="lightOrangePink">#ECAD8F</color>
+    <color name="bronzer">#AF6E4E</color>
 </resources>
