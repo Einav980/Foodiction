@@ -15,13 +15,10 @@
         android:src="@drawable/ic_baseline_add_24"
         android:theme="@style/Theme.Foodiction" />
 
-    <ListView
-        android:id="@+id/addedIngredientsListView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/addedIngredientsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:cacheColorHint="#00000000"
-        android:divider="@null"
-        android:dividerHeight="0dp"
         android:fadingEdge="vertical"
         android:fadingEdgeLength="3dp"
         android:overScrollMode="never"
@@ -33,7 +30,7 @@
         android:layout_gravity="center">
 
         <TextView
-            android:id="@+id/noIngredientsTextView"
+            android:id="@+id/no_ingredients_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="No ingredients were added"

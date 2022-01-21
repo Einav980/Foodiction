@@ -18,12 +18,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class AddInstructionAdapter extends ArrayAdapter<Instruction> {
     Context context;
     ArrayList<Instruction> instructions;
-    TextView sequenceNumberTextView;
+    TextView instructionStepTitle;
     TextView descriptionTextView;
     ImageButton deleteButton;
 
     public AddInstructionAdapter(Context context, ArrayList<Instruction> instructions){
-        super(context, R.layout.single_instruction_item, R.id.descriptionTextView, instructions);
+        super(context, R.layout.single_instruction_item, R.id.instruction_description_textview, instructions);
         this.context = context;
         this.instructions = instructions;
     }
@@ -34,12 +34,11 @@ public class AddInstructionAdapter extends ArrayAdapter<Instruction> {
         if(convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.single_instruction_item, parent, false);
         }
+        instructionStepTitle = convertView.findViewById(R.id.instruction_step_title);
+        descriptionTextView = convertView.findViewById(R.id.instruction_description_textview);
+        deleteButton = convertView.findViewById(R.id.instruction_delete_button);
 
-        sequenceNumberTextView = convertView.findViewById(R.id.sequenceNumberTextView);
-        descriptionTextView = convertView.findViewById(R.id.descriptionTextView);
-        deleteButton = convertView.findViewById(R.id.deleteInstructionBtn);
-
-        sequenceNumberTextView.setText(String.valueOf(position + 1)+".");
+        instructionStepTitle.setText("Step "+ (position + 1));
         descriptionTextView.setText(instructions.get(position).getDescription());
 
         deleteButton.setOnClickListener(new View.OnClickListener() {

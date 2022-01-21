@@ -1,9 +1,12 @@
 package com.example.foodiction;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Ingredient {
+public class Ingredient implements Parcelable {
     String name;
     String imageUrl;
     String amount = "";
@@ -11,6 +14,14 @@ public class Ingredient {
     public Ingredient(String name, String imageUrl) {
         this.name = name;
         this.imageUrl = imageUrl;
+    }
+
+    public Ingredient(Parcel in){
+        String[] data = new String[3];
+        in.readStringArray(data);
+        name = data[0];
+        imageUrl = data[1];
+        amount = data[2];
     }
 
     public Ingredient(){}
@@ -44,19 +55,24 @@ public class Ingredient {
         this.amount = amount;
     }
 
-    public String toJSON(){
-        JSONObject jsonObject = new JSONObject();
-        try{
-            jsonObject.put("name", getName());
-            jsonObject.put("imageUrl", getImageUrl());
 
-            return jsonObject.toString();
-        }
-        catch(JSONException e)
-        {
-            e.printStackTrace();
-            return "";
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public Ingredient createFromParcel(Parcel in) {
+            return new Ingredient(in);
         }
 
+        public Ingredient[] newArray(int size) {
+            return new Ingredient[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeStringArray(new String[]{this.name, this.imageUrl, this.amount});
     }
 }

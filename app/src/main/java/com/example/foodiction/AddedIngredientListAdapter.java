@@ -1,6 +1,10 @@
 package com.example.foodiction;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,30 +12,31 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class AddedIngredientListAdapter extends ArrayAdapter<Ingredient> {
+public class AddedIngredientListAdapter extends RecyclerView.Adapter<AddedIngredientListAdapter.AddedIngredientViewHolder> {
 
     Context context;
-    ArrayList<Ingredient> addedIngredients;
+    List<Ingredient> addedIngredients;
     TextView addedIngredientNameTextView;
     CircleImageView addedIngredientImageView;
     ImageButton deleteIngredientButton;
     MainActivity.GlobalMode mode;
     EditText ingredientAmountEditText;
 
-    public AddedIngredientListAdapter(Context context, ArrayList<Ingredient> addedIngredients, MainActivity.GlobalMode mode){
-        super(context, R.layout.single_added_ingredient_item, R.id.addedIngredientNameTextView, addedIngredients);
-
+    public AddedIngredientListAdapter(List<Ingredient> addedIngredients, Context context, MainActivity.GlobalMode mode){
         this.context = context;
         this.addedIngredients = addedIngredients;
         this.mode = mode;
@@ -39,39 +44,51 @@ public class AddedIngredientListAdapter extends ArrayAdapter<Ingredient> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        if(convertView == null){
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.single_added_ingredient_item, parent, false);
-        }
+    public AddedIngredientListAdapter.AddedIngredientViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(this.context).inflate(R.layout.single_added_ingredient_item, parent, false);
+        return new AddedIngredientViewHolder(view);
+    }
 
-        addedIngredientNameTextView = convertView.findViewById(R.id.addedIngredientNameTextView);
-        addedIngredientImageView = convertView.findViewById(R.id.addedIngredientImageView);
-        deleteIngredientButton = convertView.findViewById(R.id.deleteIngredientBtn);
-        ingredientAmountEditText = convertView.findViewById(R.id.ingredientAmountEditText);
-        ingredientAmountEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if(!hasFocus){
-                    String amount = ingredientAmountEditText.getText().toString();
-                    if(!amount.isEmpty()){
-                        addedIngredients.get(position).setAmount(amount);
-                    }
-                }
-            }
-        });
-
-        ingredientAmountEditText.setText(addedIngredients.get(position).getAmount());
-
-        addedIngredientNameTextView.setText(addedIngredients.get(position).getName());
+    @Override
+    public void onBindViewHolder(@NonNull AddedIngredientViewHolder holder, int position) {
+        Ingredient addedIngredientListItem = addedIngredients.get(position);
+        ingredientAmountEditText.setText(addedIngredientListItem.getAmount());
+        addedIngredientNameTextView.setText(addedIngredientListItem.getName());
         Picasso.get().
-                load(addedIngredients.get(position).getImageUrl()).
+                load(addedIngredientListItem.getImageUrl()).
                 placeholder(R.mipmap.ic_launcher).
                 into(addedIngredientImageView);
+
+        ingredientAmountEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                CharSequence amount = charSequence;
+                addedIngredientListItem.setAmount(String.valueOf(amount));
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         deleteIngredientButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RecipeIngredientsStep.removeIngredient(position);
+                // Retrieve and cache the system's default "short" animation time.
+                RecipeIngredientsStep.removeIngredient(holder.getAdapterPosition());
+                view.setVisibility(View.GONE);
+                view.animate().alpha(0f).setDuration(android.R.integer.config_shortAnimTime).setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                    }
+                });
             }
         });
 
@@ -82,7 +99,22 @@ public class AddedIngredientListAdapter extends ArrayAdapter<Ingredient> {
         {
             deleteIngredientButton.setVisibility(View.INVISIBLE);
         }
+    }
 
-        return super.getView(position, convertView, parent);
+    @Override
+    public int getItemCount() {
+        return addedIngredients.size();
+    }
+
+    public class AddedIngredientViewHolder extends RecyclerView.ViewHolder {
+
+        public AddedIngredientViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            addedIngredientNameTextView = itemView.findViewById(R.id.addedIngredientNameTextView);
+            addedIngredientImageView = itemView.findViewById(R.id.addedIngredientImageView);
+            deleteIngredientButton = itemView.findViewById(R.id.deleteIngredientBtn);
+            ingredientAmountEditText = itemView.findViewById(R.id.ingredientAmountEditText);
+        }
     }
 }

@@ -5,16 +5,13 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,18 +25,20 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Iterator;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "FOODICTION";
     private FirebaseAuth mAuth;
     public enum GlobalMode { EDIT, VIEW }
     private DrawerLayout drawer;
+    public String userGuid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
         MaterialToolbar topApp = findViewById(R.id.main_toolbar);
-
 
         // TopBar Listener
         drawer = findViewById(R.id.drawer_layout);
@@ -64,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
             navigationView.setCheckedItem(R.id.Home_page_btn);
         }
+
+        initUserGuid();
     }
 
     @Override
@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
-
 
     @Override
     public void onStart() {
@@ -127,27 +126,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toast.makeText(MainActivity.this, "A recipe was added!", Toast.LENGTH_LONG).show();
     }
 
-    public void getData() {
-        Recipe r = new Recipe("First Recipe", "This is the first recipe", "10min");
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("recipes").child(r.getName());
-
-        // Read from the database
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Recipe value = dataSnapshot.getValue(Recipe.class);
-                Toast.makeText(MainActivity.this, value.getName(), Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
-    }
-
     ValueEventListener queryValueListener = new ValueEventListener() {
 
         @Override
@@ -167,19 +145,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }
     };
-
-    public void listRecipes() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference recipesRef = database.getReference("recipes");
-        Query query = recipesRef.orderByKey();
-        query.addListenerForSingleValueEvent(queryValueListener);
-    }
-
-    public void deleteRecipe() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference recipesRef = database.getReference("recipes");
-        recipesRef.child("-MqBCr8dOUpl1eIC6I3o").removeValue();
-    }
 
     public void startRecipeActivity(View view) {
         Intent intent = new Intent(this, AddRecipeActivity.class);
@@ -216,6 +181,79 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     void setAppBarOptionsVisibility (int filterVisibilty, int SearchVisibility){
         findViewById(R.id.filter).setVisibility(filterVisibilty);
         findViewById(R.id.search).setVisibility(SearchVisibility);
+    }
+
+    public String getGUID(){
+        return java.util.UUID.randomUUID().toString();
+    }
+
+    public void setFirstTimeUseGUID(){
+        String state = Environment.getExternalStorageState();
+        if (isExternalStorageWritable()) {
+            File file = new File(getExternalFilesDir("Foodiction"), "user_guid.txt");
+            FileOutputStream outputStream = null;
+            try {
+                String guid = getGUID();
+                file.createNewFile();
+
+                outputStream = new FileOutputStream(file, true);
+                outputStream.write(guid.getBytes());
+                outputStream.flush();
+                outputStream.close();
+
+                this.userGuid = guid;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            Toast.makeText(this, "Problem!", Toast.LENGTH_LONG);
+        }
+    }
+
+    public void initUserGuid(){
+        String guid = null;
+        File guidFile = new File(getExternalFilesDir("Foodiction"), "user_guid.txt");
+        // If already exists
+        if(guidFile.exists()){
+            guid = getFileData(guidFile);
+            if(!guid.isEmpty()){
+                Log.d("Foodiction", "Retrieved guid");
+                this.userGuid = guid;
+            }
+        }
+        else
+        {
+            Log.d("Foodiction", "Initialising guid");
+            setFirstTimeUseGUID();
+        }
+    }
+
+    private boolean isExternalStorageWritable() {
+        return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
+    }
+
+    private String getFileData(File file) {
+        FileInputStream fileInputStream = null;
+        try {
+            fileInputStream = new FileInputStream(file);
+            int i = -1;
+            StringBuffer buffer = new StringBuffer();
+            while ((i = fileInputStream.read()) != -1) {
+                buffer.append((char) i);
+            }
+            return buffer.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (fileInputStream != null) {
+                try {
+                    fileInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
     }
 }
 

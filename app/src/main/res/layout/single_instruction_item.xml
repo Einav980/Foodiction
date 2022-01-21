@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="80dp">
+    android:layout_height="200dp">
+
+    <ImageButton
+        android:id="@+id/instruction_delete_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_baseline_clear_24"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_alignParentRight="true"/>
 
     <TextView
-        android:id="@+id/sequenceNumberTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:text="0"
-        android:textSize="16dp" />
+        android:id="@+id/instruction_step_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="Step #"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="22sp"/>
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/instruction_description_textview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center">
-
-        <TextView
-            android:id="@+id/descriptionTextView"
-            android:layout_width="297dp"
-            android:layout_height="match_parent"
-            android:ellipsize="none"
-            android:padding="5dp"
-            android:text="Description" />
-
-        <ImageButton
-            android:id="@+id/deleteInstructionBtn"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_baseline_delete_24" />
-
-    </LinearLayout>
-
-
-</LinearLayout>
+        android:layout_below="@id/instruction_step_title"
+        android:layout_centerHorizontal="true"
+        android:overScrollMode="ifContentScrolls"
+        android:padding="5dp"
+        android:text="description text"
+        android:textAlignment="textStart"
+        android:textSize="20sp" />
+</RelativeLayout>

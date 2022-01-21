@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,45 +7,44 @@
     android:orientation="vertical"
     tools:context=".RecipeInstructionsStep">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/add_instruction_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp">
+        android:layout_height="80dp"
+        android:background="#FFDAAD">
 
         <EditText
-            android:id="@+id/instructionDescEditText"
-            android:layout_width="292dp"
+            android:id="@+id/instruction_description_edittext"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
             android:hint="Description"
+            android:inputType="text"
             android:minHeight="48dp"
-            android:padding="10dp"
-            android:inputType="textMultiLine"
-            android:maxLength="200"
-            app:counterEnabled="true"
-            app:counterMaxLength="150"/>
+            android:textSize="18dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="horizontal">
+        <Button
+            android:id="@+id/add_instruction_button"
+            android:layout_width="90dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Add"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:layout_toRightOf="@id/instruction_description_edittext"/>
 
-            <Button
-                android:id="@+id/addInstructionBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add" />
-        </LinearLayout>
-
-    </LinearLayout>
+    </RelativeLayout>
 
     <ListView
-        android:id="@+id/instructionsListView"
+        android:id="@+id/instructions_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/single_instruction_item" >
+        android:layout_below="@id/add_instruction_layout"
+        android:layout_marginTop="10dp"
+        tools:listitem="@layout/single_instruction_item">
 
     </ListView>
 
-</LinearLayout>
+</RelativeLayout>

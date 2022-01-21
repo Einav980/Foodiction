@@ -24,6 +24,7 @@ public class AddRecipeStepAdapter extends AbstractFragmentStepAdapter {
         steps.add(new RecipeDetailsStep());
         steps.add(new RecipeIngredientsStep());
         steps.add(new RecipeInstructionsStep());
+        steps.add(new RecipeDurationStep());
     }
     @Override
     public Step createStep(int position) {
@@ -32,7 +33,7 @@ public class AddRecipeStepAdapter extends AbstractFragmentStepAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return steps.size();
     }
 
     @NonNull
@@ -51,6 +52,10 @@ public class AddRecipeStepAdapter extends AbstractFragmentStepAdapter {
             case 2:
                 return new StepViewModel.Builder(context)
                         .setTitle("Instructions")
+                        .create();
+            case 3:
+                return new StepViewModel.Builder(context)
+                        .setTitle("Duration")
                         .create();
             default:
                 return null;

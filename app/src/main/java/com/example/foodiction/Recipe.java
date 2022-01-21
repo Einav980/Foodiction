@@ -1,7 +1,7 @@
 package com.example.foodiction;
+
 import android.graphics.Color;
 import android.media.Image;
-import android.text.format.Time;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,7 +19,6 @@ public class Recipe {
     Image recipeImage;
     ArrayList<Instruction> instructions;
     List<Image> pictures;
-    Color color;
     List<String> categories;
     String makingDuration;
     Difficulty difficulty;
@@ -35,7 +34,9 @@ public class Recipe {
         this.makingDuration = recipe.getMakingDuration();
     }
 
-    public Recipe(){}
+    public Recipe(){
+        ingredients = new ArrayList<>();
+    }
 
     public String getName() {
         return name;
@@ -47,6 +48,14 @@ public class Recipe {
 
     public String getDescription() {
         return description;
+    }
+
+    public ArrayList<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(ArrayList<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 
     public void setDescription(String description) {

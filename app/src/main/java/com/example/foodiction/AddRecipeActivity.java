@@ -3,6 +3,7 @@ package com.example.foodiction;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.Manifest;
 import android.content.Intent;
@@ -24,16 +25,22 @@ public class AddRecipeActivity extends AppCompatActivity {
     ImageView imageView;
     Button chooseImageButton;
 
-    public static Recipe recipe;
+    public static Recipe currentCreatedRecipe;
 
     private static final int IMAGE_PICK_CODE = 1000;
     private static final int PERMISSION_CODE = 1001;
     private StepperLayout mStepperLayout;
+    private Fragment instructionsStepFragment;
+    private Fragment ingredientsStepFragment;
+    private Fragment detailsStepFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_recipe);
+
+        // Create an empty global recipe
+        currentCreatedRecipe = new Recipe();
 
         imageView = findViewById(R.id.recipeImage);
         chooseImageButton = findViewById(R.id.selectImageButton);
@@ -41,6 +48,12 @@ public class AddRecipeActivity extends AppCompatActivity {
         mStepperLayout = findViewById(R.id.addRecipeStepperLayout);
         AddRecipeStepAdapter stepAdapter = new AddRecipeStepAdapter(getSupportFragmentManager(), getApplicationContext());
         mStepperLayout.setAdapter(stepAdapter);
+
+        if(savedInstanceState != null){
+            instructionsStepFragment = getSupportFragmentManager().getFragment(savedInstanceState, "instructionsStepFragment");
+            ingredientsStepFragment = getSupportFragmentManager().getFragment(savedInstanceState, "ingredientsStepFragment");
+            detailsStepFragment = getSupportFragmentManager().getFragment(savedInstanceState, "detailsStepFragment");
+        }
     }
 
     public void selectImage(View view){
@@ -93,6 +106,20 @@ public class AddRecipeActivity extends AppCompatActivity {
 //        } else {
 //            Toast.makeText(this, "There was an error!", Toast.LENGTH_SHORT).show();
 //        }
+//    }
+
+
+//    @Override
+//    protected void onSaveInstanceState(@NonNull Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        outState.putParcelableArrayList("currentCreatedRecipe_ingredients", currentCreatedRecipe.getIngredients());
+//    }
+//
+//    @Override
+//    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+//        super.onRestoreInstanceState(savedInstanceState);
+//        savedInstanceState.getPar
+//
 //    }
 
     @Override

@@ -3,12 +3,14 @@
     package="com.example.foodiction" >
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="Foodiction"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/foodiction_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Foodiction" >
         <activity

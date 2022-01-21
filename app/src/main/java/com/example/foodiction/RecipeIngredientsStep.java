@@ -6,15 +6,15 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.stepstone.stepper.Step;
 import com.stepstone.stepper.VerificationError;
@@ -23,14 +23,18 @@ import java.util.ArrayList;
 
 public class RecipeIngredientsStep extends Fragment implements Step {
     final int INGREDIENT_LIST_REQUEST_CODE = 1;
-    static ListView addedIngredientsListView;
-    static AddedIngredientListAdapter adapter;
+    static RecyclerView addedIngredientsRecyclerView;
+    static RecyclerView.Adapter adapter;
     static ArrayList<Ingredient> addedIngredients;
     static TextView noIngredientsTextView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        if(savedInstanceState != null){
+            addedIngredients = savedInstanceState.getParcelableArrayList("SavedIngredients");
+            Log.i("Foodciction", "Ingredients Loaded!");
+        }
         return inflater.inflate(R.layout.fragment_recipe_ingredients_step, container, false);
     }
 
@@ -38,10 +42,11 @@ public class RecipeIngredientsStep extends Fragment implements Step {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         addedIngredients = new ArrayList<>();
-        addedIngredientsListView = getView().findViewById(R.id.addedIngredientsListView);
-        adapter = new AddedIngredientListAdapter(getContext(), addedIngredients, MainActivity.GlobalMode.EDIT);
-        addedIngredientsListView.setAdapter(adapter);
-        noIngredientsTextView = getView().findViewById(R.id.noIngredientsTextView);
+        addedIngredientsRecyclerView = getView().findViewById(R.id.addedIngredientsRecyclerView);
+        adapter = new AddedIngredientListAdapter(addedIngredients,getContext(),MainActivity.GlobalMode.EDIT);
+        noIngredientsTextView = getView().findViewById(R.id.no_ingredients_textview);
+        addedIngredientsRecyclerView.setAdapter(adapter);
+        addedIngredientsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         FloatingActionButton fab = view.findViewById(R.id.addIngredientButton);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +65,7 @@ public class RecipeIngredientsStep extends Fragment implements Step {
 
     @Override
     public void onSelected() {
+
     }
 
     @Override
@@ -80,8 +86,7 @@ public class RecipeIngredientsStep extends Fragment implements Step {
             i.setAmount(amount);
 
             addedIngredients.add(i);
-
-            addedIngredientsListView.setAdapter(adapter);
+            addedIngredientsRecyclerView.setAdapter(adapter);
         }
 
         if(addedIngredients.size() == 0){
@@ -100,7 +105,7 @@ public class RecipeIngredientsStep extends Fragment implements Step {
 
     public static void removeIngredient(int position){
         addedIngredients.remove(position);
-        addedIngredientsListView.setAdapter(adapter);
+        addedIngredientsRecyclerView.setAdapter(adapter);
         if(addedIngredients.size() == 0){
             noIngredientsTextView.setVisibility(View.VISIBLE);
         }
@@ -110,4 +115,32 @@ public class RecipeIngredientsStep extends Fragment implements Step {
         }
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putParcelableArrayList("SavedIngredients", addedIngredients);
+        super.onSaveInstanceState(outState);
+        Log.i("Foodiction", "Instance saved");
+    }
+
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if(savedInstanceState != null)
+        {
+            addedIngredients = savedInstanceState.getParcelableArrayList("SavedIngredients");
+            Log.i("Foodiction", "Instance Loaded");
+        }
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if(savedInstanceState != null)
+        {
+            addedIngredients = savedInstanceState.getParcelableArrayList("SavedIngredients");
+            addedIngredientsRecyclerView.setAdapter(adapter);
+            Log.i("Foodiction", "Instance Loaded");
+        }
+    }
 }

@@ -43,13 +43,13 @@ public class RecipeInstructionsStep extends Fragment implements Step {
 
         super.onViewCreated(view, savedInstanceState);
 
-        addInstructionEditText = getView().findViewById(R.id.instructionDescEditText);
-        addInstructionBtn = getView().findViewById(R.id.addInstructionBtn);
+        addInstructionEditText = getView().findViewById(R.id.instruction_description_edittext);
+        addInstructionBtn = getView().findViewById(R.id.add_instruction_button);
         instructions = new ArrayList<>();
-        instructionsListView = getView().findViewById(R.id.instructionsListView);
+        instructionsListView = getView().findViewById(R.id.instructions_listview);
         adapter = new AddInstructionAdapter(getContext(), instructions);
         instructionsListView.setAdapter(adapter);
-        noInstructionsTextView = getView().findViewById(R.id.noIngredientsTextView);
+        noInstructionsTextView = getView().findViewById(R.id.no_ingredients_textview);
 
         addInstructionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
