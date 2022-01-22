@@ -32,11 +32,9 @@ public class RecipeHandler {
         {
             return false;
         }
-        Recipe r = new Recipe(recipe);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference recipes = database.getReference("recipes");
-//        String newRecipeKey = recipes.push().getKey();
-        recipes.child(r.getID()).setValue(r);
+        recipes.child(recipe.getID()).setValue(recipe);
         return true;
     }
 
