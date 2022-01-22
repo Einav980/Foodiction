@@ -48,7 +48,7 @@ public class RecipeIngredientsStep extends Fragment implements Step {
         addedIngredientsRecyclerView.setAdapter(adapter);
         addedIngredientsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        FloatingActionButton fab = view.findViewById(R.id.addIngredientButton);
+        FloatingActionButton fab = view.findViewById(R.id.add_ingredient_button);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,14 +78,8 @@ public class RecipeIngredientsStep extends Fragment implements Step {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == IngredientsListActivity.RESULT_OK)
         {
-            String name = data.getStringExtra("ingredientName");
-            String imageUrl = data.getStringExtra("ingredientImage");
-            String amount = data.getStringExtra("ingredientAmount");
-
-            Ingredient i = new Ingredient(name, imageUrl);
-            i.setAmount(amount);
-
-            addedIngredients.add(i);
+            Ingredient returnedIngredient = data.getParcelableExtra("ingredientObject");
+            addedIngredients.add(returnedIngredient);
             addedIngredientsRecyclerView.setAdapter(adapter);
         }
 

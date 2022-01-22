@@ -10,8 +10,7 @@
     <RelativeLayout
         android:id="@+id/add_instruction_layout"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="#FFDAAD">
+        android:layout_height="80dp">
 
         <EditText
             android:id="@+id/instruction_description_edittext"

@@ -7,13 +7,13 @@
     tools:context=".RecipeIngredientsStep">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addIngredientButton"
+        android:id="@+id/add_ingredient_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
         android:src="@drawable/ic_baseline_add_24"
-        android:theme="@style/Theme.Foodiction" />
+        android:background="@color/foodiction_btn_primary"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/addedIngredientsRecyclerView"
@@ -33,11 +33,12 @@
             android:id="@+id/no_ingredients_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No ingredients were added"
+            android:text="@string/no_ingredients_chosen"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="24sp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

@@ -2,20 +2,15 @@ package com.example.foodiction;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Toast;
 
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,7 +21,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 public class IngredientsListActivity extends AppCompatActivity {
     static ArrayList<Ingredient> ingredientsList;
@@ -61,7 +55,7 @@ public class IngredientsListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredients_list);
 
-        mSearchView = findViewById(R.id.ingredientSerachEditText);
+        mSearchView = findViewById(R.id.ingredients_search_edittext);
         mProgressCircle = findViewById(R.id.ingredientListProgressCircle);
 
         ingredientsRecyclerView = findViewById(R.id.ingredientsRecyclerView);

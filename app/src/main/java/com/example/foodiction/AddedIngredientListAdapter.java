@@ -5,23 +5,18 @@ import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -111,9 +106,9 @@ public class AddedIngredientListAdapter extends RecyclerView.Adapter<AddedIngred
         public AddedIngredientViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            addedIngredientNameTextView = itemView.findViewById(R.id.addedIngredientNameTextView);
-            addedIngredientImageView = itemView.findViewById(R.id.addedIngredientImageView);
-            deleteIngredientButton = itemView.findViewById(R.id.deleteIngredientBtn);
+            addedIngredientNameTextView = itemView.findViewById(R.id.added_ingredient_name_textview);
+            addedIngredientImageView = itemView.findViewById(R.id.added_ingredient_imageview);
+            deleteIngredientButton = itemView.findViewById(R.id.delete_ingredient_button);
             ingredientAmountEditText = itemView.findViewById(R.id.ingredientAmountEditText);
         }
     }

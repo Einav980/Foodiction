@@ -17,13 +17,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.stepstone.stepper.StepperLayout;
+import com.stepstone.stepper.VerificationError;
 import com.stepstone.stepper.adapter.StepAdapter;
 
-public class AddRecipeActivity extends AppCompatActivity {
+public class AddRecipeActivity extends AppCompatActivity implements StepperLayout.StepperListener {
 
     ImageView imageView;
     Button chooseImageButton;
+    View mView;
 
     public static Recipe currentCreatedRecipe;
 
@@ -38,7 +41,6 @@ public class AddRecipeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_recipe);
-
         // Create an empty global recipe
         currentCreatedRecipe = new Recipe();
 
@@ -46,6 +48,7 @@ public class AddRecipeActivity extends AppCompatActivity {
         chooseImageButton = findViewById(R.id.selectImageButton);
 
         mStepperLayout = findViewById(R.id.addRecipeStepperLayout);
+        mStepperLayout.setListener(this);
         AddRecipeStepAdapter stepAdapter = new AddRecipeStepAdapter(getSupportFragmentManager(), getApplicationContext());
         mStepperLayout.setAdapter(stepAdapter);
 
@@ -134,5 +137,26 @@ public class AddRecipeActivity extends AppCompatActivity {
         super.onPause();
         Log.i("FOODICTION", "Recipe stopped");
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    @Override
+    public void onCompleted(View completeButton) {
+        Toast.makeText(getApplicationContext(), "Completed!", Toast.LENGTH_SHORT).show();
+        finish();
+    }
+
+    @Override
+    public void onError(VerificationError verificationError) {
+
+    }
+
+    @Override
+    public void onStepSelected(int newStepPosition) {
+
+    }
+
+    @Override
+    public void onReturn() {
+        Toast.makeText(getApplicationContext(), "Returned", Toast.LENGTH_SHORT).show();
     }
 }

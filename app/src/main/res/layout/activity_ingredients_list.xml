@@ -13,7 +13,7 @@
         android:orientation="horizontal">
 
         <SearchView
-            android:id="@+id/ingredientSerachEditText"
+            android:id="@+id/ingredients_search_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>

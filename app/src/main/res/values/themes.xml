@@ -4,9 +4,9 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimaryOrange</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryDarkOrange</item>
-        <item name="colorOnPrimary">@color/colorOnPrimaryOffWhite</item>
+        <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/colorSecondaryPink</item>
+        <item name="colorSecondary">@color/app_main_light</item>
         <item name="colorSecondaryVariant">@color/colorOnPrimaryOffWhite</item>
         <item name="colorOnSecondary">@color/colorOnSecondaryBrown</item>
         <!-- Status bar color. -->
