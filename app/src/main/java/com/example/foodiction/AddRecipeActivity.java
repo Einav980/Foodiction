@@ -13,11 +13,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 import com.stepstone.stepper.adapter.StepAdapter;
@@ -36,6 +38,7 @@ public class AddRecipeActivity extends AppCompatActivity implements StepperLayou
     private Fragment instructionsStepFragment;
     private Fragment ingredientsStepFragment;
     private Fragment detailsStepFragment;
+    private RecipeHandler recipeHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,7 @@ public class AddRecipeActivity extends AppCompatActivity implements StepperLayou
         setContentView(R.layout.activity_add_recipe);
         // Create an empty global recipe
         currentCreatedRecipe = new Recipe();
+        recipeHandler = new RecipeHandler();
 
         imageView = findViewById(R.id.recipeImage);
         chooseImageButton = findViewById(R.id.selectImageButton);
@@ -142,6 +146,7 @@ public class AddRecipeActivity extends AppCompatActivity implements StepperLayou
     @Override
     public void onCompleted(View completeButton) {
         Toast.makeText(getApplicationContext(), "Completed!", Toast.LENGTH_SHORT).show();
+        recipeHandler.addRecipe(currentCreatedRecipe);
         finish();
     }
 

@@ -9,10 +9,11 @@
         android:id="@+id/instruction_delete_button"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/ic_baseline_clear_24"
-        android:layout_marginRight="5dp"
+        android:layout_alignParentRight="true"
         android:layout_marginTop="5dp"
-        android:layout_alignParentRight="true"/>
+        android:layout_marginRight="5dp"
+        android:background="@null"
+        android:src="@drawable/ic_baseline_clear_24" />
 
     <TextView
         android:id="@+id/instruction_step_title"
@@ -22,8 +23,8 @@
         android:gravity="center"
         android:text="Step #"
         android:textColor="@color/black"
-        android:textStyle="bold"
-        android:textSize="22sp"/>
+        android:textSize="22sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/instruction_description_textview"

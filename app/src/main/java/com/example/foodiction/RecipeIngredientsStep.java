@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.stepstone.stepper.Step;
+import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 
 import java.util.ArrayList;
@@ -80,6 +81,7 @@ public class RecipeIngredientsStep extends Fragment implements Step {
         {
             Ingredient returnedIngredient = data.getParcelableExtra("ingredientObject");
             addedIngredients.add(returnedIngredient);
+            AddRecipeActivity.currentCreatedRecipe.setIngredients(addedIngredients);
             addedIngredientsRecyclerView.setAdapter(adapter);
         }
 

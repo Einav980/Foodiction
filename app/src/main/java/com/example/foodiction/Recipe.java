@@ -6,6 +6,7 @@ import android.media.Image;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class Recipe {
 
@@ -26,18 +27,22 @@ public class Recipe {
     boolean is_liked  =false;
 
     public Recipe(String name, String description, String makingDuration) {
+        this.id = UUID.randomUUID().toString();
         this.name = name;
         this.description = description;
         this.makingDuration = makingDuration;
     }
     public Recipe(Recipe recipe){
+        this.id = recipe.getID();
         this.name = recipe.getName();
         this.description = recipe.getDescription();
         this.makingDuration = recipe.getMakingDuration();
     }
 
     public Recipe(){
-        ingredients = new ArrayList<>();
+        this.id = UUID.randomUUID().toString();
+        this.ingredients = new ArrayList<>();
+        this.instructions = new ArrayList<>();
     }
 
     public String getName() {
@@ -74,6 +79,21 @@ public class Recipe {
 
     public void setIs_liked(boolean is_liked) { this.is_liked = is_liked; }
 
+    public ArrayList<Instruction> getInstructions() {
+        return instructions;
+    }
+
+    public void setInstructions(ArrayList<Instruction> instructions) {
+        this.instructions = instructions;
+    }
+
+    public void addInstruction(Instruction i){
+        this.instructions.add(i);
+    }
+
+    public void removeInstruction(Instruction i){
+        this.instructions.remove(i);
+    }
 }
 
 

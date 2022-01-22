@@ -17,6 +17,7 @@ import android.widget.TimePicker;
 import com.stepstone.stepper.Step;
 import com.stepstone.stepper.VerificationError;
 
+import java.util.Date;
 import java.util.Locale;
 
 public class RecipeDurationStep extends Fragment implements Step{
@@ -43,7 +44,9 @@ public class RecipeDurationStep extends Fragment implements Step{
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         hour = selectedHour;
                         minute = selectedMinute;
-                        timePickerButton.setText(String.format(Locale.getDefault(), "%02d:%02d", hour, minute));
+                        String formattedTime = String.format(Locale.getDefault(), "%02d:%02d", hour, minute);
+                        timePickerButton.setText(formattedTime);
+                        AddRecipeActivity.currentCreatedRecipe.setMakingDuration(String.format(Locale.getDefault(), "%d"+"h"+" %02d", hour, minute));
                     }
                 };
                 int timerStyle = AlertDialog.THEME_HOLO_DARK;

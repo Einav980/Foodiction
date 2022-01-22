@@ -133,7 +133,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/nameInputTextEditor"
+                android:id="@+id/details_step_recipe_name_textinput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="gender"

@@ -35,7 +35,8 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="@string/recipe_title"
-                android:textAppearance="?attr/textAppearanceHeadline6" />
+                android:textSize="32dp"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/description"
@@ -43,17 +44,21 @@
                 android:layout_marginTop="8dp"
                 android:layout_width="wrap_content"
                 android:text="@string/recipe_description"
-                android:textAppearance="?attr/textAppearanceBody2"
+                android:textSize="22dp"
                 android:textColor="?android:attr/textColorSecondary" />
 
             <TextView
                 android:id="@+id/makingTime"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_width="wrap_content"
                 android:text="@string/recipe_making_time"
                 android:textAppearance="?attr/textAppearanceBody2"
-                android:textColor="?android:attr/textColorSecondary" />
+                android:textColor="?android:attr/textColorSecondary"
+                android:drawableLeft="@drawable/ic_baseline_recipe_timer_24"
+                android:drawablePadding="10dp"
+                android:gravity="center|left"
+                android:textSize="22dp"/>
 
         </LinearLayout>
 

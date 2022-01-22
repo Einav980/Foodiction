@@ -83,7 +83,9 @@ public class RecipeInstructionsStep extends Fragment implements Step {
         String instructionText = addInstructionEditText.getText().toString();
         if(!instructionText.isEmpty()) {
             addInstructionEditText.setText("");
-            instructions.add(new Instruction(instructionText));
+            Instruction newInstruction = new Instruction(instructionText);
+            instructions.add(newInstruction);
+            AddRecipeActivity.currentCreatedRecipe.addInstruction(newInstruction);
             instructionsListView.setAdapter(adapter);
         }
         else
