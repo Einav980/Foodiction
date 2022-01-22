@@ -11,7 +11,7 @@ public class Recipe {
 
     public enum Difficulty {Easy, Medium, Hard};
 
-    String _id;
+    String id;
     String name;
     String description;
     Date creationDate;
@@ -19,9 +19,11 @@ public class Recipe {
     Image recipeImage;
     ArrayList<Instruction> instructions;
     List<Image> pictures;
+    Color color;
     List<String> categories;
     String makingDuration;
-    Difficulty difficulty;
+    //    Difficulty difficulty;
+    boolean is_liked  =false;
 
     public Recipe(String name, String description, String makingDuration) {
         this.name = name;
@@ -65,6 +67,13 @@ public class Recipe {
     public String getMakingDuration() { return makingDuration; }
 
     public void setMakingDuration(String makingDuration) { this.makingDuration = makingDuration; }
+
+    public String getID(){return this.id;}
+
+    public boolean getIs_liked() { return is_liked; }
+
+    public void setIs_liked(boolean is_liked) { this.is_liked = is_liked; }
+
 }
 
 

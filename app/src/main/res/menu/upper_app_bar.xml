@@ -6,13 +6,18 @@
         android:contentDescription="@string/content_description_search"
         android:icon="@drawable/ic_search_black_24dp"
         android:title="@string/search"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="android.widget.SearchView"
+        android:onClick="searchRecipes"/>
+
+
 
     <item
         android:id="@+id/filter"
-        android:contentDescription="@string/content_description_search"
+        android:contentDescription="@string/filterButton"
         android:icon="@drawable/ic_baseline_filter_alt_24"
-        android:title="@string/search"
+        android:onClick="filterByCategories"
+        android:title="@string/filter"
         app:showAsAction="ifRoom" />
 
 </menu>
