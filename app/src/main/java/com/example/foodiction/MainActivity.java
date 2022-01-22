@@ -5,18 +5,33 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.app.SearchManager;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.internal.NavigationMenuView;
+import com.google.android.material.navigation.NavigationBarMenu;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,19 +40,30 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
+import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "FOODICTION";
     private FirebaseAuth mAuth;
     public enum GlobalMode { EDIT, VIEW }
     private DrawerLayout drawer;
+    public static CharSequence foodCategories[] = {"Italian", "Asian","Meat","Home Cooking","Fish","Salads","Indian","Soups",
+            "Sandwiches","Desserts", "Pastries"};
+    boolean[] savedPrefrences= new boolean[foodCategories.length];
+    private String mSearchQuery= "";
+
+
     public String userGuid;
 
     @Override
@@ -46,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
         MaterialToolbar topApp = findViewById(R.id.main_toolbar);
+
 
         // TopBar Listener
         drawer = findViewById(R.id.drawer_layout);
@@ -64,6 +91,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         initUserGuid();
+//        else{
+//            mSearchQuery = savedInstanceState.getString("searchQuery");
+//        }
     }
 
     @Override
@@ -254,6 +284,112 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }
         return null;
+    }
+
+
+    public boolean  filterByCategories (MenuItem  item){
+        boolean[] prefrenses= Arrays.copyOf(savedPrefrences, foodCategories.length);;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Filter Categories");
+
+        builder.setCancelable(false);
+        builder.setIcon(R.drawable.ic_baseline_filter_alt_24);
+        builder.setMultiChoiceItems(foodCategories, prefrenses, new DialogInterface.OnMultiChoiceClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+            }
+        });
+        builder.setPositiveButton("Filter", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //TODO add filter logic according to the categories in the recipe
+                savedPrefrences = prefrenses;
+                dialog.cancel();
+                Toast.makeText(MainActivity.this, "Filtered categories", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which){
+                dialog.cancel();
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        return true;
+    }
+
+
+//
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater menuInflater = getMenuInflater();
+//
+//        menuInflater.inflate(R.menu.upper_app_bar, menu);
+//
+//        // Associate searchable configuration with the SearchView
+//        SearchManager searchManager =
+//                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+//        SearchView searchView =
+//                (SearchView) menu.findItem(R.id.search).getActionView();
+//
+//        searchView.setSearchableInfo(
+//                searchManager.getSearchableInfo(getComponentName()));
+//
+//        if(mSearchQuery != null){
+//            searchView.setIconified(true);
+//            searchView.onActionViewExpanded();
+//            searchView.setQuery(mSearchQuery, false);
+//            searchView.setFocusable(true);
+//        }
+//
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
+//
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                mSearchQuery = newText;
+//                return false;
+//            }
+//        });
+//
+//        return true;
+//    }
+
+
+    public String getmSearchQuery() {
+        return mSearchQuery;
+    }
+
+//    @Override
+//    protected void onSaveInstanceState(Bundle outState) {
+//        outState.putString("searchQuery", mSearchQuery);
+//        super.onSaveInstanceState(outState);
+//    }
+
+    public boolean searchRecipes(MenuItem  item) {
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mSearchQuery = newText;
+                return false;
+            }
+        });
+
+        return true;
     }
 }
 
