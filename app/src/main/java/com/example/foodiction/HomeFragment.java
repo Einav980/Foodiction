@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -22,15 +23,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
 public class HomeFragment extends Fragment {
 
     private static RecyclerView recyclerView;
-//    private static RecyclerView.Adapter adapter;
     static RecipeListAdapter adapter;
-    DatabaseReference mbase;
+    static DatabaseReference  mbase;
     private static List<Recipe> recipeListItems;
     static RecipeHandler recipeHandler;
     static MainActivity mainActivity;
@@ -40,20 +41,12 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_home, container, false);
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recipeHandler = new RecipeHandler();
-        mainActivity = new MainActivity();
-
-        //TODO add filter logic - consider changing the home fragment to be in the main activity
-        String searchInputToLower = mainActivity.getmSearchQuery().toLowerCase();
-        String searchInputTOUpper = mainActivity.getmSearchQuery().toUpperCase();
-
-
 
         // Recycle View adapter
         mbase = FirebaseDatabase.getInstance().getReference("recipes");
@@ -62,14 +55,11 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         FirebaseRecyclerOptions<Recipe> options = new FirebaseRecyclerOptions.Builder<Recipe>()
-                .setQuery(mbase.orderByChild("name").startAt(searchInputTOUpper).endAt(searchInputToLower + "\uf8ff"), Recipe.class)
+                .setQuery(mbase.orderByChild("name"), Recipe.class)
                 .build();
 
         adapter = new RecipeListAdapter(options);
         recyclerView.setAdapter(adapter);
-
-//        Recipe re = new Recipe("Delete", "test for UID" ,"time" );
-//        addRecipeItem(re);
 
     }
 
@@ -101,16 +91,6 @@ public class HomeFragment extends Fragment {
         alertDialog.show();
     }
 
-    public void addRecipeItem(Recipe item){
-        if (recipeHandler.addRecipe(item)){
-            recyclerView.setAdapter(adapter);
-            Toast.makeText(recyclerView.getContext(), "Recipe added successfully", Toast.LENGTH_SHORT).show();
-        }
-        else{
-            Toast.makeText(recyclerView.getContext(), "Could not add recipe", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     @Override
     public void onStart() {
         super.onStart();
@@ -121,5 +101,26 @@ public class HomeFragment extends Fragment {
     public void onStop() {
         super.onStop();
         adapter.stopListening();
+    }
+
+    public static void searchByName(String name) {
+//        String searchInputToLower = name.toLowerCase();
+//        String searchInputTOUpper = name.toUpperCase();
+
+        FirebaseRecyclerOptions<Recipe> options = new FirebaseRecyclerOptions.Builder<Recipe>()
+                .setQuery(mbase.orderByChild("name").startAt(name).endAt(name + "\uf8ff"), Recipe.class)
+                .build();
+
+        adapter.updateOptions(options);
+        recyclerView.setAdapter(adapter);
+    }
+
+    //TODO make it work
+    public static void filterByCatagorie(String categories[]) {
+        FirebaseRecyclerOptions<Recipe> options = new FirebaseRecyclerOptions.Builder<Recipe>()
+                .setQuery(mbase.orderByChild("categories").startAt(String.valueOf(categories)).endAt(String.valueOf(categories) + "\uf8ff"), Recipe.class)
+                .build();
+        adapter.updateOptions(options);
+        recyclerView.setAdapter(adapter);
     }
 }

@@ -2,32 +2,49 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="176dp"
-    android:background="@color/colorPrimaryDarkOrange"
-    android:gravity="bottom"
-    android:orientation="vertical"
+    android:background="@color/app_main_light"
+    android:gravity="center|right|left"
     android:padding="16dp"
     android:theme="@style/Theme.Foodiction">
 
     <ImageView
-        android:id="@+id/Profile_Image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher" />
+        android:id="@+id/Logo_image"
+        android:layout_width="89dp"
+        android:layout_height="86dp"
+        android:src="@mipmap/foodiction_logo_round" />
 
-    <TextView
-        android:id="@+id/UserNameID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:text="User name"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"></TextView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/EmailID_Profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:text="info@mail.com"></TextView>
+        <TextView
+            android:id="@+id/Foodiction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:includeFontPadding="false"
+            android:padding="10dp"
+            android:paddingTop="8dp"
+            android:text="Foodiction"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="16sp"
+            android:textStyle="bold"></TextView>
+
+        <TextView
+            android:id="@+id/DiscriptionApp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:includeFontPadding="false"
+            android:padding="10dp"
+            android:paddingTop="8dp"
+            android:shadowColor="#000000"
+            android:text="My cooking book"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="14sp"></TextView>
+    </LinearLayout>
 
 
 </LinearLayout>

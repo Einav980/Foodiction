@@ -20,13 +20,6 @@ import java.util.List;
 
 public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeListAdapter.ViewHolder> {
     static RecipeHandler recipeHandler;
-//    private List<Recipe> recipeListItems;
-//    private Context context;
-
-//    public RecipeListAdapter(List<Recipe> recipeListItems, Context context) {
-//        this.recipeListItems = recipeListItems;
-//        this.context = context;
-//    }
 
     public RecipeListAdapter(FirebaseRecyclerOptions<Recipe> options) {
         super(options);
@@ -41,7 +34,6 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
 
     @Override
     public void onBindViewHolder(@NonNull RecipeListAdapter.ViewHolder holder, int position, @NonNull Recipe model) {
-//        Recipe recipeListItem = recipeListItems.get(position);
         recipeHandler = new RecipeHandler();
 
         holder.recipeTitle.setText(model.getName());
@@ -70,13 +62,13 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
             @Override
             public void onClick(View v) {
                 if (!model.getIs_liked()){
-                    recipeHandler.add2favoriteRecipe(model.getID(), true);
                     model.setIs_liked(true);
+                    recipeHandler.add2favoriteRecipe(model.getID(), true);
                     holder.addToFavBtn.setIconResource(R.drawable.ic_baseline_favorite_24);
                     Toast.makeText(v.getContext(), "added to favorites", Toast.LENGTH_SHORT).show();
                 }else{
-                    recipeHandler.add2favoriteRecipe(model.getID(), false);
                     model.setIs_liked(false);
+                    recipeHandler.add2favoriteRecipe(model.getID(), false);
                     holder.addToFavBtn.setIconResource(R.drawable.ic_baseline_favorite_border_24);
                     Toast.makeText(v.getContext(), "removed from favorites", Toast.LENGTH_SHORT).show();
                 }
@@ -107,6 +99,5 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
             cardView = (MaterialCardView) itemView.findViewById(R.id.card);
         }
     }
-
 }
 

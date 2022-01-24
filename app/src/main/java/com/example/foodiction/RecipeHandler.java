@@ -56,6 +56,20 @@ public class RecipeHandler {
         return true;
     }
 
+//    public boolean addToFavoriteRecipes(Recipe recipe){
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference recipes = database.getReference("favorites");
+//        recipes.child(recipe.getID()).setValue(recipe);
+//        return true;
+//    }
+//
+//    public boolean removeFromFavoriteRecipes(String recipe_UUID){
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference recipes = database.getReference("favorites");
+//        recipes.child(recipe_UUID).removeValue();
+//        return true;
+//    }
+
     public boolean getSpecificRecipe(){
         return true;
     }
