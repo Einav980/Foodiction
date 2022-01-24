@@ -1,6 +1,5 @@
 package com.example.foodiction;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +8,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
-
-import java.util.List;
 
 public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeListAdapter.ViewHolder> {
     static RecipeHandler recipeHandler;
@@ -94,7 +90,7 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
             description = (TextView) itemView.findViewById(R.id.description);
             makingTime = (TextView) itemView.findViewById(R.id.makingTime);
             recipeImage = (ImageView) itemView.findViewById(R.id.RecipeImage);
-            addToFavBtn = (MaterialButton) itemView.findViewById(R.id.AddToFav);
+            addToFavBtn = (MaterialButton) itemView.findViewById(R.id.add_to_favorite);
             deleteBtn = (MaterialButton) itemView.findViewById(R.id.DeleteBtn);
             cardView = (MaterialCardView) itemView.findViewById(R.id.card);
         }

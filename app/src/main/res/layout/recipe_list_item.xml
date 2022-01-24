@@ -73,11 +73,12 @@
             <com.google.android.material.button.MaterialButton
                 style="?attr/borderlessButtonStyle"
                 android:gravity="center"
-                android:id="@+id/AddToFav"
+                android:id="@+id/add_to_favorite"
                 android:layout_gravity="center"
                 android:layout_height="match_parent"
                 android:layout_width="44dp"
                 app:icon="@drawable/ic_baseline_favorite_border_24"
+                app:iconTint="@color/favoriteButton"
                 tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
             <com.google.android.material.button.MaterialButton
@@ -87,6 +88,7 @@
                 android:layout_height="match_parent"
                 android:layout_width="46dp"
                 app:icon="@drawable/delete_recipe_24"
+                app:iconTint="@color/deleteButton"
                 tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
         </LinearLayout>
