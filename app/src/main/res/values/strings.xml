@@ -35,7 +35,7 @@
     <string name="oneItem">item1</string>
     <string name="header_title">header_title</string>
     <string name="header_text">header_text</string>
-    <string name="appbar_title">Foodiction</string>
+    <string name="appbar_title">Recipes</string>
     <string name="navigation_drawer_open">open navigation Drawer</string>
     <string name="navigation_drawer_close">close navigation Drawer</string>
     <string name="food_types">Food Types</string>
@@ -54,9 +54,10 @@
     <string name="Settings">Settings</string>
     <string name="appbar_profile_title">Profile</string>
     <string name="appbar_settings_title">Settings</string>
-    <string name="homePage">Home</string>
+    <string name="homePage">Recipes</string>
     <string name="default_timer">00:00</string>
     <string name="no_ingredients_chosen">Add ingredients</string>
     <string name="filter">filter</string>
     <string name="filterButton">filterButton</string>
+    <string name="favorite">Favorites</string>
 </resources>

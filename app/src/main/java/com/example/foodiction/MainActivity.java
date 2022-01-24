@@ -3,35 +3,30 @@ package com.example.foodiction;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.internal.NavigationMenuView;
-import com.google.android.material.navigation.NavigationBarMenu;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,18 +35,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
-import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "FOODICTION";
@@ -61,25 +52,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static CharSequence foodCategories[] = {"Italian", "Asian","Meat","Home Cooking","Fish","Salads","Indian","Soups",
             "Sandwiches","Desserts", "Pastries"};
     boolean[] savedPrefrences= new boolean[foodCategories.length];
-    private String mSearchQuery= "";
-
-
     public String userGuid;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
-        MaterialToolbar topApp = findViewById(R.id.main_toolbar);
-
+        MaterialToolbar topbar = findViewById(R.id.main_toolbar);
+        setSupportActionBar(topbar);
 
         // TopBar Listener
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, topApp,
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, topbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
@@ -91,9 +81,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         initUserGuid();
-//        else{
-//            mSearchQuery = savedInstanceState.getString("searchQuery");
-//        }
     }
 
     @Override
@@ -110,71 +97,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-//        updateUI(currentUser);
     }
 
-    public void loginFunc() {
-        String email = "test@example.com";
-        String password = "1234";
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(MainActivity.this, "Login successfull", Toast.LENGTH_LONG).show();
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Toast.makeText(MainActivity.this, "Login failed", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-    }
-
-    public void registerFunc() {
-        String email = "test@example.com";
-        String password = "1234";
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(MainActivity.this, "Registered successfully", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(MainActivity.this, "Registered Failed!", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-    }
-
-    public void addData() {
-
-        Recipe r = new Recipe("Test", "This is test recipe", "10min");
-
-        // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference recipes = database.getReference("recipes");
-        String key = recipes.push().getKey();
-        recipes.child(key).setValue(r);
-        Toast.makeText(MainActivity.this, "A recipe was added!", Toast.LENGTH_LONG).show();
-    }
-
-    ValueEventListener queryValueListener = new ValueEventListener() {
-
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-
-            Iterable<DataSnapshot> snapshotIterator = dataSnapshot.getChildren();
-            Iterator<DataSnapshot> iterator = snapshotIterator.iterator();
-
-            while (iterator.hasNext()) {
-                DataSnapshot next = (DataSnapshot) iterator.next();
-                Log.i(TAG, "Value = " + next.child("name").getValue());
-            }
-        }
-
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-
-        }
-    };
 
     public void startRecipeActivity(View view) {
         Intent intent = new Intent(this, AddRecipeActivity.class);
@@ -187,30 +111,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         MaterialToolbar topApp = findViewById(R.id.main_toolbar);
 
         switch (item.getItemId()) {
-            case R.id.Profile_btn:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
-                setAppBarOptionsVisibility(View.INVISIBLE,View.INVISIBLE );
-                topApp.setTitle("Profile");
-                break;
-            case R.id.Settings_btn:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingsFragment()).commit();
-                setAppBarOptionsVisibility(View.INVISIBLE,View.INVISIBLE );
-                topApp.setTitle("Settings");
+            case R.id.favorite_btn:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FavoriteFragment()).commit();
+                topApp.findViewById(R.id.search).setVisibility(View.INVISIBLE); //delete is needed
+                topApp.setTitle("Favorites");
                 break;
             case R.id.Home_page_btn:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
-                setAppBarOptionsVisibility(View.VISIBLE,View.VISIBLE );
-                topApp.setTitle("Foodiction");
+                topApp.setTitle("Recipes");
+                topApp.findViewById(R.id.search).setVisibility(View.VISIBLE);
                 break;
         }
-
         drawer.closeDrawer(GravityCompat.START);
-
         return true;
-    }
-    void setAppBarOptionsVisibility (int filterVisibilty, int SearchVisibility){
-        findViewById(R.id.filter).setVisibility(filterVisibilty);
-        findViewById(R.id.search).setVisibility(SearchVisibility);
     }
 
     public String getGUID(){
@@ -322,61 +235,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-//
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater menuInflater = getMenuInflater();
-//
-//        menuInflater.inflate(R.menu.upper_app_bar, menu);
-//
-//        // Associate searchable configuration with the SearchView
-//        SearchManager searchManager =
-//                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-//        SearchView searchView =
-//                (SearchView) menu.findItem(R.id.search).getActionView();
-//
-//        searchView.setSearchableInfo(
-//                searchManager.getSearchableInfo(getComponentName()));
-//
-//        if(mSearchQuery != null){
-//            searchView.setIconified(true);
-//            searchView.onActionViewExpanded();
-//            searchView.setQuery(mSearchQuery, false);
-//            searchView.setFocusable(true);
-//        }
-//
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
-//
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                mSearchQuery = newText;
-//                return false;
-//            }
-//        });
-//
-//        return true;
-//    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.upper_app_bar, menu);
+        MenuItem menuItem = menu.findItem(R.id.search);
 
-
-    public String getmSearchQuery() {
-        return mSearchQuery;
-    }
-
-//    @Override
-//    protected void onSaveInstanceState(Bundle outState) {
-//        outState.putString("searchQuery", mSearchQuery);
-//        super.onSaveInstanceState(outState);
-//    }
-
-    public boolean searchRecipes(MenuItem  item) {
-        SearchView searchView = (SearchView) item.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
-
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
@@ -384,12 +249,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                mSearchQuery = newText;
+                Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+                if (currentFragment instanceof HomeFragment) {
+                    Log.i("search", "Search in current fragment: HomeFragment");
+                    HomeFragment.searchByName(newText);
+                }
+//                else if (currentFragment instanceof FavoriteFragment){
+//                    Log.i("search", "Search in current fragment: FavoriteFragment");
+//                    FavoriteFragment.searchByNameFavorites(newText);
+//                }
                 return false;
             }
         });
-
         return true;
     }
+
 }
 

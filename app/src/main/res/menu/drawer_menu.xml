@@ -10,15 +10,9 @@
             android:title="@string/homePage" />
 
         <item
-            android:id="@+id/Profile_btn"
-            android:icon="@drawable/ic_profile_24"
-            android:title="@string/profile" />
-
-        <item
-            android:id="@+id/Settings_btn"
-            android:icon="@drawable/ic_settings_24"
-            android:title="@string/Settings" />
-
+            android:id="@+id/favorite_btn"
+            android:icon="@drawable/ic_baseline_favorite_24"
+            android:title="@string/favorite" />
 
     </group>
 </menu>
