@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RecipePageDetailsFragment">
+
+    <TextView
+        android:id="@+id/recipe_page_recipe_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:text="Description" />
+
+    <TextView
+        android:id="@+id/recipe_page_recipe_making_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Making duration"
+        android:padding="10dp"
+        android:layout_below="@id/recipe_page_recipe_description"
+        android:drawableLeft="@drawable/ic_baseline_recipe_timer_24"
+        android:drawablePadding="5dp"/>
+
+    <TextView
+        android:id="@+id/recipe_page_recipe_"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recipe_page_recipe_making_duration"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:text="Categories:"/>
+</RelativeLayout>

@@ -85,6 +85,10 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
         if (HomeFragment.progressBar != null) {
             HomeFragment.progressBar.setVisibility(View.GONE);
         }
+
+        if(FavoriteFragment.progressBar != null){
+            FavoriteFragment.progressBar.setVisibility(View.GONE);
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

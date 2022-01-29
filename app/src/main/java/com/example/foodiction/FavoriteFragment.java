@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
@@ -25,7 +26,7 @@ public class FavoriteFragment extends Fragment {
     private static List<Recipe> recipeListItems;
     static RecipeHandler recipeHandler;
     static MainActivity mainActivity;
-
+    static ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,6 +38,10 @@ public class FavoriteFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        progressBar = getView().findViewById(R.id.favorite_fragment_progress_bar);
+        progressBar.setVisibility(View.VISIBLE);
+
         recipeHandler = new RecipeHandler();
 
         // Recycle View adapter
