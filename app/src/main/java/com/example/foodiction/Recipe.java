@@ -23,6 +23,7 @@ public class Recipe {
     Color color;
     List<String> categories;
     String makingDuration;
+    String userId;
     //    Difficulty difficulty;
     boolean is_liked  =false;
 
@@ -31,18 +32,21 @@ public class Recipe {
         this.name = name;
         this.description = description;
         this.makingDuration = makingDuration;
+        this.userId = MainActivity.userGuid;
     }
     public Recipe(Recipe recipe){
         this.id = recipe.getID();
         this.name = recipe.getName();
         this.description = recipe.getDescription();
         this.makingDuration = recipe.getMakingDuration();
+        this.userId = MainActivity.userGuid;
     }
 
     public Recipe(){
         this.id = UUID.randomUUID().toString();
         this.ingredients = new ArrayList<>();
         this.instructions = new ArrayList<>();
+        this.userId = MainActivity.userGuid;
     }
 
     public String getName() {
