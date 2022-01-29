@@ -53,6 +53,7 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), RecipePageActivity.class);
+                intent.putExtra("recipe_name", model.getName());
                 v.getContext().startActivity(intent);
 //                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 Toast.makeText(v.getContext(), "Selected Card", Toast.LENGTH_SHORT).show();
