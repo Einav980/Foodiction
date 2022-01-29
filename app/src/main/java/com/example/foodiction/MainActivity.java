@@ -52,9 +52,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static CharSequence foodCategories[] = {"Italian", "Asian","Meat","Home Cooking","Fish","Salads","Indian","Soups",
             "Sandwiches","Desserts", "Pastries"};
     boolean[] savedPrefrences= new boolean[foodCategories.length];
-    public String userGuid;
+    private String mSearchQuery= "";
 
 
+    public static String userGuid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -261,6 +262,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return false;
             }
         });
+
         return true;
     }
 
