@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -35,6 +36,7 @@ public class HomeFragment extends Fragment {
     private static List<Recipe> recipeListItems;
     static RecipeHandler recipeHandler;
     static MainActivity mainActivity;
+    static ProgressBar progressBar;
 
 
     @Override
@@ -59,8 +61,11 @@ public class HomeFragment extends Fragment {
                 .build();
 
         adapter = new RecipeListAdapter(options);
-        recyclerView.setAdapter(adapter);
 
+        progressBar = getView().findViewById(R.id.home_fragment_progress_bar);
+        progressBar.setVisibility(View.VISIBLE);
+
+        recyclerView.setAdapter(adapter);
     }
 
     public static void removeRecipeItem(String recipeUUID){

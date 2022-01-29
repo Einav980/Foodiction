@@ -2,6 +2,12 @@ package com.example.foodiction;
 
 import android.graphics.Color;
 import android.media.Image;
+import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.text.format.Time;
+
+import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,30 +16,30 @@ import java.util.UUID;
 
 public class Recipe {
 
-    public enum Difficulty {Easy, Medium, Hard};
 
+
+    public enum Difficulty {Easy, Medium, Hard;};
     String id;
     String name;
     String description;
-    Date creationDate;
+    String creationDate;
     ArrayList<Ingredient> ingredients;
-    Image recipeImage;
+    String imageUrl;
     ArrayList<Instruction> instructions;
-    List<Image> pictures;
-    Color color;
     List<String> categories;
     String makingDuration;
     String userId;
     //    Difficulty difficulty;
     boolean is_liked  =false;
-
     public Recipe(String name, String description, String makingDuration) {
         this.id = UUID.randomUUID().toString();
         this.name = name;
         this.description = description;
         this.makingDuration = makingDuration;
         this.userId = MainActivity.userGuid;
+        this.creationDate = new Time().toString();
     }
+
     public Recipe(Recipe recipe){
         this.id = recipe.getID();
         this.name = recipe.getName();
@@ -41,7 +47,6 @@ public class Recipe {
         this.makingDuration = recipe.getMakingDuration();
         this.userId = MainActivity.userGuid;
     }
-
     public Recipe(){
         this.id = UUID.randomUUID().toString();
         this.ingredients = new ArrayList<>();
@@ -98,6 +103,7 @@ public class Recipe {
     public void removeInstruction(Instruction i){
         this.instructions.remove(i);
     }
+
 }
 
 

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,6 +55,7 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), RecipePageActivity.class);
                 intent.putExtra("recipe_name", model.getName());
+
                 v.getContext().startActivity(intent);
 //                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 Toast.makeText(v.getContext(), "Selected Card", Toast.LENGTH_SHORT).show();
@@ -78,7 +80,12 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
         });
     }
 
-
+    @Override
+    public void onDataChanged() {
+        if (HomeFragment.progressBar != null) {
+            HomeFragment.progressBar.setVisibility(View.GONE);
+        }
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView recipeTitle;
