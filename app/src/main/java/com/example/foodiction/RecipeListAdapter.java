@@ -1,5 +1,7 @@
 package com.example.foodiction;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +52,9 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), RecipePageActivity.class);
+                v.getContext().startActivity(intent);
+//                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 Toast.makeText(v.getContext(), "Selected Card", Toast.LENGTH_SHORT).show();
             }
         });

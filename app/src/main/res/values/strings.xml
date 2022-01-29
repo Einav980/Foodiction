@@ -60,4 +60,7 @@
     <string name="filter">filter</string>
     <string name="filterButton">filterButton</string>
     <string name="favorite">Favorites</string>
+    <string name="info">General information</string>
+    <string name="ingredients">Ingrediants</string>
+    <string name="instructions">Instructions</string>
 </resources>

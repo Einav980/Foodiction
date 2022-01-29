@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.foodiction" >
+    package="com.example.foodiction">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -12,23 +12,24 @@
         android:label="Foodiction"
         android:roundIcon="@mipmap/foodiction_logo_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Foodiction" >
+        android:theme="@style/Theme.Foodiction">
+        <activity
+            android:name=".RecipePageActivity"
+            android:exported="false" />
         <activity
             android:name=".IngredientsListActivity"
             android:exported="false"
-            android:label="Choose"/>
+            android:label="Choose" />
         <activity
             android:name=".AddImageRecipeActivity"
             android:exported="false" />
         <activity
             android:name=".ChooseRecipeTypeActivity"
-            android:exported="false" >
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.Foodiction.NoActionBar"
             android:exported="false"
-        />
+            android:theme="@style/Theme.Foodiction.NoActionBar" />
         <activity
             android:name=".AddRecipeActivity"
             android:exported="false" />
