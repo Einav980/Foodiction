@@ -57,11 +57,13 @@
         <entry key="..\:/Users/einav.malcka/AndroidStudioProjects/Foodiction/app/src/main/res/drawable/ic_menu.xml" value="0.20208333333333334" />
         <entry key="..\:/Users/einav.malcka/AndroidStudioProjects/Foodiction/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.18794788273615634" />
         <entry key="..\:/Users/einav.malcka/AndroidStudioProjects/Foodiction/app/src/main/res/drawable/ic_search_black_24dp.xml" value="0.18980263157894736" />
+        <entry key="..\:/Users/einav.malcka/AndroidStudioProjects/Foodiction/app/src/main/res/drawable/name_background.xml" value="0.1" />
         <entry key="..\:/Users/einav.malcka/AndroidStudioProjects/Foodiction/app/src/main/res/layout/activity_add_recipe.xml" value="0.16513157894736843" />
         <entry key="..\:/Users/einav.malcka/AndroidStudioProjects/Foodiction/app/src/main/res/layout/activity_ingredients_list.xml" value="0.22171052631578947" />
         <entry key="..\:/Users/einav.malcka/AndroidStudioProjects/Foodiction/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/einav.malcka/AndroidStudioProjects/Foodiction/app/src/main/res/layout/activity_main_test.xml" value="0.17960526315789474" />
         <entry key="..\:/Users/einav.malcka/AndroidStudioProjects/Foodiction/app/src/main/res/layout/activity_open_logo.xml" value="0.22171052631578947" />
+        <entry key="..\:/Users/einav.malcka/AndroidStudioProjects/Foodiction/app/src/main/res/layout/activity_recipe_page.xml" value="0.23157894736842105" />
         <entry key="..\:/Users/einav.malcka/AndroidStudioProjects/Foodiction/app/src/main/res/layout/add_recipe_Fregment.xml" value="0.23157894736842105" />
         <entry key="..\:/Users/einav.malcka/AndroidStudioProjects/Foodiction/app/src/main/res/layout/fragment_blank.xml" value="0.15789473684210525" />
         <entry key="..\:/Users/einav.malcka/AndroidStudioProjects/Foodiction/app/src/main/res/layout/fragment_favorites.xml" value="0.16644736842105262" />
