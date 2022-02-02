@@ -62,5 +62,5 @@
     <string name="favorite">Favorites</string>
     <string name="info">Details</string>
     <string name="ingredients">Ingredients</string>
-    <string name="instructions">Instructions</string>
+    <string name="instructions">Steps</string>
 </resources>

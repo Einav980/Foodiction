@@ -3,6 +3,7 @@ package com.example.foodiction;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +36,8 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static android.app.Activity.RESULT_OK;
+
 public class RecipeDetailsStep extends Fragment implements Step {
 
     private static final int IMAGE_PICK_CODE = 1000;
@@ -48,6 +53,7 @@ public class RecipeDetailsStep extends Fragment implements Step {
     DatabaseReference mBase;
     MaterialCardView selectCategoryCard;
     TextView selectedCategoriesText;
+    static ImageButton selectImageButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,6 +69,15 @@ public class RecipeDetailsStep extends Fragment implements Step {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         nameTextView = (TextView) getView().findViewById(R.id.details_step_recipe_name_textinput);
         descriptionTextView = (TextView) getView().findViewById(R.id.details_step_recipe_description_textinput);
+        selectImageButton = getView().findViewById(R.id.details_step_choose_image_button);
+        selectImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                getActivity().startActivityForResult(intent, PERMISSION_CODE);
+            }
+        });
 
         nameTextView.addTextChangedListener(new TextWatcher() {
             @Override
@@ -115,9 +130,6 @@ public class RecipeDetailsStep extends Fragment implements Step {
                 showCategoriesDialog();
             }
         });
-
-//        Only if you want to set up the keyboard
-//        imgr.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
 
     @Nullable
@@ -193,14 +205,14 @@ public class RecipeDetailsStep extends Fragment implements Step {
         builder.show();
     }
 
-    private void fetchCategories(){
+    private void fetchCategories() {
         mBase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot categorySnapshot: snapshot.getChildren()){
+                for (DataSnapshot categorySnapshot : snapshot.getChildren()) {
                     String category = categorySnapshot.getValue().toString();
                     categories.add(category);
-                    Log.i("Foodiction", category+" was added");
+                    Log.i("Foodiction", category + " was added");
                 }
             }
 
@@ -212,5 +224,4 @@ public class RecipeDetailsStep extends Fragment implements Step {
 
         categoriesArray = Arrays.copyOf(categories.toArray(), categories.size(), String[].class);
     }
-
 }

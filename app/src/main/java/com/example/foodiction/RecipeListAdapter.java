@@ -1,12 +1,10 @@
 package com.example.foodiction;
 
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +53,8 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), RecipePageActivity.class);
                 intent.putExtra("recipe_name", model.getName());
+                intent.putExtra("recipe_description", model.getDescription());
+                intent.putExtra("recipe_making_duration", model.getMakingDuration());
 
                 v.getContext().startActivity(intent);
 //                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
@@ -67,12 +67,12 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
             public void onClick(View v) {
                 if (!model.getIs_liked()){
                     model.setIs_liked(true);
-                    recipeHandler.add2favoriteRecipe(model.getID(), true);
+                    recipeHandler.addToFavorite(model.getID(), true);
                     holder.addToFavBtn.setIconResource(R.drawable.ic_baseline_favorite_24);
                     Toast.makeText(v.getContext(), "added to favorites", Toast.LENGTH_SHORT).show();
                 }else{
                     model.setIs_liked(false);
-                    recipeHandler.add2favoriteRecipe(model.getID(), false);
+                    recipeHandler.addToFavorite(model.getID(), false);
                     holder.addToFavBtn.setIconResource(R.drawable.ic_baseline_favorite_border_24);
                     Toast.makeText(v.getContext(), "removed from favorites", Toast.LENGTH_SHORT).show();
                 }

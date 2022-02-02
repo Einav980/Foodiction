@@ -47,7 +47,7 @@ public class RecipeHandler {
         return true;
     }
 
-    public boolean add2favoriteRecipe(String recipe_UUID , boolean change){
+    public boolean addToFavorite(String recipe_UUID , boolean change){
         Map<String, Object> updates = new HashMap<>();
         updates.put("is_liked", change);
         FirebaseDatabase database = FirebaseDatabase.getInstance();

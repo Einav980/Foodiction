@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.content.Intent;
@@ -24,7 +25,7 @@ import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 import com.stepstone.stepper.adapter.StepAdapter;
 
-public class AddRecipeActivity extends AppCompatActivity implements StepperLayout.StepperListener {
+public class AddRecipeActivity extends FragmentActivity implements StepperLayout.StepperListener {
 
     ImageView imageView;
     Button chooseImageButton;
@@ -32,8 +33,8 @@ public class AddRecipeActivity extends AppCompatActivity implements StepperLayou
 
     public static Recipe currentCreatedRecipe;
 
-    private static final int IMAGE_PICK_CODE = 1000;
-    private static final int PERMISSION_CODE = 1001;
+    private static final int IMAGE_PICK_CODE = 1001;
+    private static final int PERMISSION_CODE = 1000;
     private StepperLayout mStepperLayout;
     private Fragment instructionsStepFragment;
     private Fragment ingredientsStepFragment;
@@ -133,7 +134,8 @@ public class AddRecipeActivity extends AppCompatActivity implements StepperLayou
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
-            imageView.setImageURI(data.getData());
+            RecipeDetailsStep.selectImageButton.setImageURI(data.getData());
+            Log.i("Foodiction", "Activity result!");
         }
     }
 

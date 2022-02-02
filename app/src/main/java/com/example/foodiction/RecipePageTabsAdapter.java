@@ -5,30 +5,33 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.lifecycle.Lifecycle;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import java.util.ArrayList;
 
 
-public class RecipePageTabsAdapter extends FragmentPagerAdapter {
+public class RecipePageTabsAdapter extends FragmentStateAdapter {
 
-    ArrayList<Fragment> fragments;
-
-    public RecipePageTabsAdapter(@NonNull FragmentManager fm) {
-        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        fragments = new ArrayList<>();
-        fragments.add(RecipePageDetailsFragment.newInstance());
-        fragments.add(RecipePageIngredientsFragment.newInstance());
-        fragments.add(RecipePageInstructionsFragment.newInstance());
-    }
-
-    @NonNull
-    @Override
-    public Fragment getItem(int position) {
-        return fragments.get(position);
+    public RecipePageTabsAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
+        super(fragmentManager, lifecycle);
     }
 
     @Override
-    public int getCount() {
-        return fragments.size();
+    public Fragment createFragment(int position) {
+        switch(position){
+            case 0:
+                return RecipePageDetailsFragment.newInstance();
+            case 1:
+                return RecipePageIngredientsFragment.newInstance();
+            case 2:
+                return RecipePageInstructionsFragment.newInstance();
+        }
+        return RecipePageDetailsFragment.newInstance();
+    }
+
+    @Override
+    public int getItemCount() {
+        return 3;
     }
 }

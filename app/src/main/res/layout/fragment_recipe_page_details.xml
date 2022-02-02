@@ -6,29 +6,48 @@
     tools:context=".RecipePageDetailsFragment">
 
     <TextView
+        android:id="@+id/recipe_page_recipe_title"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="@string/recipe_title"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="24dp"/>
+
+    <TextView
         android:id="@+id/recipe_page_recipe_description"
+        style="@style/RecipePage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:padding="10dp"
+        android:textSize="18dp"
+        android:layout_below="@id/recipe_page_recipe_title"
         android:text="Description" />
 
     <TextView
         android:id="@+id/recipe_page_recipe_making_duration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Making duration"
-        android:padding="10dp"
+        style="@style/RecipePage"
         android:layout_below="@id/recipe_page_recipe_description"
-        android:drawableLeft="@drawable/ic_baseline_recipe_timer_24"
-        android:drawablePadding="5dp"/>
+        android:drawableRight="@drawable/ic_baseline_recipe_timer_24"
+        android:drawablePadding="5dp"
+        android:padding="10dp"
+        android:text="Making duration" />
+
+    <TextView
+        android:id="@+id/recipe_page_recipe_making_duration_value"
+        style="@style/RecipePage"
+        android:layout_below="@id/recipe_page_recipe_description"
+        android:gravity="center"
+        android:drawablePadding="5dp"
+        android:layout_toRightOf="@id/recipe_page_recipe_making_duration"
+        android:padding="10dp"/>
 
     <TextView
         android:id="@+id/recipe_page_recipe_"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/RecipePage"
         android:layout_below="@id/recipe_page_recipe_making_duration"
         android:padding="10dp"
-        android:textStyle="bold"
-        android:text="Categories:"/>
+        android:text="Categories:"
+        android:textStyle="bold" />
 </RelativeLayout>
