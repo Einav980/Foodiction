@@ -14,13 +14,13 @@
             android:layout_width="match_parent"
             android:layout_height="200dp">
 
-        <ImageView
-            android:id="@+id/Recipe_Image_Page"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/ic_food_picture" />
+            <ImageView
+                android:id="@+id/recipe_page_image_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/ic_food_picture" />
 
 <!--            <TextView-->
 <!--                android:id="@+id/Recipe_Name_Page"-->
@@ -75,6 +75,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/recipe_page_tab_layout"
         android:fillViewport="true">
+
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/recipe_page_view_pager"
             android:layout_width="match_parent"

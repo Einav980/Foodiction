@@ -30,6 +30,7 @@ public class AddedIngredientListAdapter extends RecyclerView.Adapter<AddedIngred
     ImageButton deleteIngredientButton;
     MainActivity.GlobalMode mode;
     EditText ingredientAmountEditText;
+    TextView ingredientAmountTextView;
 
     public AddedIngredientListAdapter(List<Ingredient> addedIngredients, Context context, MainActivity.GlobalMode mode){
         this.context = context;
@@ -48,10 +49,11 @@ public class AddedIngredientListAdapter extends RecyclerView.Adapter<AddedIngred
     public void onBindViewHolder(@NonNull AddedIngredientViewHolder holder, int position) {
         Ingredient addedIngredientListItem = addedIngredients.get(position);
         ingredientAmountEditText.setText(addedIngredientListItem.getAmount());
+        ingredientAmountTextView.setText(addedIngredientListItem.getAmount());
         addedIngredientNameTextView.setText(addedIngredientListItem.getName());
         Picasso.get().
                 load(addedIngredientListItem.getImageUrl()).
-                placeholder(R.mipmap.ic_launcher).
+                placeholder(R.drawable.ic_food_placeholder).
                 into(addedIngredientImageView);
 
         ingredientAmountEditText.addTextChangedListener(new TextWatcher() {
@@ -89,10 +91,14 @@ public class AddedIngredientListAdapter extends RecyclerView.Adapter<AddedIngred
 
         if(mode == MainActivity.GlobalMode.EDIT){
             deleteIngredientButton.setVisibility(View.VISIBLE);
+            ingredientAmountTextView.setVisibility(View.INVISIBLE);
+            ingredientAmountEditText.setVisibility(View.VISIBLE);
         }
         else if(mode == MainActivity.GlobalMode.VIEW)
         {
             deleteIngredientButton.setVisibility(View.INVISIBLE);
+            ingredientAmountTextView.setVisibility(View.VISIBLE);
+            ingredientAmountEditText.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -109,7 +115,8 @@ public class AddedIngredientListAdapter extends RecyclerView.Adapter<AddedIngred
             addedIngredientNameTextView = itemView.findViewById(R.id.added_ingredient_name_textview);
             addedIngredientImageView = itemView.findViewById(R.id.added_ingredient_imageview);
             deleteIngredientButton = itemView.findViewById(R.id.delete_ingredient_button);
-            ingredientAmountEditText = itemView.findViewById(R.id.ingredientAmountEditText);
+            ingredientAmountEditText = itemView.findViewById(R.id.ingredient_amount_edit_text);
+            ingredientAmountTextView = itemView.findViewById(R.id.ingredient_amount_text_view);
         }
     }
 }

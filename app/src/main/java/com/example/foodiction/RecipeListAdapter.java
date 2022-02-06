@@ -1,6 +1,7 @@
 package com.example.foodiction;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import com.squareup.picasso.Picasso;
 
 public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeListAdapter.ViewHolder> {
     static RecipeHandler recipeHandler;
@@ -55,11 +57,15 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
                 intent.putExtra("recipe_name", model.getName());
                 intent.putExtra("recipe_description", model.getDescription());
                 intent.putExtra("recipe_making_duration", model.getMakingDuration());
+                intent.putExtra("recipe_ingredients", model.getIngredients());
+                intent.putExtra("recipe_instructions", model.getInstructions());
+                intent.putExtra("recipe_image_url", model.getImageUrl());
+
+                Log.i("Foodiction", model.toString());
 
                 v.getContext().startActivity(intent);
-//                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                Toast.makeText(v.getContext(), "Selected Card", Toast.LENGTH_SHORT).show();
             }
+
         });
 
         holder.addToFavBtn.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +84,10 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
                 }
             }
         });
+
+        if(model.getImageUrl() != null){
+            Picasso.get().load(model.getImageUrl()).into(holder.recipeImage);
+        }
     }
 
     @Override

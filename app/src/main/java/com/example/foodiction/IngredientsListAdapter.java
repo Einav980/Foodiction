@@ -33,7 +33,7 @@ public class IngredientsListAdapter extends FirebaseRecyclerAdapter<Ingredient, 
                      int position, @NonNull Ingredient model)
     {
 
-        Picasso.get().load(model.getImageUrl()).placeholder(R.mipmap.ic_launcher_round).into(holder.ingredientImageView);
+        Picasso.get().load(model.getImageUrl()).placeholder(R.drawable.ic_food_placeholder).into(holder.ingredientImageView);
         holder.ingredientNameTextView.setText(model.getName());
         holder.itemView.setClickable(true);
         holder.itemView.setOnClickListener(new View.OnClickListener() {

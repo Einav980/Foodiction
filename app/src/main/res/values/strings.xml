@@ -63,4 +63,6 @@
     <string name="info">Details</string>
     <string name="ingredients">Ingredients</string>
     <string name="instructions">Steps</string>
+    <string name="description_placeholder">Description Text</string>
+    <string name="amount_placeholder">amount</string>
 </resources>

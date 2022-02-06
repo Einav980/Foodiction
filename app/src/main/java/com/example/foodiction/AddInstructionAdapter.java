@@ -10,45 +10,67 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class AddInstructionAdapter extends ArrayAdapter<Instruction> {
+public class AddInstructionAdapter extends  RecyclerView.Adapter<AddInstructionAdapter.AddInstructionViewHolder> {
     Context context;
     ArrayList<Instruction> instructions;
     TextView instructionStepTitle;
     TextView descriptionTextView;
     ImageButton deleteButton;
+    MainActivity.GlobalMode mode;
 
-    public AddInstructionAdapter(Context context, ArrayList<Instruction> instructions){
-        super(context, R.layout.single_instruction_item, R.id.instruction_description_textview, instructions);
+    public AddInstructionAdapter(Context context, ArrayList<Instruction> instructions, MainActivity.GlobalMode mode){
         this.context = context;
         this.instructions = instructions;
+        this.mode = mode;
     }
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        if(convertView == null){
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.single_instruction_item, parent, false);
-        }
-        instructionStepTitle = convertView.findViewById(R.id.instruction_step_title);
-        descriptionTextView = convertView.findViewById(R.id.instruction_description_textview);
-        deleteButton = convertView.findViewById(R.id.instruction_delete_button);
+    public AddInstructionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(this.context).inflate(R.layout.single_instruction_item, parent, false);
+        return new AddInstructionAdapter.AddInstructionViewHolder(view);
+    }
 
-        instructionStepTitle.setText("Step "+ (position + 1));
-        descriptionTextView.setText(instructions.get(position).getDescription());
+    @Override
+    public void onBindViewHolder(@NonNull AddInstructionViewHolder holder, int position) {
+        instructionStepTitle.setText("Step "+ (holder.getAdapterPosition() + 1));
+        descriptionTextView.setText(instructions.get(holder.getAdapterPosition()).getDescription());
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RecipeInstructionsStep.removeInstruction(position);
+                RecipeInstructionsStep.removeInstruction(holder.getAdapterPosition());
             }
         });
 
+        if(mode == MainActivity.GlobalMode.VIEW){
+            deleteButton.setVisibility(View.GONE);
+        }
+        else {
+            deleteButton.setVisibility(View.VISIBLE);
+        }
+    }
 
-        return super.getView(position, convertView, parent);
+    @Override
+    public int getItemCount() {
+        return instructions.size();
+    }
+
+    public class AddInstructionViewHolder extends RecyclerView.ViewHolder {
+
+        public AddInstructionViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            instructionStepTitle = itemView.findViewById(R.id.instruction_step_title);
+            descriptionTextView = itemView.findViewById(R.id.instruction_description_textview);
+            deleteButton = itemView.findViewById(R.id.instruction_delete_button);
+
+        }
     }
 }

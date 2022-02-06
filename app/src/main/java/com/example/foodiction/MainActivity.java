@@ -3,59 +3,44 @@ package com.example.foodiction;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import android.app.AlertDialog;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Iterator;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "FOODICTION";
     private FirebaseAuth mAuth;
+
     public enum GlobalMode { EDIT, VIEW }
     private DrawerLayout drawer;
     public static CharSequence foodCategories[] = {"Italian", "Asian","Meat","Home Cooking","Fish","Salads","Indian","Soups",
             "Sandwiches","Desserts", "Pastries"};
     boolean[] savedPrefrences= new boolean[foodCategories.length];
     private String mSearchQuery= "";
-
-
-    public static String userGuid;
+    private static String userGuid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    public String getGUID(){
+    public String generateGUID(){
         return java.util.UUID.randomUUID().toString();
     }
 
@@ -137,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             File file = new File(getExternalFilesDir("Foodiction"), "user_guid.txt");
             FileOutputStream outputStream = null;
             try {
-                String guid = getGUID();
+                String guid = generateGUID();
                 file.createNewFile();
 
                 outputStream = new FileOutputStream(file, true);
@@ -161,7 +146,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(guidFile.exists()){
             guid = getFileData(guidFile);
             if(!guid.isEmpty()){
-                Log.d("Foodiction", "Retrieved guid");
                 this.userGuid = guid;
             }
         }
@@ -200,6 +184,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return null;
     }
 
+    public static String getUserGuid() {
+        return userGuid;
+    }
 
     public boolean  filterByCategories (MenuItem  item){
         boolean[] prefrenses= Arrays.copyOf(savedPrefrences, foodCategories.length);;

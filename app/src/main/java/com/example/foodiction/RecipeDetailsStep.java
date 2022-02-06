@@ -212,7 +212,7 @@ public class RecipeDetailsStep extends Fragment implements Step {
                 for (DataSnapshot categorySnapshot : snapshot.getChildren()) {
                     String category = categorySnapshot.getValue().toString();
                     categories.add(category);
-                    Log.i("Foodiction", category + " was added");
+//                    Log.i("Foodiction", category + " was added");
                 }
             }
 
@@ -220,6 +220,7 @@ public class RecipeDetailsStep extends Fragment implements Step {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
+
         });
 
         categoriesArray = Arrays.copyOf(categories.toArray(), categories.size(), String[].class);

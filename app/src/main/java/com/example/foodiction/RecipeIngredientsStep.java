@@ -28,13 +28,17 @@ public class RecipeIngredientsStep extends Fragment implements Step {
     static RecyclerView.Adapter adapter;
     static ArrayList<Ingredient> addedIngredients;
     static TextView noIngredientsTextView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        if(savedInstanceState != null){
-            addedIngredients = savedInstanceState.getParcelableArrayList("SavedIngredients");
-            Log.i("Foodciction", "Ingredients Loaded!");
+        if(AddRecipeActivity.currentCreatedRecipe.ingredients.size() == 0){
+            addedIngredients = new ArrayList<>();
+        }
+        else{
+            addedIngredients = AddRecipeActivity.currentCreatedRecipe.getIngredients();
+
         }
         return inflater.inflate(R.layout.fragment_recipe_ingredients_step, container, false);
     }
@@ -42,12 +46,19 @@ public class RecipeIngredientsStep extends Fragment implements Step {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        addedIngredients = new ArrayList<>();
         addedIngredientsRecyclerView = getView().findViewById(R.id.addedIngredientsRecyclerView);
         adapter = new AddedIngredientListAdapter(addedIngredients,getContext(),MainActivity.GlobalMode.EDIT);
         noIngredientsTextView = getView().findViewById(R.id.no_ingredients_textview);
         addedIngredientsRecyclerView.setAdapter(adapter);
         addedIngredientsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        if(addedIngredients.size() == 0){
+            noIngredientsTextView.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            noIngredientsTextView.setVisibility(View.INVISIBLE);
+        }
 
         FloatingActionButton fab = view.findViewById(R.id.add_ingredient_button);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -113,9 +124,8 @@ public class RecipeIngredientsStep extends Fragment implements Step {
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putParcelableArrayList("SavedIngredients", addedIngredients);
         super.onSaveInstanceState(outState);
-        Log.i("Foodiction", "Instance saved");
+        AddRecipeActivity.currentCreatedRecipe.setIngredients(addedIngredients);
     }
 
 

@@ -32,7 +32,8 @@
             android:theme="@style/Theme.Foodiction.NoActionBar" />
         <activity
             android:name=".AddRecipeActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".OpenLogoActivity"
             android:exported="true">

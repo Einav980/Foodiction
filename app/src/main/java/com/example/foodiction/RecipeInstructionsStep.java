@@ -5,14 +5,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -24,12 +24,23 @@ import java.util.ArrayList;
 public class RecipeInstructionsStep extends Fragment implements Step {
 
     static ArrayList<Instruction> instructions;
-    static AddInstructionAdapter adapter;
-    static ListView instructionsListView;
+    static AddInstructionAdapter mAdapter;
+    static RecyclerView mRecyclerView;
     static EditText addInstructionEditText;
     Button addInstructionBtn;
-
     static TextView noInstructionsTextView;
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(AddRecipeActivity.currentCreatedRecipe.instructions.size() == 0){
+            instructions = new ArrayList<>();
+        }
+        else{
+            instructions = AddRecipeActivity.currentCreatedRecipe.getInstructions();
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,10 +56,10 @@ public class RecipeInstructionsStep extends Fragment implements Step {
 
         addInstructionEditText = getView().findViewById(R.id.instruction_description_edittext);
         addInstructionBtn = getView().findViewById(R.id.add_instruction_button);
-        instructions = new ArrayList<>();
-        instructionsListView = getView().findViewById(R.id.instructions_listview);
-        adapter = new AddInstructionAdapter(getContext(), instructions);
-        instructionsListView.setAdapter(adapter);
+        mRecyclerView = getView().findViewById(R.id.instructions_recycler_view);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mAdapter = new AddInstructionAdapter(getContext(), instructions, MainActivity.GlobalMode.EDIT);
+        mRecyclerView.setAdapter(mAdapter);
         noInstructionsTextView = getView().findViewById(R.id.no_ingredients_textview);
 
         addInstructionBtn.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +97,7 @@ public class RecipeInstructionsStep extends Fragment implements Step {
             Instruction newInstruction = new Instruction(instructionText);
             instructions.add(newInstruction);
             AddRecipeActivity.currentCreatedRecipe.addInstruction(newInstruction);
-            instructionsListView.setAdapter(adapter);
+            mRecyclerView.setAdapter(mAdapter);
         }
         else
         {
@@ -96,7 +107,7 @@ public class RecipeInstructionsStep extends Fragment implements Step {
 
     public static void removeInstruction(int position){
         instructions.remove(position);
-        instructionsListView.setAdapter(adapter);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
@@ -107,6 +118,6 @@ public class RecipeInstructionsStep extends Fragment implements Step {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean("IS_EDITING", true);
+        AddRecipeActivity.currentCreatedRecipe.setInstructions(instructions);
     }
 }

@@ -42,11 +42,6 @@ public class Ingredient implements Parcelable {
         this.imageUrl = imageUrl;
     }
 
-    @Override
-    public String toString() {
-        return getName();
-    }
-
     public String getAmount() {
         return amount;
     }
@@ -74,5 +69,10 @@ public class Ingredient implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeStringArray(new String[]{this.name, this.imageUrl, this.amount});
+    }
+
+    @Override
+    public String toString(){
+        return String.format("name: %s, amount: %s", this.name, this.amount);
     }
 }

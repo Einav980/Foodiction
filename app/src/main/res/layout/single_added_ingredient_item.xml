@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="110dp"
     android:orientation="vertical"
     android:focusableInTouchMode="true"
     android:focusable="true">
@@ -36,15 +36,24 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/ingredientAmountEditText"
+        android:id="@+id/ingredient_amount_edit_text"
         android:layout_width="150dp"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/added_ingredient_name_textview"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/added_ingredient_imageview"
         android:hint="amount"
         android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/ingredient_amount_text_view"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/ingredient_amount_edit_text"
+        android:layout_alignBottom="@id/ingredient_amount_edit_text"
+        android:text="@string/amount_placeholder"
+        android:textSize="18dp"
+        android:visibility="invisible"/>
 
     <ImageButton
         android:id="@+id/delete_ingredient_button"

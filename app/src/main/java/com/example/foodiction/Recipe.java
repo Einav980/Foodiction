@@ -1,16 +1,10 @@
 package com.example.foodiction;
 
-import android.graphics.Color;
-import android.media.Image;
-import android.os.Build;
-import android.os.Parcel;
-import android.os.Parcelable;
+import android.net.Uri;
 import android.text.format.Time;
-
-import androidx.annotation.RequiresApi;
+import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,11 +18,11 @@ public class Recipe {
     String description;
     String creationDate;
     ArrayList<Ingredient> ingredients;
-    String imageUrl;
     ArrayList<Instruction> instructions;
     List<String> categories;
-    String makingDuration;
+    String makingDuration = "";
     String userId;
+    String imageUrl;
     //    Difficulty difficulty;
     boolean is_liked  =false;
     public Recipe(String name, String description, String makingDuration) {
@@ -36,7 +30,7 @@ public class Recipe {
         this.name = name;
         this.description = description;
         this.makingDuration = makingDuration;
-        this.userId = MainActivity.userGuid;
+        this.userId = MainActivity.getUserGuid();
         this.creationDate = new Time().toString();
     }
 
@@ -45,13 +39,13 @@ public class Recipe {
         this.name = recipe.getName();
         this.description = recipe.getDescription();
         this.makingDuration = recipe.getMakingDuration();
-        this.userId = MainActivity.userGuid;
+        this.userId = MainActivity.getUserGuid();
     }
     public Recipe(){
         this.id = UUID.randomUUID().toString();
         this.ingredients = new ArrayList<>();
         this.instructions = new ArrayList<>();
-        this.userId = MainActivity.userGuid;
+        this.userId = MainActivity.getUserGuid();
     }
 
     public String getName() {
@@ -92,8 +86,11 @@ public class Recipe {
         return instructions;
     }
 
-    public void setInstructions(ArrayList<Instruction> instructions) {
-        this.instructions = instructions;
+    public void setInstructions(ArrayList<Instruction> instructions) { this.instructions = instructions;}
+
+    @Override
+    public String toString(){
+        return String.format("name: %s\ndescription: %s\nimageUrl: %s\ningredients: %s",this.name,this.description, this.imageUrl, this.ingredients);
     }
 
     public void addInstruction(Instruction i){
@@ -104,6 +101,13 @@ public class Recipe {
         this.instructions.remove(i);
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 }
 
 

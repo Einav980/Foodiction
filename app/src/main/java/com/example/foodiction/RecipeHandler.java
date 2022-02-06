@@ -27,15 +27,18 @@ public class RecipeHandler {
         recipes = new ArrayList<>();
     }
 
-    public boolean addRecipe(Recipe recipe){
-        if(recipe.getName().isEmpty())
-        {
-            return false;
-        }
+    public void addRecipe(Recipe recipe){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference recipes = database.getReference("recipes");
         recipes.child(recipe.getID()).setValue(recipe);
-        return true;
+//        DatabaseReference df = recipes.child(recipe.getID());
+//        if(df == null){
+//            Log.i("Foodiction", "Erro!!!");
+//        }
+//        else
+//        {
+//            Log.i("Foodiction", df.toString());
+//        }
     }
 
     //TODO add all the relevant function to go to the DB
