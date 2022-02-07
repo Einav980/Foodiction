@@ -28,7 +28,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "FOODICTION";
@@ -64,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Initial fragment in MainActivity
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
-            navigationView.setCheckedItem(R.id.Home_page_btn);
+            navigationView.setCheckedItem(R.id.home_page_menu_item);
         }
 
         initUserGuid();
@@ -98,15 +97,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         MaterialToolbar topApp = findViewById(R.id.main_toolbar);
 
         switch (item.getItemId()) {
-            case R.id.favorite_btn:
+            case R.id.favorite_recipes_menu_item:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FavoriteFragment()).commit();
                 topApp.findViewById(R.id.search).setVisibility(View.INVISIBLE); //delete is needed
                 topApp.setTitle("Favorites");
                 break;
-            case R.id.Home_page_btn:
+            case R.id.home_page_menu_item:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
                 topApp.setTitle("Recipes");
                 topApp.findViewById(R.id.search).setVisibility(View.VISIBLE);
+                break;
+//            case R.id.manage_ingredients_menu_item:
+//                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+//                topApp.setTitle("Recipes");
+//                topApp.findViewById(R.id.search).setVisibility(View.VISIBLE);
+//                break;
+            case R.id.manage_categories_menu_item:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ManageCategoriesFragment()).commit();
+                topApp.setTitle("Manage Categories");
+                topApp.findViewById(R.id.search).setVisibility(View.INVISIBLE);
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

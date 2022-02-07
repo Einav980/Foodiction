@@ -36,6 +36,7 @@
         <entry key="..\:/Limudim/Android Project/Foodiction/app/src/main/res/layout/fragment_favorites.xml" value="0.39010416666666664" />
         <entry key="..\:/Limudim/Android Project/Foodiction/app/src/main/res/layout/fragment_home.xml" value="0.32708333333333334" />
         <entry key="..\:/Limudim/Android Project/Foodiction/app/src/main/res/layout/fragment_login.xml" value="0.315625" />
+        <entry key="..\:/Limudim/Android Project/Foodiction/app/src/main/res/layout/fragment_manage_categories.xml" value="0.5" />
         <entry key="..\:/Limudim/Android Project/Foodiction/app/src/main/res/layout/fragment_profile.xml" value="0.4239583333333333" />
         <entry key="..\:/Limudim/Android Project/Foodiction/app/src/main/res/layout/fragment_recipe_details_step.xml" value="0.3296875" />
         <entry key="..\:/Limudim/Android Project/Foodiction/app/src/main/res/layout/fragment_recipe_duration_step.xml" value="0.34010416666666665" />
@@ -50,9 +51,11 @@
         <entry key="..\:/Limudim/Android Project/Foodiction/app/src/main/res/layout/recipe_list_item.xml" value="0.3015625" />
         <entry key="..\:/Limudim/Android Project/Foodiction/app/src/main/res/layout/single_add_ingredient_item.xml" value="0.67" />
         <entry key="..\:/Limudim/Android Project/Foodiction/app/src/main/res/layout/single_added_ingredient_item.xml" value="0.5" />
+        <entry key="..\:/Limudim/Android Project/Foodiction/app/src/main/res/layout/single_category_item.xml" value="0.5" />
         <entry key="..\:/Limudim/Android Project/Foodiction/app/src/main/res/layout/single_ingredient_item.xml" value="0.3880248833592535" />
         <entry key="..\:/Limudim/Android Project/Foodiction/app/src/main/res/layout/single_instruction_item.xml" value="0.370018115942029" />
         <entry key="..\:/Limudim/Android Project/Foodiction/app/src/main/res/layout/toolbar.xml" value="0.3129528985507246" />
+        <entry key="..\:/Limudim/Android Project/Foodiction/app/src/main/res/menu/drawer_menu.xml" value="0.5541666666666667" />
         <entry key="..\:/Limudim/Android Project/Foodiction/app/src/main/res/menu/ingredients_list_menu.xml" value="0.25" />
         <entry key="..\:/Limudim/Android Project/Foodiction/app/src/main/res/menu/main_menu.xml" value="0.3307291666666667" />
         <entry key="..\:/Limudim/Android Project/Foodiction/app/src/main/res/mipmap-anydpi-v26/foodiction_logo.xml" value="0.353125" />
@@ -70,7 +73,6 @@
         <entry key="..\:/Users/einav.malcka/AndroidStudioProjects/Foodiction/app/src/main/res/drawable/ic_menu.xml" value="0.20208333333333334" />
         <entry key="..\:/Users/einav.malcka/AndroidStudioProjects/Foodiction/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.18794788273615634" />
         <entry key="..\:/Users/einav.malcka/AndroidStudioProjects/Foodiction/app/src/main/res/drawable/ic_search_black_24dp.xml" value="0.18980263157894736" />
-        <entry key="..\:/Users/einav.malcka/AndroidStudioProjects/Foodiction/app/src/main/res/layout/activity_choose_recipe_type.xml" value="0.23155737704918034" />
         <entry key="..\:/Users/einav.malcka/AndroidStudioProjects/Foodiction/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/einav.malcka/AndroidStudioProjects/Foodiction/app/src/main/res/layout/activity_main_test.xml" value="0.17960526315789474" />
         <entry key="..\:/Users/einav.malcka/AndroidStudioProjects/Foodiction/app/src/main/res/layout/activity_open_logo.xml" value="0.22171052631578947" />

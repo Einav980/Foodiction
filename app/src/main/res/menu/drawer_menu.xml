@@ -4,15 +4,24 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/Home_page_btn"
+            android:id="@+id/home_page_menu_item"
             android:icon="@drawable/ic_home_black_24dp"
             android:iconTint="@color/black"
             android:title="@string/homePage" />
 
         <item
-            android:id="@+id/favorite_btn"
+            android:id="@+id/favorite_recipes_menu_item"
             android:icon="@drawable/ic_baseline_favorite_24"
             android:title="@string/favorite" />
+        <item
+            android:id="@+id/manage_ingredients_menu_item"
+            android:icon="@drawable/ic_baseline_grass_24"
+            android:title="Manage Ingredients" />
+
+        <item
+            android:id="@+id/manage_categories_menu_item"
+            android:title="Manage Categories"
+            android:icon="@drawable/ic_baseline_category_24"/>
 
     </group>
 </menu>
