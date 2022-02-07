@@ -121,9 +121,9 @@ public class HomeFragment extends Fragment {
     }
 
     //TODO make it work
-    public static void filterByCatagorie(String categories[]) {
+    public static void filterByCatagorie(int category) {
         FirebaseRecyclerOptions<Recipe> options = new FirebaseRecyclerOptions.Builder<Recipe>()
-                .setQuery(mbase.orderByChild("categories").startAt(String.valueOf(categories)).endAt(String.valueOf(categories) + "\uf8ff"), Recipe.class)
+                .setQuery(mbase.orderByChild("categories").equalTo(String.valueOf(category)), Recipe.class)
                 .build();
         adapter.updateOptions(options);
         recyclerView.setAdapter(adapter);

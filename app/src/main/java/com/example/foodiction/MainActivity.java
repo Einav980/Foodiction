@@ -38,7 +38,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawer;
     public static CharSequence foodCategories[] = {"Italian", "Asian","Meat","Home Cooking","Fish","Salads","Indian","Soups",
             "Sandwiches","Desserts", "Pastries"};
-    boolean[] savedPrefrences= new boolean[foodCategories.length];
+//    boolean[] savedPrefrences= new boolean[foodCategories.length];
+    int savedPrefrences = -1;
     private String mSearchQuery= "";
     private static String userGuid;
 
@@ -189,31 +190,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public boolean  filterByCategories (MenuItem  item){
-        boolean[] prefrenses= Arrays.copyOf(savedPrefrences, foodCategories.length);;
+//        boolean[] prefrenses= Arrays.copyOf(savedPrefrences, foodCategories.length);
+        int[] prefrenses = {savedPrefrences};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Filter Categories");
 
         builder.setCancelable(false);
         builder.setIcon(R.drawable.ic_baseline_filter_alt_24);
-        builder.setMultiChoiceItems(foodCategories, prefrenses, new DialogInterface.OnMultiChoiceClickListener(){
+        builder.setSingleChoiceItems(foodCategories, prefrenses[0], new DialogInterface.OnClickListener(){
             @Override
-            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+            public void onClick(DialogInterface dialog, int which) {
+                prefrenses[0] = which;
             }
         });
         builder.setPositiveButton("Filter", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //TODO add filter logic according to the categories in the recipe
-                savedPrefrences = prefrenses;
+//                savedPrefrences = prefrenses[0];
+                HomeFragment.filterByCatagorie(savedPrefrences);
                 dialog.cancel();
-                Toast.makeText(MainActivity.this, "Filtered categories", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Filtered category", Toast.LENGTH_SHORT).show();
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which){
                 dialog.cancel();
+            }
+        });
+        builder.setNeutralButton("Clear all", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //TODO add filter logic according to the categories in the recipe
+                savedPrefrences = -1;
             }
         });
 
