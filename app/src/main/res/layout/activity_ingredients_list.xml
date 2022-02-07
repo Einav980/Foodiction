@@ -15,7 +15,8 @@
         <SearchView
             android:id="@+id/ingredients_search_edittext"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:actionViewClass="android.widget.SearchView"/>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
