@@ -2,10 +2,15 @@ package com.example.foodiction;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuItemCompat;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
@@ -68,6 +73,27 @@ public class IngredientsListActivity extends AppCompatActivity {
 
         mProgressCircle.setVisibility(View.INVISIBLE);
         ingredientsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mBase = FirebaseDatabase.getInstance().getReference("ingredients");
+                FirebaseRecyclerOptions<Ingredient> options= new FirebaseRecyclerOptions.Builder<Ingredient>()
+                        .setQuery(mBase.orderByChild("name").startAt(newText).endAt(newText + "\uf8ff"), Ingredient.class).build();
+
+                adapter.updateOptions(options);
+                ingredientsRecyclerView.setAdapter(adapter);
+                return false;
+            }
+        });
+
     }
 
     private void fetchAllIngredients(ArrayList<Ingredient> list){
@@ -93,6 +119,7 @@ public class IngredientsListActivity extends AppCompatActivity {
             }
         });
     }
+
 
     @Override
     protected void onDestroy() {
