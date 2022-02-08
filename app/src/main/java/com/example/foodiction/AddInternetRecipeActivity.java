@@ -2,8 +2,6 @@ package com.example.foodiction;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
@@ -17,19 +15,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -40,22 +31,14 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
-import com.stepstone.stepper.adapter.StepAdapter;
 
-public class AddRecipeActivity extends FragmentActivity implements StepperLayout.StepperListener {
-
-    ImageView imageView;
-    Button chooseImageButton;
-    View mView;
+public class AddInternetRecipeActivity extends FragmentActivity implements StepperLayout.StepperListener {
 
     public static Recipe currentCreatedRecipe;
 
     private static final int IMAGE_PICK_CODE = 1001;
     private static final int PERMISSION_CODE = 1000;
     private StepperLayout mStepperLayout;
-    private Fragment instructionsStepFragment;
-    private Fragment ingredientsStepFragment;
-    private Fragment detailsStepFragment;
     private RecipeHandler recipeHandler;
     private StorageReference mStorageRef;
     private DatabaseReference mDatabaseRef;
@@ -63,23 +46,23 @@ public class AddRecipeActivity extends FragmentActivity implements StepperLayout
     private ProgressDialog progressDialog;
     private Uri mImageUri;
     FirebaseAuth mAuth;
+    String URLextra;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_recipe);
+        setContentView(R.layout.activity_add_internet_recipe);
 
         mAuth = FirebaseAuth.getInstance();
         // Create an empty global recipe
         currentCreatedRecipe = new Recipe();
         recipeHandler = new RecipeHandler();
+        URLextra = getIntent().getStringExtra("create_recipe_internet_url");
+        currentCreatedRecipe.setInternetUrl(URLextra);
 
-        imageView = findViewById(R.id.recipeImage);
-        chooseImageButton = findViewById(R.id.selectImageButton);
-
-        mStepperLayout = findViewById(R.id.addRecipeStepperLayout);
+        mStepperLayout = findViewById(R.id.addRecipeInternetStepperLayout);
         mStepperLayout.setListener(this);
-        AddRecipeStepAdapter stepAdapter = new AddRecipeStepAdapter(getSupportFragmentManager(), getApplicationContext());
+        AddInternetRecipeStepAdapter stepAdapter = new AddInternetRecipeStepAdapter(getSupportFragmentManager(), getApplicationContext());
         mStepperLayout.setAdapter(stepAdapter);
 
         progressDialog = new ProgressDialog(this);
@@ -131,7 +114,7 @@ public class AddRecipeActivity extends FragmentActivity implements StepperLayout
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
-            RecipeDetailsStep.selectImageButton.setImageURI(data.getData());
+            RecipeInternetDetailsStep.selectImageButton.setImageURI(data.getData());
             mImageUri = data.getData();
         }
     }
@@ -189,7 +172,9 @@ public class AddRecipeActivity extends FragmentActivity implements StepperLayout
                             recipeHandler.addRecipe(currentCreatedRecipe);
                             progressDialog.hide();
                             Log.i("Foodiction", "recipe: "+ currentCreatedRecipe.toString());
-                            finish();
+//                            finish();
+                            Intent mainpage = new Intent(AddInternetRecipeActivity.this, MainActivity.class);
+                            startActivity(mainpage);
                         }
                     });
                 }
@@ -214,5 +199,11 @@ public class AddRecipeActivity extends FragmentActivity implements StepperLayout
             Toast.makeText(getApplicationContext(), "You must select an image for the recipe!", Toast.LENGTH_SHORT).show();
         }
     }
+
+
+//    public void onBackPressed() {
+//        startActivity(new Intent(AddInternetRecipeActivity.this, MainActivity.class));
+//    }
+
 
 }

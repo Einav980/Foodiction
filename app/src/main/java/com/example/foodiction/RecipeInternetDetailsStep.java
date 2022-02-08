@@ -5,11 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -20,6 +15,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.database.DataSnapshot;
@@ -33,13 +32,14 @@ import com.stepstone.stepper.VerificationError;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class RecipeDetailsStep extends Fragment implements Step {
+public class RecipeInternetDetailsStep extends Fragment implements Step {
 
     private static final int IMAGE_PICK_CODE = 1000;
     private static final int PERMISSION_CODE = 1001;
 
     TextView nameTextView;
     TextView descriptionTextView;
+    TextView URLTextView;
     InputMethodManager imgr;
     ArrayList<String> categories;
     String[] categoriesArray;
@@ -57,14 +57,15 @@ public class RecipeDetailsStep extends Fragment implements Step {
         imgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         mBase = FirebaseDatabase.getInstance().getReference("categories");
 
-        return inflater.inflate(R.layout.fragment_recipe_details_step, container, false);
+        return inflater.inflate(R.layout.fragment_recipe_internet_details_step, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        nameTextView = (TextView) getView().findViewById(R.id.details_step_recipe_name_textinput);
-        descriptionTextView = (TextView) getView().findViewById(R.id.details_step_recipe_description_textinput);
-        selectImageButton = getView().findViewById(R.id.details_step_choose_image_button);
+        nameTextView = (TextView) getView().findViewById(R.id.details_step_recipe_internet_name_textinput);
+        descriptionTextView = (TextView) getView().findViewById(R.id.details_step_recipe_internet_description_textinput);
+        URLTextView = (TextView) getView().findViewById(R.id.details_step_recipe_internet_URL_textinput);
+        selectImageButton = getView().findViewById(R.id.details_internet_step_choose_image_button);
         selectImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,6 +75,7 @@ public class RecipeDetailsStep extends Fragment implements Step {
             }
         });
 
+        URLTextView.setText(AddInternetRecipeActivity.currentCreatedRecipe.getInternetUrl());
         nameTextView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -82,7 +84,7 @@ public class RecipeDetailsStep extends Fragment implements Step {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-                AddRecipeActivity.currentCreatedRecipe.setName(charSequence.toString());
+                AddInternetRecipeActivity.currentCreatedRecipe.setName(charSequence.toString());
             }
 
             @Override
@@ -98,7 +100,7 @@ public class RecipeDetailsStep extends Fragment implements Step {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-                AddRecipeActivity.currentCreatedRecipe.setDescription(charSequence.toString());
+                AddInternetRecipeActivity.currentCreatedRecipe.setDescription(charSequence.toString());
             }
 
             @Override
@@ -107,9 +109,11 @@ public class RecipeDetailsStep extends Fragment implements Step {
             }
         });
 
+
+
         categories = new ArrayList<>();
 
-        selectedCategoriesText = getView().findViewById(R.id.details_step_categories_text);
+        selectedCategoriesText = getView().findViewById(R.id.details_internet_step_categories_text);
         fetchCategories();
         categoriesArray = new String[categories.size()];
         for(int i=0; i < categoriesArray.length; i++){
@@ -117,7 +121,7 @@ public class RecipeDetailsStep extends Fragment implements Step {
             categoriesArray[i] = categories.get(i);
         }
 
-        selectCategoryCard = getView().findViewById(R.id.details_step_categories_cardview);
+        selectCategoryCard = getView().findViewById(R.id.details_internet_step_categories_cardview);
         selectedCategories = new boolean[categories.size()];
         selectCategoryCard.setOnClickListener(new View.OnClickListener() {
             @Override

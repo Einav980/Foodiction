@@ -3,11 +3,6 @@ package com.example.foodiction;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +10,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TimePicker;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import com.stepstone.stepper.Step;
 import com.stepstone.stepper.VerificationError;
 
 import java.util.Locale;
 
-public class RecipeDurationStep extends Fragment implements Step{
+public class RecipeInternetDurationStep extends Fragment implements Step{
     Button timePickerButton;
     int hour;
     int minute;
@@ -36,17 +35,17 @@ public class RecipeDurationStep extends Fragment implements Step{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        if(!AddRecipeActivity.currentCreatedRecipe.getMakingDuration().isEmpty()){
-            makingDuration = AddRecipeActivity.currentCreatedRecipe.getMakingDuration();
+        if(!AddInternetRecipeActivity.currentCreatedRecipe.getMakingDuration().isEmpty()){
+            makingDuration = AddInternetRecipeActivity.currentCreatedRecipe.getMakingDuration();
         }
-        Log.i("Foodiction", "Making duration: "+ AddRecipeActivity.currentCreatedRecipe.makingDuration);
-        return inflater.inflate(R.layout.fragment_recipe_duration_step, container, false);
+        Log.i("Foodiction", "Making duration: "+ AddInternetRecipeActivity.currentCreatedRecipe.makingDuration);
+        return inflater.inflate(R.layout.fragment_recipe_internet_duration_step, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        timePickerButton = getView().findViewById(R.id.time_picker_button);
+        timePickerButton = getView().findViewById(R.id.time_picker_internet_button);
         if(makingDuration != ""){
             String[] timeData = makingDuration.split("h");
             int hour = Integer.valueOf(timeData[0].trim());
@@ -66,7 +65,7 @@ public class RecipeDurationStep extends Fragment implements Step{
                         String formattedTime = String.format(Locale.getDefault(), "%02d:%02d", hour, minute);
                         makingDuration = String.format(Locale.getDefault(), "%d"+"h"+" %02d", hour, minute);
                         timePickerButton.setText(formattedTime);
-                        AddRecipeActivity.currentCreatedRecipe.setMakingDuration(makingDuration);
+                        AddInternetRecipeActivity.currentCreatedRecipe.setMakingDuration(makingDuration);
                     }
                 };
                 int timerStyle = AlertDialog.THEME_HOLO_DARK;
@@ -97,6 +96,6 @@ public class RecipeDurationStep extends Fragment implements Step{
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString("saved_making_duration", makingDuration);
-        AddRecipeActivity.currentCreatedRecipe.setMakingDuration(makingDuration);
+        AddInternetRecipeActivity.currentCreatedRecipe.setMakingDuration(makingDuration);
     }
 }

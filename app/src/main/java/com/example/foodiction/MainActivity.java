@@ -87,7 +87,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     public void startRecipeActivity(View view) {
-        Intent intent = new Intent(this, AddRecipeActivity.class);
+//        Intent intent = new Intent(this, AddRecipeActivity.class);
+        Intent intent = new Intent(this, ChooseRecipeTypeActivity.class);
         startActivity(intent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }

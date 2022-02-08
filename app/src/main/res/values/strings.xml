@@ -65,4 +65,5 @@
     <string name="instructions">Steps</string>
     <string name="description_placeholder">Description Text</string>
     <string name="amount_placeholder">amount</string>
+    <string name="from_internet_btn_text">From internet</string>
 </resources>

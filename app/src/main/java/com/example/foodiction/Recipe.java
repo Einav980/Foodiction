@@ -23,8 +23,10 @@ public class Recipe {
     String makingDuration = "";
     String userId;
     String imageUrl;
-    //    Difficulty difficulty;
+    String internetUrl;
     boolean is_liked  =false;
+
+
     public Recipe(String name, String description, String makingDuration) {
         this.id = UUID.randomUUID().toString();
         this.name = name;
@@ -108,6 +110,10 @@ public class Recipe {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+    public String getInternetUrl() { return internetUrl; }
+
+    public void setInternetUrl(String internetUrl) { this.internetUrl = internetUrl; }
 }
 
 
