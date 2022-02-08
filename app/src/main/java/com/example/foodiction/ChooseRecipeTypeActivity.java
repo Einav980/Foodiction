@@ -17,10 +17,18 @@ public class ChooseRecipeTypeActivity extends AppCompatActivity {
     public void startAddImageRecipeActivity(View view) {
         Intent intent = new Intent(this, AddImageRecipeActivity.class);
         startActivity(intent);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     public void startAddRecipeActivity(View view) {
         Intent intent = new Intent(this, AddRecipeActivity.class);
         startActivity(intent);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
+
+//    public void startAddInternetRecipeActivity(View view) {
+//        Intent intent = new Intent(this, AddInternetRecipeActivity.class);
+//        startActivity(intent);
+//        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+//    }
 }

@@ -53,15 +53,21 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), RecipePageActivity.class);
-                intent.putExtra("recipe_display_name", model.getDisplayName());
-                intent.putExtra("recipe_description", model.getDescription());
-                intent.putExtra("recipe_making_duration", model.getMakingDuration());
-                intent.putExtra("recipe_ingredients", model.getIngredients());
-                intent.putExtra("recipe_instructions", model.getInstructions());
-                intent.putExtra("recipe_image_url", model.getImageUrl());
-
-                v.getContext().startActivity(intent);
+                if (model.getInternetUrl() == null){
+                    Intent intent = new Intent(v.getContext(), RecipePageActivity.class);
+                    intent.putExtra("recipe_name", model.getName());
+                    intent.putExtra("recipe_description", model.getDescription());
+                    intent.putExtra("recipe_making_duration", model.getMakingDuration());
+                    intent.putExtra("recipe_ingredients", model.getIngredients());
+                    intent.putExtra("recipe_instructions", model.getInstructions());
+                    intent.putExtra("recipe_image_url", model.getImageUrl());
+                    v.getContext().startActivity(intent);
+                }else{
+                    Intent intent = new Intent(v.getContext(), RecipeInternetPageActivity.class);
+                    intent.putExtra("recipe_internet_url", model.getInternetUrl());
+                    v.getContext().startActivity(intent);
+                }
+                Log.i("Foodiction", model.toString());
             }
 
         });

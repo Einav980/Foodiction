@@ -10,8 +10,6 @@ import java.util.UUID;
 
 public class Recipe {
 
-
-
     public enum Difficulty {Easy, Medium, Hard;};
     String id = "";
     String name = "";
@@ -22,8 +20,9 @@ public class Recipe {
     ArrayList<Instruction> instructions;
     List<String> categories;
     String makingDuration = "";
-    String userId = "";
-    String imageUrl = "";
+    String userId;
+    String imageUrl;
+    String internetUrl;
     boolean is_liked = false;
 
     public Recipe(String displayName, String description, String makingDuration) {
@@ -128,6 +127,10 @@ public class Recipe {
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
+
+    public String getInternetUrl() { return internetUrl; }
+
+    public void setInternetUrl(String internetUrl) { this.internetUrl = internetUrl; }
 }
 
 
