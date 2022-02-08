@@ -189,7 +189,9 @@ public class AddRecipeActivity extends FragmentActivity implements StepperLayout
                             recipeHandler.addRecipe(currentCreatedRecipe);
                             progressDialog.hide();
                             Log.i("Foodiction", "recipe: "+ currentCreatedRecipe.toString());
-                            finish();
+//                            finish();
+                            Intent mainpage = new Intent(AddRecipeActivity.this, MainActivity.class);
+                            startActivity(mainpage);
                         }
                     });
                 }
