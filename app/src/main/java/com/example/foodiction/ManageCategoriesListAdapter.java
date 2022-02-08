@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,7 +48,7 @@ public class ManageCategoriesListAdapter extends  RecyclerView.Adapter<ManageCat
                 builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        ManageCategoriesFragment.removeCategory(categories.get(holder.getAdapterPosition()));
+                        ManageCategoriesFragment.deleteCategory(categories.get(holder.getAdapterPosition()));
                         dialog.cancel();
                     }
                 });

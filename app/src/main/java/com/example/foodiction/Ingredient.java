@@ -6,25 +6,34 @@ import android.os.Parcelable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.UUID;
+
 public class Ingredient implements Parcelable {
     String name;
+    String displayName;
     String imageUrl;
-    String amount = "";
+    String amount;
+    String id;
 
-    public Ingredient(String name, String imageUrl) {
-        this.name = name;
+    public Ingredient(String displayName, String imageUrl) {
+        this.id = UUID.randomUUID().toString();
+        this.name = displayName.toLowerCase();
+        this.displayName = displayName;
         this.imageUrl = imageUrl;
     }
 
     public Ingredient(Parcel in){
-        String[] data = new String[3];
+        String[] data = new String[5];
         in.readStringArray(data);
-        name = data[0];
-        imageUrl = data[1];
-        amount = data[2];
+        id = data[0];
+        name = data[1];
+        displayName = data[2];
+        imageUrl = data[3];
+        amount = data[4];
     }
 
     public Ingredient(){}
+
 
     public String getName() {
         return name;
@@ -68,7 +77,23 @@ public class Ingredient implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeStringArray(new String[]{this.name, this.imageUrl, this.amount});
+        parcel.writeStringArray(new String[]{this.id, this.name, this.displayName, this.imageUrl, this.amount});
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Override

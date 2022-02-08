@@ -17,7 +17,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,12 +30,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.stepstone.stepper.Step;
 import com.stepstone.stepper.VerificationError;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import static android.app.Activity.RESULT_OK;
 
 public class RecipeDetailsStep extends Fragment implements Step {
 
@@ -46,11 +41,11 @@ public class RecipeDetailsStep extends Fragment implements Step {
     TextView nameTextView;
     TextView descriptionTextView;
     InputMethodManager imgr;
-    ArrayList<String> categories;
+    ArrayList<Category> categories;
     String[] categoriesArray;
     ArrayList<Integer> categoriesList = new ArrayList<>();
     boolean [] selectedCategories;
-    DatabaseReference mBase;
+    DatabaseReference categoriesDatabaseReference;
     MaterialCardView selectCategoryCard;
     TextView selectedCategoriesText;
     static ImageButton selectImageButton;
@@ -60,7 +55,7 @@ public class RecipeDetailsStep extends Fragment implements Step {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         imgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        mBase = FirebaseDatabase.getInstance().getReference("categories");
+        categoriesDatabaseReference = FirebaseDatabase.getInstance().getReference("categories");
 
         return inflater.inflate(R.layout.fragment_recipe_details_step, container, false);
     }
@@ -87,7 +82,8 @@ public class RecipeDetailsStep extends Fragment implements Step {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-                AddRecipeActivity.currentCreatedRecipe.setName(charSequence.toString());
+                AddRecipeActivity.currentCreatedRecipe.setName(charSequence.toString().toLowerCase());
+                AddRecipeActivity.currentCreatedRecipe.setDisplayName(charSequence.toString());
             }
 
             @Override
@@ -119,7 +115,7 @@ public class RecipeDetailsStep extends Fragment implements Step {
         categoriesArray = new String[categories.size()];
         for(int i=0; i < categoriesArray.length; i++){
             Log.i("Foodiction", "CategoriesArray[i] = "+categoriesArray[i]);
-            categoriesArray[i] = categories.get(i);
+            categoriesArray[i] = categories.get(i).getName();
         }
 
         selectCategoryCard = getView().findViewById(R.id.details_step_categories_cardview);
@@ -206,13 +202,12 @@ public class RecipeDetailsStep extends Fragment implements Step {
     }
 
     private void fetchCategories() {
-        mBase.addListenerForSingleValueEvent(new ValueEventListener() {
+        categoriesDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot categorySnapshot : snapshot.getChildren()) {
-                    String category = categorySnapshot.getValue().toString();
+                    Category category = categorySnapshot.getValue(Category.class);
                     categories.add(category);
-//                    Log.i("Foodiction", category + " was added");
                 }
             }
 
@@ -225,4 +220,28 @@ public class RecipeDetailsStep extends Fragment implements Step {
 
         categoriesArray = Arrays.copyOf(categories.toArray(), categories.size(), String[].class);
     }
+
+//    private void fetchCategories(){
+//        categoriesDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot categorySnapshot: snapshot.getChildren()){
+//                    Category category = categorySnapshot.getValue(Category.class);
+//                    categories.add(category);
+//                }
+//                if(categories.size() == 0 ) {
+//                    Toast.makeText(getContext(), "No Categories were found!", Toast.LENGTH_SHORT).show();
+//                }
+//
+//                mRecyclerView.setAdapter(mAdapter);
+//                mProgressBar.setVisibility(View.INVISIBLE);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+//                mProgressBar.setVisibility(View.INVISIBLE);
+//            }
+//        });
+//    }
 }

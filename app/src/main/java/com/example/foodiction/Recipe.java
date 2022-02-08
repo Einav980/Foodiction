@@ -13,21 +13,23 @@ public class Recipe {
 
 
     public enum Difficulty {Easy, Medium, Hard;};
-    String id;
-    String name;
-    String description;
-    String creationDate;
+    String id = "";
+    String name = "";
+    String displayName = "";
+    String description = "";
+    String creationDate = "";
     ArrayList<Ingredient> ingredients;
     ArrayList<Instruction> instructions;
     List<String> categories;
     String makingDuration = "";
-    String userId;
-    String imageUrl;
-    //    Difficulty difficulty;
-    boolean is_liked  =false;
-    public Recipe(String name, String description, String makingDuration) {
+    String userId = "";
+    String imageUrl = "";
+    boolean is_liked = false;
+
+    public Recipe(String displayName, String description, String makingDuration) {
         this.id = UUID.randomUUID().toString();
-        this.name = name;
+        this.name = displayName.toLowerCase();
+        this.displayName = displayName;
         this.description = description;
         this.makingDuration = makingDuration;
         this.userId = MainActivity.getUserGuid();
@@ -37,6 +39,7 @@ public class Recipe {
     public Recipe(Recipe recipe){
         this.id = recipe.getID();
         this.name = recipe.getName();
+        this.displayName = recipe.getDisplayName();
         this.description = recipe.getDescription();
         this.makingDuration = recipe.getMakingDuration();
         this.userId = MainActivity.getUserGuid();
@@ -90,7 +93,16 @@ public class Recipe {
 
     @Override
     public String toString(){
-        return String.format("name: %s\ndescription: %s\nimageUrl: %s\ningredients: %s",this.name,this.description, this.imageUrl, this.ingredients);
+        return String.format(
+                "id: %s\n" +
+                "name: %s\n" +
+                "displayName: %s\n" +
+                "description: %s\n" +
+                "imageUrl: %s\n" +
+                "ingredients: %s\n" +
+                "instructions: %s\n" +
+                "makingDuration: %s",
+                this.id ,this.name, this.displayName, this.description, this.imageUrl, this.ingredients, this.instructions, this.makingDuration);
     }
 
     public void addInstruction(Instruction i){
@@ -107,6 +119,14 @@ public class Recipe {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 }
 

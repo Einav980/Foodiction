@@ -109,11 +109,8 @@ public class HomeFragment extends Fragment {
     }
 
     public static void searchByName(String name) {
-//        String searchInputToLower = name.toLowerCase();
-//        String searchInputTOUpper = name.toUpperCase();
-
         FirebaseRecyclerOptions<Recipe> options = new FirebaseRecyclerOptions.Builder<Recipe>()
-                .setQuery(mbase.orderByChild("name").startAt(name).endAt(name + "\uf8ff"), Recipe.class)
+                .setQuery(mbase.orderByChild("name").startAt(name.toLowerCase()).endAt(name.toLowerCase() + "\uf8ff".toLowerCase()), Recipe.class)
                 .build();
 
         adapter.updateOptions(options);
@@ -121,7 +118,7 @@ public class HomeFragment extends Fragment {
     }
 
     //TODO make it work
-    public static void filterByCatagorie(int category) {
+    public static void filterByCategories(int category) {
         FirebaseRecyclerOptions<Recipe> options = new FirebaseRecyclerOptions.Builder<Recipe>()
                 .setQuery(mbase.orderByChild("categories").equalTo(String.valueOf(category)), Recipe.class)
                 .build();

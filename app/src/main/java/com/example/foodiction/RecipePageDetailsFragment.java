@@ -47,7 +47,7 @@ public class RecipePageDetailsFragment extends Fragment {
             else {
                 recipeDescription.setText(extras.getString("recipe_description"));
                 recipeMakingDuration.setText(extras.getString("recipe_making_duration"));
-                recipeNameTitle.setText(extras.getString("recipe_name"));
+                recipeNameTitle.setText(extras.getString("recipe_display_name"));
             }
         }
     }

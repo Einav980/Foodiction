@@ -97,7 +97,7 @@ public class RecipeInstructionsStep extends Fragment implements Step {
             Instruction newInstruction = new Instruction(instructionText);
             instructions.add(newInstruction);
             AddRecipeActivity.currentCreatedRecipe.addInstruction(newInstruction);
-            mRecyclerView.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
         }
         else
         {
@@ -107,7 +107,7 @@ public class RecipeInstructionsStep extends Fragment implements Step {
 
     public static void removeInstruction(int position){
         instructions.remove(position);
-        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

@@ -66,15 +66,13 @@ public class IngredientsListActivity extends AppCompatActivity {
         ingredientsRecyclerView = findViewById(R.id.ingredientsRecyclerView);
         ingredientsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mBase = FirebaseDatabase.getInstance().getReference("ingredients");
-        FirebaseRecyclerOptions<Ingredient> options= new FirebaseRecyclerOptions.Builder<Ingredient>().setQuery(mBase, Ingredient.class).build();
+        FirebaseRecyclerOptions<Ingredient> options = new FirebaseRecyclerOptions.Builder<Ingredient>().setQuery(mBase.orderByChild("name"), Ingredient.class).build();
 
-        adapter = new IngredientsListAdapter(options, this);
+        adapter = new IngredientsListAdapter(options, this, MainActivity.GlobalMode.VIEW);
         ingredientsRecyclerView.setAdapter(adapter);
 
         mProgressCircle.setVisibility(View.INVISIBLE);
         ingredientsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
 
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -85,39 +83,15 @@ public class IngredientsListActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 mBase = FirebaseDatabase.getInstance().getReference("ingredients");
-                FirebaseRecyclerOptions<Ingredient> options= new FirebaseRecyclerOptions.Builder<Ingredient>()
-                        .setQuery(mBase.orderByChild("name").startAt(newText).endAt(newText + "\uf8ff"), Ingredient.class).build();
+                FirebaseRecyclerOptions<Ingredient> options = new FirebaseRecyclerOptions.Builder<Ingredient>()
+                        .setQuery(mBase.orderByChild("name").startAt(newText.toLowerCase()).endAt(newText.toLowerCase() + "\uf8ff".toLowerCase()), Ingredient.class).build();
 
                 adapter.updateOptions(options);
-                ingredientsRecyclerView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
                 return false;
             }
         });
 
-    }
-
-    private void fetchAllIngredients(ArrayList<Ingredient> list){
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("ingredients");
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot ingredientSnapshot: snapshot.getChildren()){
-                    Ingredient ingredient = ingredientSnapshot.getValue(Ingredient.class);
-                    list.add(ingredient);
-                }
-                Collections.sort(list, new IngredientComparator());
-                if(list.size() == 0 ) {
-                    Toast.makeText(IngredientsListActivity.this, "No ingredients were found!", Toast.LENGTH_SHORT).show();
-                }
-                mProgressCircle.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(IngredientsListActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-                mProgressCircle.setVisibility(View.INVISIBLE);
-            }
-        });
     }
 
 

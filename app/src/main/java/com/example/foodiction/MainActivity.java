@@ -107,11 +107,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 topApp.setTitle("Recipes");
                 topApp.findViewById(R.id.search).setVisibility(View.VISIBLE);
                 break;
-//            case R.id.manage_ingredients_menu_item:
-//                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
-//                topApp.setTitle("Recipes");
-//                topApp.findViewById(R.id.search).setVisibility(View.VISIBLE);
-//                break;
+            case R.id.manage_ingredients_menu_item:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ManageIngredientsFragment()).commit();
+                topApp.setTitle("Manage Ingredients>");
+                topApp.findViewById(R.id.search).setVisibility(View.VISIBLE);
+                break;
             case R.id.manage_categories_menu_item:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ManageCategoriesFragment()).commit();
                 topApp.setTitle("Manage Categories");
@@ -218,7 +218,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(DialogInterface dialog, int which) {
                 //TODO add filter logic according to the categories in the recipe
 //                savedPrefrences = prefrenses[0];
-                HomeFragment.filterByCatagorie(savedPrefrences);
+                HomeFragment.filterByCategories(savedPrefrences);
                 dialog.cancel();
                 Toast.makeText(MainActivity.this, "Filtered category", Toast.LENGTH_SHORT).show();
             }

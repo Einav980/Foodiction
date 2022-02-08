@@ -7,13 +7,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -96,7 +99,6 @@ public class AddRecipeActivity extends FragmentActivity implements StepperLayout
     }
 
     public void selectImage(View view){
-        Log.i("FOODICTION", "Select Image");
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
                 // Permission not granted - request it
@@ -144,7 +146,6 @@ public class AddRecipeActivity extends FragmentActivity implements StepperLayout
 
     protected void onPause(){
         super.onPause();
-        Log.i("FOODICTION", "Recipe stopped");
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
@@ -155,23 +156,57 @@ public class AddRecipeActivity extends FragmentActivity implements StepperLayout
         }
         else
         {
+            for(Ingredient i: currentCreatedRecipe.ingredients){
+                if(i.getAmount().isEmpty()){
+                    Snackbar.make(getCurrentFocus(), "Please provide amount in each ingredient", Snackbar.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+            // Upload Image and add the recipe
             UploadRecipeImage();
         }
     }
 
     @Override
-    public void onError(VerificationError verificationError) {
-
-    }
+    public void onError(VerificationError verificationError) {}
 
     @Override
-    public void onStepSelected(int newStepPosition) {
-
-    }
+    public void onStepSelected(int newStepPosition) {}
 
     @Override
-    public void onReturn() {
-        Toast.makeText(getApplicationContext(), "Returned", Toast.LENGTH_SHORT).show();
+    public void onReturn() {}
+
+    @Override
+    public void onBackPressed() {
+        if(currentCreatedRecipe.name.isEmpty() &&
+                currentCreatedRecipe.ingredients.size() == 0 &&
+                currentCreatedRecipe.instructions.size() == 0){
+            super.onBackPressed();
+            finish();
+        }
+        else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(AddRecipeActivity.this);
+            builder.setMessage("Are you sure you want to leave? All the data will be lost!");
+            builder.setTitle("Warning");
+
+            builder.setCancelable(false);
+
+            builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                    finish();
+                }
+            });
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which)
+                { dialog.cancel(); }
+            });
+
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        }
     }
 
     private String getFileExtension(Uri uri){
@@ -194,7 +229,6 @@ public class AddRecipeActivity extends FragmentActivity implements StepperLayout
                             currentCreatedRecipe.setImageUrl(uri.toString());
                             recipeHandler.addRecipe(currentCreatedRecipe);
                             progressDialog.hide();
-                            Log.i("Foodiction", "recipe: "+ currentCreatedRecipe.toString());
                             finish();
                         }
                     });
@@ -204,20 +238,24 @@ public class AddRecipeActivity extends FragmentActivity implements StepperLayout
                 public void onFailure(@NonNull Exception e) {
                     Toast.makeText(getApplicationContext(), "Failed uploading recipe", Toast.LENGTH_SHORT);
                 }
-            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                    Log.i("Foodiction", "Started uploading...");
-                }
+
             }).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                    Log.i("Foodiction", task.getResult().getStorage().getDownloadUrl().toString());
                 }
             });
         }
         else{
-            Toast.makeText(getApplicationContext(), "You must select an image for the recipe!", Toast.LENGTH_SHORT).show();
+            progressDialog.show();
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    recipeHandler.addRecipe(currentCreatedRecipe);
+                    progressDialog.hide();
+                    finish();
+                }
+            }, 1000);
         }
     }
 

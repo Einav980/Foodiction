@@ -1,7 +1,9 @@
 package com.example.foodiction;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -35,6 +38,7 @@ public class ManageCategoriesFragment extends Fragment {
     static DatabaseReference categoriesDatabaseReference;
     EditText categoryNameEditText;
     Button addCategoryButton;
+    ProgressBar mProgressBar;
 
     public ManageCategoriesFragment() {
         // Required empty public constructor
@@ -69,11 +73,17 @@ public class ManageCategoriesFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         categoryNameEditText = getView().findViewById(R.id.manage_categories_category_name_edit_text);
         addCategoryButton = getView().findViewById(R.id.manage_categories_add_category_btn);
+        mProgressBar = getView().findViewById(R.id.manage_categories_progress_bar);
+        mProgressBar.setVisibility(View.VISIBLE);
 
         addCategoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String categoryName = categoryNameEditText.getText().toString();
+                if(categoryName.isEmpty()){
+                    Snackbar.make(getView(), "Category name cannot be empty!", Snackbar.LENGTH_SHORT).show();
+                    return;
+                }
                 Category c = new Category(categoryName);
                 addCategory(c);
             }
@@ -87,37 +97,36 @@ public class ManageCategoriesFragment extends Fragment {
                 for (DataSnapshot categorySnapshot: snapshot.getChildren()){
                     Category category = categorySnapshot.getValue(Category.class);
                     categories.add(category);
-                    Log.i("Foodiction", "category added");
                 }
                 if(categories.size() == 0 ) {
                     Toast.makeText(getContext(), "No Categories were found!", Toast.LENGTH_SHORT).show();
                 }
 
                 mRecyclerView.setAdapter(mAdapter);
-//                mProgressCircle.setVisibility(View.INVISIBLE);
+                mProgressBar.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-//                mProgressCircle.setVisibility(View.INVISIBLE);
+                mProgressBar.setVisibility(View.INVISIBLE);
             }
         });
     }
 
-    public static void removeCategory(Category category){
+    public static void deleteCategory(Category category){
 
         categoriesDatabaseReference.child(category.getId()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                Log.i("Foodiction", "Category was deleted!");
+                Snackbar.make(mRecyclerView, String.format("Category '%s' was deleted", category.getName()), Snackbar.LENGTH_SHORT).show();
                 categories.remove(category);
-                mRecyclerView.setAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Snackbar.make(mRecyclerView.getRootView(), "Error", Snackbar.LENGTH_SHORT);
+                Snackbar.make(mRecyclerView, "Error", Snackbar.LENGTH_SHORT).show();
             }
         });
     }
@@ -125,9 +134,8 @@ public class ManageCategoriesFragment extends Fragment {
     public void addCategory(Category newCategory){
         // if not found
         for(Category category: categories){
-            Log.i("Foodiction", "Category: "+ category.getName());
-            if(category.getName().toLowerCase() == newCategory.getName().toLowerCase()){
-                Snackbar.make(mRecyclerView.getRootView(), "Error", Snackbar.LENGTH_SHORT);
+            if(category.getName().equalsIgnoreCase(newCategory.getName())){
+                Snackbar.make(getView(), "Category already added!", Snackbar.LENGTH_SHORT).show();
                 return;
             }
         }
@@ -137,7 +145,7 @@ public class ManageCategoriesFragment extends Fragment {
             public void onSuccess(Void unused) {
                 categoryNameEditText.getText().clear();
                 categories.add(newCategory);
-                mRecyclerView.setAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

@@ -12,13 +12,6 @@
         android:layout_height="wrap_content"
         android:gravity="center">
 
-        <EditText
-            android:id="@+id/manage_categories_category_name_edit_text"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:hint="Category Name" />
-
         <Button
             android:id="@+id/manage_categories_add_category_btn"
             android:layout_width="wrap_content"
@@ -27,11 +20,30 @@
             android:layout_marginLeft="20dp"
             android:layout_toRightOf="@id/manage_categories_category_name_edit_text"
             android:text="Add" />
+
+        <EditText
+            android:id="@+id/manage_categories_category_name_edit_text"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:hint="Category Name"
+            android:inputType="textPersonName" />
     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/manage_categories_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/manage_categories_header">
+
+    <ProgressBar
+        android:id="@+id/manage_categories_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/manage_categories_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/manage_categories_header"
         tools:listitem="@layout/single_category_item"/>
+    </RelativeLayout>
 </RelativeLayout>

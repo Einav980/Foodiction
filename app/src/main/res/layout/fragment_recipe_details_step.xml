@@ -51,8 +51,8 @@
         android:layout_below="@id/recipe_description_input_layout"
         android:layout_centerHorizontal="true"
         android:backgroundTint="#333333"
-        android:src="@drawable/ic_baseline_image_24"
-        android:scaleType="fitXY" />
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_baseline_image_24" />
 
     <TextView
         android:id="@+id/details_step_categories_title"
@@ -78,12 +78,14 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/details_step_categories_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Categories"
-                android:layout_centerInParent="true"/>
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:text="Categories" />
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 

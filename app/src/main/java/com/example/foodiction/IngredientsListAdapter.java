@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,11 +21,13 @@ import com.squareup.picasso.Picasso;
 public class IngredientsListAdapter extends FirebaseRecyclerAdapter<Ingredient, IngredientsListAdapter.IngredientViewHolder> {
     Context context;
     Activity mActivity;
+    MainActivity.GlobalMode mode;
 
     public IngredientsListAdapter(
-            @NonNull FirebaseRecyclerOptions<Ingredient> options, Activity mActivity){
+            @NonNull FirebaseRecyclerOptions<Ingredient> options, Activity mActivity, MainActivity.GlobalMode mode){
         super(options);
         this.mActivity = mActivity;
+        this.mode = mode;
     }
 
     @Override
@@ -34,7 +37,7 @@ public class IngredientsListAdapter extends FirebaseRecyclerAdapter<Ingredient, 
     {
 
         Picasso.get().load(model.getImageUrl()).placeholder(R.drawable.ic_food_placeholder).into(holder.ingredientImageView);
-        holder.ingredientNameTextView.setText(model.getName());
+        holder.ingredientNameTextView.setText(model.getDisplayName());
         holder.itemView.setClickable(true);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +48,12 @@ public class IngredientsListAdapter extends FirebaseRecyclerAdapter<Ingredient, 
                 mActivity.finish();
             }
         });
+        if(mode == MainActivity.GlobalMode.EDIT){
+            holder.deleteButton.setVisibility(View.VISIBLE);
+        }
+        else{
+            holder.deleteButton.setVisibility(View.INVISIBLE);
+        }
     }
 
     @NonNull
@@ -57,11 +66,13 @@ public class IngredientsListAdapter extends FirebaseRecyclerAdapter<Ingredient, 
     public class IngredientViewHolder extends RecyclerView.ViewHolder {
         TextView ingredientNameTextView;
         ImageView ingredientImageView;
+        ImageButton deleteButton;
 
         public IngredientViewHolder(@NonNull View itemView) {
             super(itemView);
             ingredientImageView = itemView.findViewById(R.id.ingredient_image);
             ingredientNameTextView = itemView.findViewById(R.id.ingredient_name);
+            deleteButton = itemView.findViewById(R.id.single_ingredient_delete_button);
         }
     }
 }

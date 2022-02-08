@@ -12,17 +12,24 @@
         android:layout_alignParentLeft="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:src="@drawable/ingredient_eggs"/>
+        android:src="@drawable/ingredient_eggs" />
 
     <TextView
         android:id="@+id/ingredient_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_toRightOf="@id/ingredient_image"
+        android:gravity="center|left"
         android:padding="10dp"
         android:text="Title"
-        android:gravity="center|left"
         android:textColor="@color/black"
         android:textSize="18dp"
-        android:layout_toRightOf="@id/ingredient_image"
-        />
+        android:layout_marginLeft="15dp"/>
+
+    <ImageButton
+        android:id="@+id/single_ingredient_delete_button"
+        style="@style/clearButtonStyle"
+        android:layout_alignParentRight="true"
+        android:background="@null" />
+
 </RelativeLayout>
