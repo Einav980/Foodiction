@@ -49,7 +49,6 @@ public class AddRecipeActivity extends FragmentActivity implements StepperLayout
 
     ImageView imageView;
     Button chooseImageButton;
-    View mView;
     Recipe.RecipeType recipeType;
     String URLextra;
 

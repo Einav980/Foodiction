@@ -28,7 +28,6 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class IngredientsListActivity extends AppCompatActivity {
-    static ArrayList<Ingredient> ingredientsList;
     static RecyclerView ingredientsRecyclerView;
     ProgressBar mProgressCircle;
     SearchView mSearchView;

@@ -23,9 +23,7 @@ public class FavoriteFragment extends Fragment {
     private static RecyclerView recyclerView;
     static RecipeListAdapter adapter;
     static DatabaseReference mbase;
-    private static List<Recipe> recipeListItems;
     static RecipeHandler recipeHandler;
-    static MainActivity mainActivity;
     static ProgressBar progressBar;
 
     @Override
@@ -70,16 +68,5 @@ public class FavoriteFragment extends Fragment {
         super.onStop();
         adapter.stopListening();
     }
-
-    //TODO make it work
-//    public static void searchByNameFavorites(String name) {
-//        FirebaseRecyclerOptions<Recipe> options = new FirebaseRecyclerOptions.Builder<Recipe>()
-//                .setQuery(mbase.orderByChild("name").startAt(name).endAt(name + "\uf8ff")
-//                        , Recipe.class)
-//                .build();
-//
-//        adapter.updateOptions(options);
-//        recyclerView.setAdapter(adapter);
-//    }
 
 }
