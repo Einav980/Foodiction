@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,6 +42,8 @@ public class RecipeDetailsStep extends Fragment implements Step {
     TextView nameTextView;
     TextView descriptionTextView;
     InputMethodManager imgr;
+    TextView URLTextView;
+    TextInputLayout URLTextInputLayout;
     ArrayList<Category> categories;
     String[] categoriesArray;
     ArrayList<Integer> categoriesList = new ArrayList<>();
@@ -65,6 +68,8 @@ public class RecipeDetailsStep extends Fragment implements Step {
         nameTextView = (TextView) getView().findViewById(R.id.details_step_recipe_name_textinput);
         descriptionTextView = (TextView) getView().findViewById(R.id.details_step_recipe_description_textinput);
         selectImageButton = getView().findViewById(R.id.details_step_choose_image_button);
+        URLTextView = (TextView) getView().findViewById(R.id.details_step_recipe_internet_URL_textinput);
+        URLTextInputLayout = (TextInputLayout) getView().findViewById(R.id.recipe_internet_URL_input_layout);
         selectImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,6 +78,11 @@ public class RecipeDetailsStep extends Fragment implements Step {
                 getActivity().startActivityForResult(intent, PERMISSION_CODE);
             }
         });
+
+        if (AddRecipeActivity.currentCreatedRecipe.getType() == Recipe.RecipeType.URL){
+            URLTextView.setText(AddRecipeActivity.currentCreatedRecipe.getInternetUrl());
+            URLTextInputLayout.setVisibility(View.VISIBLE);
+        }
 
         nameTextView.addTextChangedListener(new TextWatcher() {
             @Override
@@ -104,7 +114,6 @@ public class RecipeDetailsStep extends Fragment implements Step {
 
             @Override
             public void afterTextChanged(Editable editable) {
-
             }
         });
 

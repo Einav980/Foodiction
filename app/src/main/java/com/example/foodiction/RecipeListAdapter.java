@@ -55,8 +55,9 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (model.getInternetUrl() == null){
-                    Intent intent = new Intent(v.getContext(), RecipePageActivity.class);
+                Intent intent;
+                if (model.getType() == Recipe.RecipeType.DEFAULT){
+                    intent = new Intent(v.getContext(), RecipePageActivity.class);
                     intent.putExtra("recipe_name", model.getName());
                     intent.putExtra("recipe_description", model.getDescription());
                     intent.putExtra("recipe_making_duration", model.getMakingDuration());
@@ -64,13 +65,16 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
                     intent.putExtra("recipe_instructions", model.getInstructions());
                     intent.putExtra("recipe_image_url", model.getImageUrl());
                     v.getContext().startActivity(intent);
-                }else{
-                    Intent intent = new Intent(v.getContext(), RecipeInternetPageActivity.class);
+                }else if(model.getType() == Recipe.RecipeType.URL){
+                    intent = new Intent(v.getContext(), RecipeInternetPageActivity.class);
                     intent.putExtra("recipe_internet_url", model.getInternetUrl());
+                    v.getContext().startActivity(intent);
+                } else if(model.getType() == Recipe.RecipeType.IMAGE){
+                    intent = new Intent(v.getContext(), RecipeImagePageActivity.class);
+                    intent.putExtra("recipe_image_url", model.getImageUrl());
                     v.getContext().startActivity(intent);
                 }
             }
-
         });
 
         holder.addToFavBtn.setOnClickListener(new View.OnClickListener() {

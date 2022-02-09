@@ -50,6 +50,8 @@ public class AddRecipeActivity extends FragmentActivity implements StepperLayout
     ImageView imageView;
     Button chooseImageButton;
     View mView;
+    Recipe.RecipeType recipeType;
+    String URLextra;
 
     public static Recipe currentCreatedRecipe;
 
@@ -75,15 +77,25 @@ public class AddRecipeActivity extends FragmentActivity implements StepperLayout
         mAuth = FirebaseAuth.getInstance();
         // Create an empty global recipe
         currentCreatedRecipe = new Recipe();
-        recipeHandler = new RecipeHandler();
-
+        AddRecipeStepAdapter stepAdapterDefault = new AddRecipeStepAdapter(getSupportFragmentManager(), getApplicationContext());
+        AddInternetRecipeStepAdapter stepAdapterOther = new AddInternetRecipeStepAdapter(getSupportFragmentManager(), getApplicationContext());
         imageView = findViewById(R.id.recipeImage);
         chooseImageButton = findViewById(R.id.selectImageButton);
-
         mStepperLayout = findViewById(R.id.addRecipeStepperLayout);
+        recipeHandler = new RecipeHandler();
+
         mStepperLayout.setListener(this);
-        AddRecipeStepAdapter stepAdapter = new AddRecipeStepAdapter(getSupportFragmentManager(), getApplicationContext());
-        mStepperLayout.setAdapter(stepAdapter);
+        recipeType = (Recipe.RecipeType) getIntent().getSerializableExtra("create_recipe_type");
+        currentCreatedRecipe.setType(recipeType);
+        if(recipeType == Recipe.RecipeType.URL){
+            URLextra = getIntent().getStringExtra("create_recipe_internet_url");
+            currentCreatedRecipe.setInternetUrl(URLextra);
+        }
+        if (recipeType == Recipe.RecipeType.DEFAULT){
+            mStepperLayout.setAdapter(stepAdapterDefault);
+        }else {
+            mStepperLayout.setAdapter(stepAdapterOther);
+        }
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Saving");
@@ -225,7 +237,9 @@ public class AddRecipeActivity extends FragmentActivity implements StepperLayout
                             progressDialog.hide();
                             finish();
                             Log.i("Foodiction", "recipe: "+ currentCreatedRecipe.toString());
-//                            finish();
+
+                            //TODO fix complete
+                            finish();
                             Intent mainpage = new Intent(AddRecipeActivity.this, MainActivity.class);
                             startActivity(mainpage);
                         }

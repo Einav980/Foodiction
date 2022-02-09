@@ -6,25 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".RecipeInternetDurationStep">
 
-    <TextView
-        android:id="@+id/duration_internet_title_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="Enter total making time"
-        android:layout_marginTop="20dp"
-        android:textSize="24sp" />
+<!--    <TextView-->
+<!--        android:id="@+id/duration_internet_title_textview"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:text="Enter total making time"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:textSize="24sp" />-->
 
-    <Button
-        android:id="@+id/time_picker_internet_button"
-        android:layout_width="220dp"
-        android:layout_height="80dp"
-        android:layout_below="@id/duration_internet_title_textview"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/round_corner_button"
-        android:drawableLeft="@drawable/ic_baseline_timer_24"
-        android:text="@string/default_timer"
-        android:textSize="34sp" />
+<!--    <Button-->
+<!--        android:id="@+id/time_picker_internet_button"-->
+<!--        android:layout_width="220dp"-->
+<!--        android:layout_height="80dp"-->
+<!--        android:layout_below="@id/duration_internet_title_textview"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:background="@drawable/round_corner_button"-->
+<!--        android:drawableLeft="@drawable/ic_baseline_timer_24"-->
+<!--        android:text="@string/default_timer"-->
+<!--        android:textSize="34sp" />-->
 
 </RelativeLayout>

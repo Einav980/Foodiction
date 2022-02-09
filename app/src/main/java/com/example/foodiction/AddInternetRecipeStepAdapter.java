@@ -19,8 +19,8 @@ public class AddInternetRecipeStepAdapter extends AbstractFragmentStepAdapter {
     public AddInternetRecipeStepAdapter(FragmentManager fm, Context context) {
         super(fm, context);
         steps = new ArrayList<Step>();
-        steps.add(new RecipeInternetDetailsStep());
-        steps.add(new RecipeInternetDurationStep());
+        steps.add(new RecipeDetailsStep());
+        steps.add(new RecipeDurationStep());
     }
     @Override
     public Step createStep(int position) {
