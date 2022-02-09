@@ -15,13 +15,15 @@ public class ChooseRecipeTypeActivity extends AppCompatActivity {
     }
 
     public void startAddImageRecipeActivity(View view) {
-        Intent intent = new Intent(this, AddImageRecipeActivity.class);
+        Intent intent = new Intent(this, AddRecipeActivity.class);
+        intent.putExtra("create_recipe_type", Recipe.RecipeType.IMAGE);
         startActivity(intent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     public void startAddRecipeActivity(View view) {
         Intent intent = new Intent(this, AddRecipeActivity.class);
+        intent.putExtra("create_recipe_type", Recipe.RecipeType.DEFAULT);
         startActivity(intent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }

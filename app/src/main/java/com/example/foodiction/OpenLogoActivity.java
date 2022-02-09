@@ -57,8 +57,9 @@ public class OpenLogoActivity extends AppCompatActivity {
     void handleSendText(Intent intent) {
         String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
         if (sharedText != null) {
-            Intent internetRecipeIntent = new Intent(OpenLogoActivity.this, AddInternetRecipeActivity.class);
+            Intent internetRecipeIntent = new Intent(OpenLogoActivity.this, AddRecipeActivity.class);
             internetRecipeIntent.putExtra("create_recipe_internet_url", sharedText);
+            internetRecipeIntent.putExtra("create_recipe_type", Recipe.RecipeType.URL);
             startActivity(internetRecipeIntent);
         }
         else {
