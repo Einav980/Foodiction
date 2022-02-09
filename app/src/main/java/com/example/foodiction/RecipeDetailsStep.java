@@ -64,10 +64,10 @@ public class RecipeDetailsStep extends Fragment implements Step {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         nameTextView = (TextView) getView().findViewById(R.id.details_step_recipe_name_textinput);
-        descriptionTextView = (TextView) getView().findViewById(R.id.details_step_recipe_description_textinput);
+        descriptionTextView = (TextView) getView().findViewById(R.id.details_step_recipe_description_text_input);
         selectImageButton = getView().findViewById(R.id.details_step_choose_image_button);
-        URLTextView = (TextView) getView().findViewById(R.id.details_step_recipe_internet_URL_textinput);
-        URLTextInputLayout = (TextInputLayout) getView().findViewById(R.id.recipe_internet_URL_input_layout);
+        URLTextView = (TextView) getView().findViewById(R.id.details_step_recipe_internet_url_text_input);
+        URLTextInputLayout = (TextInputLayout) getView().findViewById(R.id.recipe_internet_url_input_layout);
         selectImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -135,6 +135,9 @@ public class RecipeDetailsStep extends Fragment implements Step {
         if (nameTextView.getText().toString().isEmpty() || descriptionTextView.getText().toString().isEmpty()){
             return new VerificationError("Enter all details!");
         }
+        if(AddRecipeActivity.currentCreatedRecipe.getCategory() == null){
+            return new VerificationError("Please choose category");
+        }
 
         return null;
     }
@@ -200,7 +203,6 @@ public class RecipeDetailsStep extends Fragment implements Step {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
-
         });
     }
 

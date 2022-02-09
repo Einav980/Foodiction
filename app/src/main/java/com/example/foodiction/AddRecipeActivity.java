@@ -184,6 +184,13 @@ public class AddRecipeActivity extends FragmentActivity implements StepperLayout
 
     @Override
     public void onBackPressed() {
+        if(currentCreatedRecipe.getType() == Recipe.RecipeType.URL){
+            super.onBackPressed();
+            finish();
+            Intent mainPage = new Intent(AddRecipeActivity.this, MainActivity.class);
+            mainPage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(mainPage);
+        }
         if(currentCreatedRecipe.name.isEmpty() &&
                 currentCreatedRecipe.ingredients.size() == 0 &&
                 currentCreatedRecipe.instructions.size() == 0){
@@ -234,11 +241,8 @@ public class AddRecipeActivity extends FragmentActivity implements StepperLayout
                         public void onSuccess(Uri uri) {
                             currentCreatedRecipe.setImageUrl(uri.toString());
                             recipeHandler.addRecipe(currentCreatedRecipe);
-                            progressDialog.hide();
-                            finish();
-                            Log.i("Foodiction", "recipe: "+ currentCreatedRecipe.toString());
-
                             progressDialog.dismiss();
+                            finish();
                             Intent mainPage = new Intent(AddRecipeActivity.this, MainActivity.class);
                             mainPage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(mainPage);

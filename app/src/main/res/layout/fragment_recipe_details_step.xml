@@ -6,107 +6,124 @@
     android:layout_height="match_parent"
     tools:context=".RecipeDetailsStep">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/recipe_name_input_layout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_alignParentTop="true">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/details_step_recipe_name_textinput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Name"
-            android:maxLines="1"
-            android:singleLine="true" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/recipe_description_input_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/recipe_name_input_layout"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        app:counterEnabled="true"
-        app:counterMaxLength="150">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/details_step_recipe_description_textinput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Description" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/recipe_internet_URL_input_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/recipe_description_input_layout"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        app:counterEnabled="true"
-        app:counterMaxLength="150"
-        android:visibility="gone">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/details_step_recipe_internet_URL_textinput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="URL"
-            android:enabled="false" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <ImageButton
-        android:id="@+id/details_step_choose_image_button"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_below="@id/recipe_internet_URL_input_layout"
-        android:layout_centerHorizontal="true"
-        android:backgroundTint="#333333"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_baseline_image_24" />
-
-    <TextView
-        android:id="@+id/details_step_categories_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/details_step_choose_image_button"
-        android:layout_alignLeft="@id/recipe_name_input_layout"
-        android:layout_marginTop="20dp"
-        android:text="Categories"
-        android:textColor="@color/black"
-        android:textSize="26dp" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/details_step_categories_cardview"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:layout_below="@id/details_step_categories_title"
-        android:layout_alignLeft="@id/details_step_categories_title"
-        android:layout_marginTop="10dp"
-        app:cardBackgroundColor="#EEEEEE"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="5dp">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/recipe_name_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_alignParentTop="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/details_step_recipe_name_textinput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Name"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/recipe_description_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/recipe_name_input_layout"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                app:counterEnabled="true"
+                app:counterMaxLength="150">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/details_step_recipe_description_text_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Description" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/recipe_internet_url_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/recipe_description_input_layout"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                app:counterEnabled="true"
+                app:counterMaxLength="150"
+                android:visibility="gone">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/details_step_recipe_internet_url_text_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="URL"
+                    android:enabled="false" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:id="@+id/details_step_categories_text"
+                android:id="@+id/details_step_optional_image_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:paddingLeft="10dp"
-                android:text="Categories" />
-        </RelativeLayout>
-    </com.google.android.material.card.MaterialCardView>
+                android:layout_below="@id/recipe_internet_url_input_layout"
+                android:layout_centerHorizontal="true"
+                android:text="(optional)" />
 
+            <ImageButton
+                android:id="@+id/details_step_choose_image_button"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_below="@id/details_step_optional_image_label"
+                android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/round_corner_button"
+                android:backgroundTint="@color/app_main_light"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_baseline_image_24" />
+
+            <TextView
+                android:id="@+id/details_step_categories_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/details_step_choose_image_button"
+                android:layout_alignLeft="@id/recipe_name_input_layout"
+                android:layout_marginTop="20dp"
+                android:text="Categories"
+                android:textColor="@color/black"
+                android:textSize="26dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/details_step_categories_cardview"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:layout_below="@id/details_step_categories_title"
+                android:layout_alignLeft="@id/details_step_categories_title"
+                android:layout_marginTop="10dp"
+                app:cardBackgroundColor="#EEEEEE"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/details_step_categories_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="10dp"
+                        android:text="Categories" />
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>
