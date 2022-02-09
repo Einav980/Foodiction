@@ -4,55 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChooseRecipeTypeActivity"
-    android:background="@color/lightOrangePink">
+    tools:context=".ChooseRecipeTypeActivity">
 
-    <TextView
-        android:id="@+id/recipe_type_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Choose Recipe type"
-        app:layout_constraintBottom_toTopOf="@+id/createRecipeButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"/>
 
     <Button
         android:id="@+id/chooseImageButton"
         android:layout_width="150dp"
-        android:layout_height="100dp"
-        android:layout_margin="10dp"
-        android:layout_marginStart="271dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="141dp"
-        android:layout_marginBottom="632dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
         android:onClick="startAddImageRecipeActivity"
         android:text="@string/from_image_btn_txt"
         android:textSize="20sp"
         android:theme="@style/ChooseRecipeTypeButton"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/createRecipeButton"
+        app:layout_constraintHorizontal_bias="0.53"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createRecipeButton" />
-
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/createRecipeButton"
         android:layout_width="150dp"
-        android:layout_height="100dp"
-        android:layout_margin="10dp"
-        android:layout_marginTop="166dp"
-        android:layout_marginBottom="238dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="16dp"
         android:onClick="startAddRecipeActivity"
         android:text="@string/create_recipe_btn_txt"
         android:textSize="20sp"
         android:theme="@style/ChooseRecipeTypeButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/chooseImageButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/recipe_type_text"
+        style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Recipe type"
+        android:textSize="28dp"
         app:layout_constraintBottom_toTopOf="@+id/chooseImageButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.498" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

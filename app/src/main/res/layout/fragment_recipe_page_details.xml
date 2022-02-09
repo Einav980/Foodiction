@@ -28,21 +28,22 @@
     <TextView
         android:id="@+id/recipe_page_recipe_making_duration"
         style="@style/RecipePage"
-        android:textSize="22dp"
         android:layout_width="wrap_content"
         android:layout_below="@id/recipe_page_recipe_description"
         android:drawableLeft="@drawable/ic_baseline_recipe_timer_24"
         android:drawablePadding="5dp"
-        android:padding="10dp"/>
+        android:padding="10dp"
+        android:textSize="22dp"
+        android:text="Total Time:"/>
 
     <TextView
         android:id="@+id/recipe_page_recipe_making_duration_value"
         style="@style/RecipePage"
         android:layout_below="@id/recipe_page_recipe_description"
-        android:gravity="center"
-        android:drawablePadding="5dp"
         android:layout_toRightOf="@id/recipe_page_recipe_making_duration"
-        android:padding="10dp"/>
+        android:drawablePadding="5dp"
+        android:gravity="left"
+        android:padding="10dp" />
 
     <TextView
         android:id="@+id/recipe_page_categories_title"
