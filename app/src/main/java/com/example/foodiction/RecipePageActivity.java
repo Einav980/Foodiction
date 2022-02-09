@@ -43,7 +43,7 @@ public class RecipePageActivity extends AppCompatActivity {
             }
             else {
                 imageUri = extras.getString("recipe_image_url");
-                if(! imageUri.isEmpty()){
+                if(imageUri != null && ! imageUri.isEmpty()){
                     Picasso.get().load(imageUri).into(recipeImage);
                 }
                 else

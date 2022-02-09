@@ -65,35 +65,46 @@
         </LinearLayout>
 
         <!-- Buttons -->
-        <LinearLayout
+        <RelativeLayout
             android:gravity="right"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_width="match_parent"
             android:orientation="horizontal">
 
-            <com.google.android.material.button.MaterialButton
-                style="?attr/borderlessButtonStyle"
-                android:gravity="center"
-                android:id="@+id/add_to_favorite"
-                android:layout_gravity="center"
-                android:layout_height="match_parent"
+            <ImageButton
+                android:id="@+id/single_recipe_web_icon"
+                style="@style/recipe_card_web_icon"
                 android:layout_width="44dp"
-                app:icon="@drawable/ic_baseline_favorite_border_24"
-                app:iconTint="@color/favoriteButton"
-                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                android:layout_height="44dp"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/web_icon"
+                android:src="@drawable/ic_baseline_link_24"/>
 
             <com.google.android.material.button.MaterialButton
                 style="?attr/borderlessButtonStyle"
-                android:id="@+id/DeleteBtn"
+                android:gravity="center"
+                android:id="@+id/single_recipe_add_to_fav_button"
                 android:layout_gravity="center"
-                android:layout_height="match_parent"
-                android:layout_width="46dp"
+                android:layout_height="44dp"
+                android:layout_width="44dp"
+                app:icon="@drawable/ic_baseline_favorite_border_24"
+                app:iconTint="@color/favoriteButton"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"
+                android:layout_toLeftOf="@id/single_recipe_delete_button"/>
+
+            <com.google.android.material.button.MaterialButton
+                style="?attr/borderlessButtonStyle"
+                android:layout_alignParentRight="true"
+                android:id="@+id/single_recipe_delete_button"
+                android:layout_gravity="center"
+                android:layout_height="44dp"
+                android:layout_width="44dp"
                 app:icon="@drawable/delete_recipe_24"
                 app:iconTint="@color/deleteButton"
                 tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 

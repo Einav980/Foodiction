@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +36,7 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
     public void onBindViewHolder(@NonNull RecipeListAdapter.ViewHolder holder, int position, @NonNull Recipe model) {
         recipeHandler = new RecipeHandler();
 
+        holder.webLinkIcon.setClickable(false);
         holder.recipeTitle.setText(model.getName());
         holder.description.setText(model.getDescription());
         holder.makingTime.setText(model.getMakingDuration());
@@ -89,8 +91,16 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
             }
         });
 
-        if(! model.getImageUrl().isEmpty()){
+        if(model.getImageUrl() != null && ! model.getImageUrl().isEmpty()){
             Picasso.get().load(model.getImageUrl()).into(holder.recipeImage);
+        }
+
+        if(model.getInternetUrl() != null && ! model.getInternetUrl().isEmpty()){
+            holder.webLinkIcon.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            holder.webLinkIcon.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -113,6 +123,7 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
         MaterialButton addToFavBtn;
         MaterialButton deleteBtn;
         MaterialCardView cardView;
+        ImageButton webLinkIcon;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -121,9 +132,10 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
             description = (TextView) itemView.findViewById(R.id.description);
             makingTime = (TextView) itemView.findViewById(R.id.makingTime);
             recipeImage = (ImageView) itemView.findViewById(R.id.RecipeImage);
-            addToFavBtn = (MaterialButton) itemView.findViewById(R.id.add_to_favorite);
-            deleteBtn = (MaterialButton) itemView.findViewById(R.id.DeleteBtn);
+            addToFavBtn = (MaterialButton) itemView.findViewById(R.id.single_recipe_add_to_fav_button);
+            deleteBtn = (MaterialButton) itemView.findViewById(R.id.single_recipe_delete_button);
             cardView = (MaterialCardView) itemView.findViewById(R.id.card);
+            webLinkIcon = itemView.findViewById(R.id.single_recipe_web_icon);
         }
     }
 }

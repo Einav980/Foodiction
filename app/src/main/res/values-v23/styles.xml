@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="recipe_card_web_icon">
+        <item name="android:drawableTint">@color/white</item>
+        <item name="background">@color/web_icon_blue</item>
+    </style>
+
+    <color name="web_icon_blue">#258fdb</color>
+</resources>
