@@ -36,23 +36,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/createRecipeButton" />
 
-<!--    <Button-->
-<!--        android:id="@+id/chooseInternetButton"-->
-<!--        android:layout_width="150dp"-->
-<!--        android:layout_height="100dp"-->
-<!--        android:layout_margin="10dp"-->
-<!--        android:layout_marginStart="140dp"-->
-<!--        android:layout_marginTop="123dp"-->
-<!--        android:layout_marginEnd="271dp"-->
-<!--        android:layout_marginBottom="529dp"-->
-<!--        android:onClick="startAddInternetRecipeActivity"-->
-<!--        android:text="@string/from_internet_btn_text"-->
-<!--        android:textSize="20sp"-->
-<!--        android:theme="@style/ChooseRecipeTypeButton"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/chooseImageButton" />-->
 
     <Button
         android:id="@+id/createRecipeButton"

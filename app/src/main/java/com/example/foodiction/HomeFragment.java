@@ -33,9 +33,7 @@ public class HomeFragment extends Fragment {
     private static RecyclerView recyclerView;
     static RecipeListAdapter adapter;
     static DatabaseReference  mbase;
-    private static List<Recipe> recipeListItems;
     static RecipeHandler recipeHandler;
-    static MainActivity mainActivity;
     static ProgressBar progressBar;
 
 

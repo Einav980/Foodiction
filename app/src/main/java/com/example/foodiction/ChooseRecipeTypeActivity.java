@@ -28,9 +28,4 @@ public class ChooseRecipeTypeActivity extends AppCompatActivity {
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
-//    public void startAddInternetRecipeActivity(View view) {
-//        Intent intent = new Intent(this, AddInternetRecipeActivity.class);
-//        startActivity(intent);
-//        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-//    }
 }

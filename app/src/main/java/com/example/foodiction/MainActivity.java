@@ -86,7 +86,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     public void startRecipeActivity(View view) {
-//        Intent intent = new Intent(this, AddRecipeActivity.class);
         Intent intent = new Intent(this, ChooseRecipeTypeActivity.class);
         startActivity(intent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
@@ -262,10 +261,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Log.i("search", "Search in current fragment: HomeFragment");
                     HomeFragment.searchByName(newText);
                 }
-//                else if (currentFragment instanceof FavoriteFragment){
-//                    Log.i("search", "Search in current fragment: FavoriteFragment");
-//                    FavoriteFragment.searchByNameFavorites(newText);
-//                }
                 return false;
             }
         });
