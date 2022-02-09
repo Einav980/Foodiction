@@ -48,7 +48,7 @@ public class AddInstructionAdapter extends  RecyclerView.Adapter<AddInstructionA
             @Override
             public void onClick(View view) {
                 Log.i("Foodiction", "Position: "+ holder.getAdapterPosition());
-                RecipeInstructionsStep.removeInstruction(holder.getAdapterPosition());
+                RecipeInstructionsStep.removeInstruction(instructions.get(holder.getAdapterPosition()));
             }
         });
 

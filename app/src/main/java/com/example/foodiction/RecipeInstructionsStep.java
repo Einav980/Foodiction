@@ -24,7 +24,6 @@ import java.util.ArrayList;
 
 public class RecipeInstructionsStep extends Fragment implements Step {
 
-    static ArrayList<Instruction> instructions;
     static AddInstructionAdapter mAdapter;
     static RecyclerView mRecyclerView;
     static EditText addInstructionEditText;
@@ -35,13 +34,6 @@ public class RecipeInstructionsStep extends Fragment implements Step {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(AddRecipeActivity.currentCreatedRecipe.instructions.size() == 0){
-            instructions = new ArrayList<>();
-        }
-//        else{
-//            Log.i("Foodiction", "Load has called!");
-//            instructions = AddRecipeActivity.currentCreatedRecipe.getInstructions();
-//        }
     }
 
     @Override
@@ -60,7 +52,7 @@ public class RecipeInstructionsStep extends Fragment implements Step {
         addInstructionBtn = getView().findViewById(R.id.add_instruction_button);
         mRecyclerView = getView().findViewById(R.id.instructions_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAdapter = new AddInstructionAdapter(getContext(), instructions, MainActivity.GlobalMode.EDIT);
+        mAdapter = new AddInstructionAdapter(getContext(), AddRecipeActivity.currentCreatedRecipe.getInstructions(), MainActivity.GlobalMode.EDIT);
         mRecyclerView.setAdapter(mAdapter);
         noInstructionsTextView = getView().findViewById(R.id.no_ingredients_textview);
 
@@ -83,7 +75,7 @@ public class RecipeInstructionsStep extends Fragment implements Step {
     @Nullable
     @Override
     public VerificationError verifyStep() {
-        if(instructions.size() == 0)
+        if(AddRecipeActivity.currentCreatedRecipe.getIngredients().size() == 0)
         {
             return new VerificationError("Add at least 1 instruction");
         }
@@ -101,17 +93,17 @@ public class RecipeInstructionsStep extends Fragment implements Step {
     }
 
     public static void addInstruction(String instructionText){
-
             Instruction newInstruction = new Instruction(instructionText);
-            instructions.add(newInstruction);
             AddRecipeActivity.currentCreatedRecipe.addInstruction(newInstruction);
-            mRecyclerView.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
+            mAdapter.notifyItemRangeChanged(0, AddRecipeActivity.currentCreatedRecipe.getInstructions().size());
     }
 
-    public static void removeInstruction(int position){
-        instructions.remove(position);
-        AddRecipeActivity.currentCreatedRecipe.removeInstruction(position);
-        mRecyclerView.setAdapter(mAdapter);
+    public static void removeInstruction(Instruction i){
+        Log.i("Foodictoin", String.format("Instruction: %s - has been removed", i));
+        AddRecipeActivity.currentCreatedRecipe.removeInstruction(i);
+        mAdapter.notifyDataSetChanged();
+        mAdapter.notifyItemRangeChanged(0, AddRecipeActivity.currentCreatedRecipe.getInstructions().size());
     }
 
     @Override
@@ -122,6 +114,5 @@ public class RecipeInstructionsStep extends Fragment implements Step {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        AddRecipeActivity.currentCreatedRecipe.setInstructions(instructions);
     }
 }

@@ -6,6 +6,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Recipe {
@@ -34,12 +35,16 @@ public class Recipe {
         this.description = description;
         this.makingDuration = makingDuration;
         this.userId = MainActivity.getUserGuid();
+        this.ingredients = new ArrayList<>();
+        this.instructions = new ArrayList<>();
         this.type = type;
     }
 
     public Recipe(String displayName, String description, String makingDuration) {
         this.id = UUID.randomUUID().toString();
         this.name = displayName.toLowerCase();
+        this.ingredients = new ArrayList<>();
+        this.instructions = new ArrayList<>();
         this.displayName = displayName;
         this.description = description;
         this.makingDuration = makingDuration;
@@ -49,6 +54,8 @@ public class Recipe {
     public Recipe(Recipe recipe){
         this.id = recipe.getID();
         this.name = recipe.getName();
+        this.ingredients = recipe.getIngredients();
+        this.instructions = recipe.getInstructions();
         this.displayName = recipe.getDisplayName();
         this.description = recipe.getDescription();
         this.makingDuration = recipe.getMakingDuration();
@@ -121,7 +128,7 @@ public class Recipe {
         this.instructions.add(i);
     }
 
-    public void removeInstruction(int i){
+    public void removeInstruction(Instruction i){
         this.instructions.remove(i);
     }
 
@@ -159,6 +166,19 @@ public class Recipe {
 
     public void setType(RecipeType type) {
         this.type = type;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Recipe recipe = (Recipe) o;
+        return is_liked == recipe.is_liked && Objects.equals(id, recipe.id) && Objects.equals(name, recipe.name) && Objects.equals(displayName, recipe.displayName) && Objects.equals(description, recipe.description) && Objects.equals(ingredients, recipe.ingredients) && Objects.equals(instructions, recipe.instructions) && Objects.equals(categories, recipe.categories) && Objects.equals(makingDuration, recipe.makingDuration) && Objects.equals(userId, recipe.userId) && Objects.equals(imageUrl, recipe.imageUrl) && Objects.equals(internetUrl, recipe.internetUrl) && type == recipe.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, displayName, description, ingredients, instructions, categories, makingDuration, userId, imageUrl, internetUrl, type, is_liked);
     }
 }
 

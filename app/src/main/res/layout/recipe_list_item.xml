@@ -73,13 +73,11 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/single_recipe_web_icon"
+                android:id="@+id/single_recipe_type_indicator"
                 style="@style/recipe_card_web_icon"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
-                android:layout_alignParentLeft="true"
-                android:background="@drawable/web_icon"
-                android:src="@drawable/ic_baseline_link_24"/>
+                android:layout_alignParentLeft="true"/>
 
             <com.google.android.material.button.MaterialButton
                 style="?attr/borderlessButtonStyle"

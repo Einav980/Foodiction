@@ -40,7 +40,6 @@ public class RecipeInternetDetailsStep extends Fragment implements Step {
     TextView nameTextView;
     TextView descriptionTextView;
     TextView URLTextView;
-    InputMethodManager imgr;
     ArrayList<String> categories;
     String[] categoriesArray;
     ArrayList<Integer> categoriesList = new ArrayList<>();
@@ -54,7 +53,6 @@ public class RecipeInternetDetailsStep extends Fragment implements Step {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        imgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         mBase = FirebaseDatabase.getInstance().getReference("categories");
 
         return inflater.inflate(R.layout.fragment_recipe_internet_details_step, container, false);

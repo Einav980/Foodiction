@@ -4,6 +4,4 @@
         <item name="android:drawableTint">@color/white</item>
         <item name="background">@color/web_icon_blue</item>
     </style>
-
-    <color name="web_icon_blue">#258fdb</color>
 </resources>

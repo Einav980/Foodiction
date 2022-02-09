@@ -39,6 +39,7 @@ public class ManageIngredientsListAdapter extends RecyclerView.Adapter<ManageIng
 
     @Override
     public void onBindViewHolder(@NonNull ManageIngredientViewHolder holder, int position) {
+        holder.setIsRecyclable(false);
         ingredientNameTextView.setText(ingredients.get(holder.getAdapterPosition()).getDisplayName());
         Picasso.get().load(ingredients.get(holder.getAdapterPosition()).getImageUrl()).placeholder(R.drawable.ic_food_placeholder).into(ingredientImageView);
         ingredientDeleteButton.setVisibility(View.VISIBLE);

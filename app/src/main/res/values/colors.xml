@@ -25,4 +25,5 @@
     <color name="favoriteButton">#F8403A</color>
     <color name="deleteButton">#3E3D3E</color>
     <color name="circleImageViewBorderColor">#EEEEEE</color>
+    <color name="web_icon_blue">#258fdb</color>
 </resources>

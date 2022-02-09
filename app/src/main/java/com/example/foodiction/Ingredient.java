@@ -9,11 +9,11 @@ import org.json.JSONObject;
 import java.util.UUID;
 
 public class Ingredient implements Parcelable {
-    String name;
-    String displayName;
-    String imageUrl;
-    String amount;
-    String id;
+    String name = "";
+    String displayName = "";
+    String imageUrl = "";
+    String amount = "";
+    String id = "";
 
     public Ingredient(String displayName, String imageUrl) {
         this.id = UUID.randomUUID().toString();

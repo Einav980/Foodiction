@@ -102,6 +102,7 @@ public class ManageIngredientsFragment extends Fragment {
     }
 
     private void fetchIngredients(){
+        ingredients.clear();
         ingredientsDatabaseReference = FirebaseDatabase.getInstance().getReference("ingredients");
         ingredientsDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -122,6 +123,7 @@ public class ManageIngredientsFragment extends Fragment {
     }
 
     public void addIngredient(Ingredient newIngredient){
+
         for(Ingredient ingredient: ingredients){
             if(ingredient.getName().equalsIgnoreCase(newIngredient.getName())){
                 Snackbar.make(getView(), "Ingredient already added!", Snackbar.LENGTH_SHORT).show();

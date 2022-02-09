@@ -1,7 +1,7 @@
 package com.example.foodiction;
 
 import android.content.Intent;
-import android.util.Log;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +36,7 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
     public void onBindViewHolder(@NonNull RecipeListAdapter.ViewHolder holder, int position, @NonNull Recipe model) {
         recipeHandler = new RecipeHandler();
 
-        holder.webLinkIcon.setClickable(false);
+        holder.recipeTypeIcon.setClickable(false);
         holder.recipeTitle.setText(model.getName());
         holder.description.setText(model.getDescription());
         holder.makingTime.setText(model.getMakingDuration());
@@ -94,13 +94,26 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
             Picasso.get().load(model.getImageUrl()).into(holder.recipeImage);
         }
 
-        if(model.getInternetUrl() != null && ! model.getInternetUrl().isEmpty()){
-            holder.webLinkIcon.setVisibility(View.VISIBLE);
+        if(model.getType() == Recipe.RecipeType.DEFAULT){
+            holder.recipeTypeIcon.setVisibility(View.INVISIBLE);
         }
-        else
-        {
-            holder.webLinkIcon.setVisibility(View.INVISIBLE);
+        if(model.getType() == Recipe.RecipeType.URL){
+            holder.recipeTypeIcon.setVisibility(View.VISIBLE);
+            holder.recipeTypeIcon.setImageResource(R.drawable.ic_baseline_link_24);
+//            holder.recipeTypeIcon.setBackgroundColor(Color.parseColor(String.valueOf(R.color.web_icon_blue)));
         }
+        if(model.getType() == Recipe.RecipeType.IMAGE){
+            holder.recipeTypeIcon.setVisibility(View.VISIBLE);
+            holder.recipeTypeIcon.setImageResource(R.drawable.ic_baseline_image_24);
+        }
+//
+//        if(model.getInternetUrl() != null && ! model.getInternetUrl().isEmpty()){
+//            holder.recipeTypeIcon.setVisibility(View.VISIBLE);
+//        }
+//        else
+//        {
+//            holder.recipeTypeIcon.setVisibility(View.INVISIBLE);
+//        }
     }
 
     @Override
@@ -122,7 +135,7 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
         MaterialButton addToFavBtn;
         MaterialButton deleteBtn;
         MaterialCardView cardView;
-        ImageButton webLinkIcon;
+        ImageButton recipeTypeIcon;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -134,7 +147,7 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
             addToFavBtn = (MaterialButton) itemView.findViewById(R.id.single_recipe_add_to_fav_button);
             deleteBtn = (MaterialButton) itemView.findViewById(R.id.single_recipe_delete_button);
             cardView = (MaterialCardView) itemView.findViewById(R.id.card);
-            webLinkIcon = itemView.findViewById(R.id.single_recipe_web_icon);
+            recipeTypeIcon = itemView.findViewById(R.id.single_recipe_type_indicator);
         }
     }
 }
