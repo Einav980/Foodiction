@@ -1,26 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="176dp"
     android:background="@color/app_main_light"
-    android:gravity="center|right|left"
     android:padding="16dp"
     android:theme="@style/Theme.Foodiction">
 
     <ImageView
-        android:id="@+id/Logo_image"
+        android:id="@+id/navigation_drawer_foodiction_logo"
         android:layout_width="89dp"
         android:layout_height="86dp"
-        android:src="@mipmap/foodiction_logo_round" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_alignParentBottom="true"
+        android:src="@mipmap/foodiction_logo_round"/>
 
         <TextView
-            android:id="@+id/Foodiction"
+            android:id="@+id/navigation_drawer_foodiction_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
@@ -30,10 +24,12 @@
             android:text="Foodiction"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="16sp"
-            android:textStyle="bold"></TextView>
+            android:textStyle="bold"
+            android:layout_toRightOf="@id/navigation_drawer_foodiction_logo"
+            android:layout_alignTop="@id/navigation_drawer_foodiction_logo"/>
 
         <TextView
-            android:id="@+id/DiscriptionApp"
+            android:id="@+id/navigation_drawer_foodiction_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
@@ -43,8 +39,8 @@
             android:shadowColor="#000000"
             android:text="My cooking book"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textSize="14sp"></TextView>
-    </LinearLayout>
+            android:textSize="14sp"
+            android:layout_toRightOf="@id/navigation_drawer_foodiction_logo"
+            android:layout_below="@id/navigation_drawer_foodiction_title"/>
 
-
-</LinearLayout>
+</RelativeLayout>

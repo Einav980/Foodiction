@@ -11,7 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 public class OpenLogoActivity extends AppCompatActivity {
-    private final int SPLASH_DELAY = 2500;
+    private final int SPLASH_DELAY = 1500;
     private ImageView imageView;
 
     @Override

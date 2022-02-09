@@ -3,6 +3,7 @@ package com.example.foodiction;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
@@ -27,16 +28,15 @@ public class RecipeInternetPageActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
 
 
-        browser= (WebView) findViewById(R.id.internet_page_web_view);
+        browser = (WebView) findViewById(R.id.internet_page_web_view);
         browser.loadUrl(internetURL);
 
-        browser.setWebViewClient(new WebViewClient() {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
+            public void run() {
                 progressBar.setVisibility(View.GONE);
             }
-        });
-
+        }, 1500);
     }
 }
