@@ -10,7 +10,8 @@
         android:id="@+id/manage_categories_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center">
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="20dp">
 
         <Button
             android:id="@+id/manage_categories_add_category_btn"
@@ -28,6 +29,11 @@
             android:hint="Category Name"
             android:inputType="textPersonName" />
     </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_below="@id/manage_categories_header"/>
     <RelativeLayout
         android:id="@+id/manage_categories_bottom"
         android:layout_width="match_parent"
@@ -42,8 +48,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/manage_categories_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         tools:listitem="@layout/single_category_item"/>
     </RelativeLayout>
 </RelativeLayout>

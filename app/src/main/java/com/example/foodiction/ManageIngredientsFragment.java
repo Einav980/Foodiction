@@ -60,19 +60,14 @@ public class ManageIngredientsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_manage_ingredients, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        ingredients = new ArrayList<>();
-        mRecyclerView = getView().findViewById(R.id.manage_ingredients_recycler_view);
+        View view = inflater.inflate(R.layout.fragment_manage_ingredients, container, false);
+        mRecyclerView = view.findViewById(R.id.manage_ingredients_recycler_view);
         mRecyclerView.setLayoutManager( new LinearLayoutManager(getContext()));
-        mProgressBar = getView().findViewById(R.id.manage_ingredients_progress_bar);
-        addIngredientButton = getView().findViewById(R.id.manage_ingredients_add_ingredient_btn);
-        ingredientNameEditText = getView().findViewById(R.id.manage_ingredients_name_edit_text);
-        ingredientImageUrlEditText = getView().findViewById(R.id.manage_ingredients_image_url);
+        mProgressBar = view.findViewById(R.id.manage_ingredients_progress_bar);
+        addIngredientButton = view.findViewById(R.id.manage_ingredients_add_ingredient_btn);
+        ingredientNameEditText = view.findViewById(R.id.manage_ingredients_name_edit_text);
+        ingredientImageUrlEditText = view.findViewById(R.id.manage_ingredients_image_url);
+        ingredients = new ArrayList<>();
         mProgressBar.setVisibility(View.VISIBLE);
         fetchIngredients();
         mAdapter = new ManageIngredientsListAdapter(getContext(), ingredients);
@@ -84,7 +79,7 @@ public class ManageIngredientsFragment extends Fragment {
                 String ingredientName = ingredientNameEditText.getText().toString();
                 String ingredientImageUrl = ingredientImageUrlEditText.getText().toString();
                 if(ingredientName.isEmpty() || ingredientImageUrl.isEmpty()){
-                    Snackbar.make(getView(), "You must enter Name and ImageUrl", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(view, "You must enter Name and ImageUrl", Snackbar.LENGTH_SHORT).show();
                 }
                 else{
                     if(URLUtil.isValidUrl(ingredientImageUrl)){
@@ -93,11 +88,17 @@ public class ManageIngredientsFragment extends Fragment {
                     }
                     else
                     {
-                        Snackbar.make(getView(), "Please enter a valid URL", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(view, "Please enter a valid URL", Snackbar.LENGTH_SHORT).show();
                     }
                 }
             }
         });
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 
     private void fetchIngredients(){
@@ -110,7 +111,7 @@ public class ManageIngredientsFragment extends Fragment {
                     ingredients.add(i);
                 }
                 mProgressBar.setVisibility(View.INVISIBLE);
-                mAdapter.notifyDataSetChanged();
+                mRecyclerView.setAdapter(mAdapter);
             }
 
             @Override
@@ -134,12 +135,12 @@ public class ManageIngredientsFragment extends Fragment {
                 ingredientNameEditText.getText().clear();
                 ingredientImageUrlEditText.getText().clear();
                 ingredients.add(newIngredient);
-                mAdapter.notifyDataSetChanged();
+                mAdapter.notifyItemInserted(ingredients.size()-1);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(), "Error while adding category", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Error while adding ingredient", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -150,7 +151,6 @@ public class ManageIngredientsFragment extends Fragment {
             public void onSuccess(Void unused) {
                 Snackbar.make(mRecyclerView, String.format("Ingredient '%s' was deleted", ingredient.getName()), Snackbar.LENGTH_SHORT).show();
                 ingredients.remove(ingredient);
-                mAdapter.notifyDataSetChanged();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

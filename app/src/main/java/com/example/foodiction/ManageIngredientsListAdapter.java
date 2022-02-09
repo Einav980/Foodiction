@@ -55,6 +55,7 @@ public class ManageIngredientsListAdapter extends RecyclerView.Adapter<ManageIng
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         ManageIngredientsFragment.deleteIngredient(ingredients.get(holder.getAdapterPosition()));
+                        notifyItemRemoved(holder.getAdapterPosition());
                         dialog.cancel();
                     }
                 });

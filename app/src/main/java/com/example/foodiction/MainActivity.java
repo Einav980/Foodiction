@@ -37,8 +37,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawer;
     public static CharSequence foodCategories[] = {"Italian", "Asian","Meat","Home Cooking","Fish","Salads","Indian","Soups",
             "Sandwiches","Desserts", "Pastries"};
-//    boolean[] savedPrefrences= new boolean[foodCategories.length];
-    int savedPrefrences = -1;
+    int savedPreferences = -1;
     private String mSearchQuery= "";
     private static String userGuid;
 
@@ -47,15 +46,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
-        MaterialToolbar topbar = findViewById(R.id.main_toolbar);
-        setSupportActionBar(topbar);
+        MaterialToolbar topBar = findViewById(R.id.main_toolbar);
+        setSupportActionBar(topBar);
 
         // TopBar Listener
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, topbar,
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, topBar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
@@ -110,8 +109,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.manage_ingredients_menu_item:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ManageIngredientsFragment()).commit();
-                topApp.setTitle("Manage Ingredients>");
-                topApp.findViewById(R.id.search).setVisibility(View.VISIBLE);
+                topApp.setTitle("Manage Ingredients");
+                topApp.findViewById(R.id.search).setVisibility(View.INVISIBLE);
                 break;
             case R.id.manage_categories_menu_item:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ManageCategoriesFragment()).commit();
@@ -201,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public boolean  filterByCategories (MenuItem  item){
 //        boolean[] prefrenses= Arrays.copyOf(savedPrefrences, foodCategories.length);
-        int[] prefrenses = {savedPrefrences};
+        int[] prefrenses = {savedPreferences};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Filter Categories");
@@ -219,7 +218,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(DialogInterface dialog, int which) {
                 //TODO add filter logic according to the categories in the recipe
 //                savedPrefrences = prefrenses[0];
-                HomeFragment.filterByCategories(savedPrefrences);
+                HomeFragment.filterByCategories(savedPreferences);
                 dialog.cancel();
                 Toast.makeText(MainActivity.this, "Filtered category", Toast.LENGTH_SHORT).show();
             }
@@ -234,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 //TODO add filter logic according to the categories in the recipe
-                savedPrefrences = -1;
+                savedPreferences = -1;
             }
         });
 

@@ -69,7 +69,6 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
                     intent.putExtra("recipe_internet_url", model.getInternetUrl());
                     v.getContext().startActivity(intent);
                 }
-                Log.i("Foodiction", model.toString());
             }
 
         });

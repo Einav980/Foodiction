@@ -4,15 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="20dp"
+    android:padding="10dp"
     tools:context=".ManageIngredientsFragment">
 
     <RelativeLayout
         android:id="@+id/manage_ingredients_header"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:gravity="center">
-
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:gravity="center_horizontal">
 
         <Button
             android:id="@+id/manage_ingredients_add_ingredient_btn"
@@ -23,7 +23,7 @@
             android:layout_marginLeft="20dp"
             android:layout_toRightOf="@id/manage_ingredients_name_edit_text"
             android:text="Add"
-            android:textSize="20dp"/>
+            android:textSize="20dp" />
 
         <EditText
             android:id="@+id/manage_ingredients_name_edit_text"
@@ -42,15 +42,20 @@
             android:hint="Image Url" />
 
     </RelativeLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_below="@id/manage_ingredients_header"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/manage_ingredients_header">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/manage_ingredients_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             tools:listitem="@layout/single_ingredient_item" />
         <ProgressBar
             android:id="@+id/manage_ingredients_progress_bar"

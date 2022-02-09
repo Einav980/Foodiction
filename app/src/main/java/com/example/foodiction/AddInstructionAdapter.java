@@ -1,6 +1,7 @@
 package com.example.foodiction;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,10 +42,12 @@ public class AddInstructionAdapter extends  RecyclerView.Adapter<AddInstructionA
     public void onBindViewHolder(@NonNull AddInstructionViewHolder holder, int position) {
         instructionStepTitle.setText("Step "+ (holder.getAdapterPosition() + 1));
         descriptionTextView.setText(instructions.get(holder.getAdapterPosition()).getDescription());
+        Log.i("Foodiction", String.format("Instruction %d: %s", position+1, instructions.get(holder.getAdapterPosition()).getDescription()));
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.i("Foodiction", "Position: "+ holder.getAdapterPosition());
                 RecipeInstructionsStep.removeInstruction(holder.getAdapterPosition());
             }
         });

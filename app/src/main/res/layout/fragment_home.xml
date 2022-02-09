@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".HomeFragment"
-    android:tag="fragment_home">
+    android:tag="fragment_home"
+    android:id="@+id/home_fragment_coordinator_layout">
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -24,6 +25,7 @@
         app:menu="@menu/bottom_app_bar" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/home_fragment_floating_action_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@null"

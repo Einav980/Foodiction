@@ -10,12 +10,12 @@ import java.util.UUID;
 
 public class Recipe {
 
-    public enum Difficulty {Easy, Medium, Hard;};
+    enum RecipeType {IMAGE, URL, DEFAULT}
+
     String id = "";
     String name = "";
     String displayName = "";
     String description = "";
-    String creationDate = "";
     ArrayList<Ingredient> ingredients;
     ArrayList<Instruction> instructions;
     List<String> categories;
@@ -23,7 +23,19 @@ public class Recipe {
     String userId;
     String imageUrl;
     String internetUrl;
+    RecipeType type = RecipeType.DEFAULT;
+
     boolean is_liked = false;
+
+    public Recipe(String displayName, String description, String makingDuration, RecipeType type) {
+        this.id = UUID.randomUUID().toString();
+        this.name = displayName.toLowerCase();
+        this.displayName = displayName;
+        this.description = description;
+        this.makingDuration = makingDuration;
+        this.userId = MainActivity.getUserGuid();
+        this.type = type;
+    }
 
     public Recipe(String displayName, String description, String makingDuration) {
         this.id = UUID.randomUUID().toString();
@@ -32,7 +44,6 @@ public class Recipe {
         this.description = description;
         this.makingDuration = makingDuration;
         this.userId = MainActivity.getUserGuid();
-        this.creationDate = new Time().toString();
     }
 
     public Recipe(Recipe recipe){
@@ -42,7 +53,9 @@ public class Recipe {
         this.description = recipe.getDescription();
         this.makingDuration = recipe.getMakingDuration();
         this.userId = MainActivity.getUserGuid();
+        this.type = recipe.getType();
     }
+
     public Recipe(){
         this.id = UUID.randomUUID().toString();
         this.ingredients = new ArrayList<>();
@@ -108,7 +121,7 @@ public class Recipe {
         this.instructions.add(i);
     }
 
-    public void removeInstruction(Instruction i){
+    public void removeInstruction(int i){
         this.instructions.remove(i);
     }
 
@@ -131,6 +144,22 @@ public class Recipe {
     public String getInternetUrl() { return internetUrl; }
 
     public void setInternetUrl(String internetUrl) { this.internetUrl = internetUrl; }
+
+    public List<String> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<String> categories) {
+        this.categories = categories;
+    }
+
+    public RecipeType getType() {
+        return type;
+    }
+
+    public void setType(RecipeType type) {
+        this.type = type;
+    }
 }
 
 

@@ -29,6 +29,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class ManageCategoriesFragment extends Fragment {
 
@@ -121,7 +123,7 @@ public class ManageCategoriesFragment extends Fragment {
             public void onSuccess(Void unused) {
                 Snackbar.make(mRecyclerView, String.format("Category '%s' was deleted", category.getName()), Snackbar.LENGTH_SHORT).show();
                 categories.remove(category);
-                mAdapter.notifyDataSetChanged();
+                mRecyclerView.setAdapter(mAdapter);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -145,7 +147,7 @@ public class ManageCategoriesFragment extends Fragment {
             public void onSuccess(Void unused) {
                 categoryNameEditText.getText().clear();
                 categories.add(newCategory);
-                mAdapter.notifyDataSetChanged();
+                mRecyclerView.setAdapter(mAdapter);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

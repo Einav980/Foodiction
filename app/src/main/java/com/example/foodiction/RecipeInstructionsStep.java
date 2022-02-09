@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,9 +38,10 @@ public class RecipeInstructionsStep extends Fragment implements Step {
         if(AddRecipeActivity.currentCreatedRecipe.instructions.size() == 0){
             instructions = new ArrayList<>();
         }
-        else{
-            instructions = AddRecipeActivity.currentCreatedRecipe.getInstructions();
-        }
+//        else{
+//            Log.i("Foodiction", "Load has called!");
+//            instructions = AddRecipeActivity.currentCreatedRecipe.getInstructions();
+//        }
     }
 
     @Override
@@ -65,7 +67,15 @@ public class RecipeInstructionsStep extends Fragment implements Step {
         addInstructionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addInstruction(view);
+                String instructionText = addInstructionEditText.getText().toString();
+                if(!instructionText.isEmpty()) {
+                    addInstructionEditText.getText().clear();
+                    addInstruction(instructionText);
+                }
+                else
+                {
+                    Snackbar.make(view, "Description must not be empty!", Snackbar.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -75,7 +85,7 @@ public class RecipeInstructionsStep extends Fragment implements Step {
     public VerificationError verifyStep() {
         if(instructions.size() == 0)
         {
-            return new VerificationError("At least 1 instruction");
+            return new VerificationError("Add at least 1 instruction");
         }
         return null;
     }
@@ -90,24 +100,18 @@ public class RecipeInstructionsStep extends Fragment implements Step {
 
     }
 
-    public static void addInstruction(View view){
-        String instructionText = addInstructionEditText.getText().toString();
-        if(!instructionText.isEmpty()) {
-            addInstructionEditText.setText("");
+    public static void addInstruction(String instructionText){
+
             Instruction newInstruction = new Instruction(instructionText);
             instructions.add(newInstruction);
             AddRecipeActivity.currentCreatedRecipe.addInstruction(newInstruction);
-            mAdapter.notifyDataSetChanged();
-        }
-        else
-        {
-            Snackbar.make(view, "Description must not be empty!", Snackbar.LENGTH_SHORT).show();
-        }
+            mRecyclerView.setAdapter(mAdapter);
     }
 
     public static void removeInstruction(int position){
         instructions.remove(position);
-        mAdapter.notifyDataSetChanged();
+        AddRecipeActivity.currentCreatedRecipe.removeInstruction(position);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override

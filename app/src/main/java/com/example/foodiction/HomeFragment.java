@@ -82,7 +82,7 @@ public class HomeFragment extends Fragment {
                                 if (recipeHandler.deleteRecipe(recipeUUID)){
                                     recyclerView.setAdapter(adapter);
                                     dialog.cancel();
-                                    Toast.makeText(recyclerView.getContext(), "Deleted successfully", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(recyclerView.getContext(), "Recipe has been deleted successfully", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });

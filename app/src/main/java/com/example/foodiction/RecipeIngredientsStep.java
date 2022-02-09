@@ -72,6 +72,10 @@ public class RecipeIngredientsStep extends Fragment implements Step {
     @Nullable
     @Override
     public VerificationError verifyStep() {
+        if(addedIngredients.size() == 0)
+        {
+            return new VerificationError("Add at least 1 ingredient");
+        }
         return null;
     }
 
