@@ -57,12 +57,13 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
             public void onClick(View v) {
                 if (model.getInternetUrl() == null){
                     Intent intent = new Intent(v.getContext(), RecipePageActivity.class);
-                    intent.putExtra("recipe_name", model.getName());
+                    intent.putExtra("recipe_display_name", model.getDisplayName());
                     intent.putExtra("recipe_description", model.getDescription());
                     intent.putExtra("recipe_making_duration", model.getMakingDuration());
                     intent.putExtra("recipe_ingredients", model.getIngredients());
                     intent.putExtra("recipe_instructions", model.getInstructions());
                     intent.putExtra("recipe_image_url", model.getImageUrl());
+                    intent.putExtra("recipe_category", model.getCategory());
                     v.getContext().startActivity(intent);
                 }else{
                     Intent intent = new Intent(v.getContext(), RecipeInternetPageActivity.class);
@@ -106,14 +107,6 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
             holder.recipeTypeIcon.setVisibility(View.VISIBLE);
             holder.recipeTypeIcon.setImageResource(R.drawable.ic_baseline_image_24);
         }
-//
-//        if(model.getInternetUrl() != null && ! model.getInternetUrl().isEmpty()){
-//            holder.recipeTypeIcon.setVisibility(View.VISIBLE);
-//        }
-//        else
-//        {
-//            holder.recipeTypeIcon.setVisibility(View.INVISIBLE);
-//        }
     }
 
     @Override

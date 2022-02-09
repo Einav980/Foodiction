@@ -200,17 +200,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public boolean  filterByCategories (MenuItem  item){
 //        boolean[] prefrenses= Arrays.copyOf(savedPrefrences, foodCategories.length);
-        int[] prefrenses = {savedPreferences};
+        int[] preferences = {savedPreferences};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Filter Categories");
 
         builder.setCancelable(false);
         builder.setIcon(R.drawable.ic_baseline_filter_alt_24);
-        builder.setSingleChoiceItems(foodCategories, prefrenses[0], new DialogInterface.OnClickListener(){
+        builder.setSingleChoiceItems(foodCategories, preferences[0], new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                prefrenses[0] = which;
+                preferences[0] = which;
             }
         });
         builder.setPositiveButton("Filter", new DialogInterface.OnClickListener() {

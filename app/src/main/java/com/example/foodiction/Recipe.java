@@ -19,7 +19,7 @@ public class Recipe {
     String description = "";
     ArrayList<Ingredient> ingredients;
     ArrayList<Instruction> instructions;
-    List<String> categories;
+    Category category;
     String makingDuration = "";
     String userId;
     String imageUrl;
@@ -28,7 +28,7 @@ public class Recipe {
 
     boolean is_liked = false;
 
-    public Recipe(String displayName, String description, String makingDuration, RecipeType type) {
+    public Recipe(String displayName, Category category, String description, String makingDuration, RecipeType type) {
         this.id = UUID.randomUUID().toString();
         this.name = displayName.toLowerCase();
         this.displayName = displayName;
@@ -37,14 +37,16 @@ public class Recipe {
         this.userId = MainActivity.getUserGuid();
         this.ingredients = new ArrayList<>();
         this.instructions = new ArrayList<>();
+        this.category = category;
         this.type = type;
     }
 
-    public Recipe(String displayName, String description, String makingDuration) {
+    public Recipe(String displayName, Category category, String description, String makingDuration) {
         this.id = UUID.randomUUID().toString();
         this.name = displayName.toLowerCase();
         this.ingredients = new ArrayList<>();
         this.instructions = new ArrayList<>();
+        this.category = category;
         this.displayName = displayName;
         this.description = description;
         this.makingDuration = makingDuration;
@@ -56,6 +58,7 @@ public class Recipe {
         this.name = recipe.getName();
         this.ingredients = recipe.getIngredients();
         this.instructions = recipe.getInstructions();
+        this.category = recipe.getCategory();
         this.displayName = recipe.getDisplayName();
         this.description = recipe.getDescription();
         this.makingDuration = recipe.getMakingDuration();
@@ -152,12 +155,12 @@ public class Recipe {
 
     public void setInternetUrl(String internetUrl) { this.internetUrl = internetUrl; }
 
-    public List<String> getCategories() {
-        return categories;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategories(List<String> categories) {
-        this.categories = categories;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public RecipeType getType() {
@@ -167,19 +170,7 @@ public class Recipe {
     public void setType(RecipeType type) {
         this.type = type;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Recipe recipe = (Recipe) o;
-        return is_liked == recipe.is_liked && Objects.equals(id, recipe.id) && Objects.equals(name, recipe.name) && Objects.equals(displayName, recipe.displayName) && Objects.equals(description, recipe.description) && Objects.equals(ingredients, recipe.ingredients) && Objects.equals(instructions, recipe.instructions) && Objects.equals(categories, recipe.categories) && Objects.equals(makingDuration, recipe.makingDuration) && Objects.equals(userId, recipe.userId) && Objects.equals(imageUrl, recipe.imageUrl) && Objects.equals(internetUrl, recipe.internetUrl) && type == recipe.type;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, displayName, description, ingredients, instructions, categories, makingDuration, userId, imageUrl, internetUrl, type, is_liked);
-    }
+    
 }
 
 

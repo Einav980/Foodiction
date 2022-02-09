@@ -31,7 +31,6 @@ import com.stepstone.stepper.Step;
 import com.stepstone.stepper.VerificationError;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class RecipeDetailsStep extends Fragment implements Step {
 
@@ -43,11 +42,10 @@ public class RecipeDetailsStep extends Fragment implements Step {
     InputMethodManager imgr;
     ArrayList<Category> categories;
     String[] categoriesArray;
-    ArrayList<Integer> categoriesList = new ArrayList<>();
-    boolean [] selectedCategories;
+    int lastChosenCategoryIndex;
     DatabaseReference categoriesDatabaseReference;
     MaterialCardView selectCategoryCard;
-    TextView selectedCategoriesText;
+    TextView recipeCategoryText;
     static ImageButton selectImageButton;
 
     @Override
@@ -110,16 +108,9 @@ public class RecipeDetailsStep extends Fragment implements Step {
 
         categories = new ArrayList<>();
 
-        selectedCategoriesText = getView().findViewById(R.id.details_step_categories_text);
+        recipeCategoryText = getView().findViewById(R.id.details_step_categories_text);
         fetchCategories();
-        categoriesArray = new String[categories.size()];
-        for(int i=0; i < categoriesArray.length; i++){
-            Log.i("Foodiction", "CategoriesArray[i] = "+categoriesArray[i]);
-            categoriesArray[i] = categories.get(i).getName();
-        }
-
         selectCategoryCard = getView().findViewById(R.id.details_step_categories_cardview);
-        selectedCategories = new boolean[categories.size()];
         selectCategoryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -153,48 +144,30 @@ public class RecipeDetailsStep extends Fragment implements Step {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Choose categories");
         builder.setCancelable(false);
-        builder.setMultiChoiceItems(categoriesArray, selectedCategories, new DialogInterface.OnMultiChoiceClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i, boolean isChecked) {
-                if(isChecked){
-                    if(selectedCategories.length > 5){
-                        Toast.makeText(getContext(), "You can't select more than 5", Toast.LENGTH_SHORT);
-                    }
-                    else{
-                        categoriesList.add(i);
-                    }
-                }
-                else{
-                    categoriesList.remove(i);
-                }
-            }
-        }).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        int selectedIndex = -1;
+        builder.setSingleChoiceItems(categoriesArray, lastChosenCategoryIndex, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                StringBuilder stringBuilder = new StringBuilder();
-                for(int j=0; j < categoriesList.size(); j++){
-                    stringBuilder.append(categoriesArray[categoriesList.get(i)]);
-
-                    if(j != categoriesList.size()){
-                        stringBuilder.append(", ");
-                    }
+                lastChosenCategoryIndex = i;
+            }
+        }).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Log.i("Foodiction", "Selected: "+ i );
+                if(lastChosenCategoryIndex == -1){
+                    Toast.makeText(getContext(), "You did not choose any category", Toast.LENGTH_SHORT).show();
+                    dialogInterface.dismiss();
                 }
-
-                selectedCategoriesText.setText(stringBuilder.toString());
+                else{
+                    recipeCategoryText.setText(categories.get(lastChosenCategoryIndex).getName());
+                    AddRecipeActivity.currentCreatedRecipe.setCategory(categories.get(lastChosenCategoryIndex));
+                    dialogInterface.cancel();
+                }
             }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        }).setNeutralButton("Clear all", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                for (int j = 0; j < selectedCategories.length; j++){
-                    selectedCategories[i] = false;
-                    categoriesList.clear();
-                    selectedCategoriesText.setText("Categories");
-                }
+                dialogInterface.cancel();
             }
         });
 
@@ -209,39 +182,17 @@ public class RecipeDetailsStep extends Fragment implements Step {
                     Category category = categorySnapshot.getValue(Category.class);
                     categories.add(category);
                 }
+                categoriesArray = new String[categories.size()];
+                for(int i = 0 ; i < categories.size(); i++){
+                    categoriesArray[i] = categories.get(i).getName();
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
 
         });
-
-        categoriesArray = Arrays.copyOf(categories.toArray(), categories.size(), String[].class);
     }
 
-//    private void fetchCategories(){
-//        categoriesDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot categorySnapshot: snapshot.getChildren()){
-//                    Category category = categorySnapshot.getValue(Category.class);
-//                    categories.add(category);
-//                }
-//                if(categories.size() == 0 ) {
-//                    Toast.makeText(getContext(), "No Categories were found!", Toast.LENGTH_SHORT).show();
-//                }
-//
-//                mRecyclerView.setAdapter(mAdapter);
-//                mProgressBar.setVisibility(View.INVISIBLE);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-//                mProgressBar.setVisibility(View.INVISIBLE);
-//            }
-//        });
-//    }
 }

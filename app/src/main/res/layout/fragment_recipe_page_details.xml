@@ -13,7 +13,7 @@
         android:gravity="center"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:textSize="24dp"/>
+        android:textSize="26dp"/>
 
     <TextView
         android:id="@+id/recipe_page_recipe_description"
@@ -21,18 +21,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:textSize="18dp"
+        android:textSize="22dp"
         android:layout_below="@id/recipe_page_recipe_title"
         android:text="Description" />
 
     <TextView
         android:id="@+id/recipe_page_recipe_making_duration"
         style="@style/RecipePage"
+        android:textSize="22dp"
+        android:layout_width="wrap_content"
         android:layout_below="@id/recipe_page_recipe_description"
-        android:drawableRight="@drawable/ic_baseline_recipe_timer_24"
+        android:drawableLeft="@drawable/ic_baseline_recipe_timer_24"
         android:drawablePadding="5dp"
-        android:padding="10dp"
-        android:text="Making duration" />
+        android:padding="10dp"/>
 
     <TextView
         android:id="@+id/recipe_page_recipe_making_duration_value"
@@ -44,10 +45,22 @@
         android:padding="10dp"/>
 
     <TextView
-        android:id="@+id/recipe_page_recipe_"
-        style="@style/RecipePage"
+        android:id="@+id/recipe_page_categories_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@id/recipe_page_recipe_making_duration"
         android:padding="10dp"
-        android:text="Categories:"
+        android:text="Category:"
+        android:textSize="22dp"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/recipe_page_categories_value_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/recipe_page_categories_title"
+        android:layout_toRightOf="@id/recipe_page_categories_title"
+        android:padding="10dp"
+        android:text="Category"
+        android:textSize="22dp" />
 </RelativeLayout>
