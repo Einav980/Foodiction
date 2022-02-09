@@ -53,7 +53,6 @@ public class RecipePageIngredientsFragment extends Fragment {
         mAdapter = new AddedIngredientListAdapter(ingredients, getContext(), MainActivity.GlobalMode.VIEW);
         mRecyclerView = getView().findViewById(R.id.recipe_page_ingredients_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         mRecyclerView.setAdapter(mAdapter);
     }
 }

@@ -154,7 +154,7 @@ public class RecipeDetailsStep extends Fragment implements Step {
 
     private void showCategoriesDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Choose categories");
+        builder.setTitle("Choose category");
         builder.setCancelable(false);
         int selectedIndex = -1;
         builder.setSingleChoiceItems(categoriesArray, lastChosenCategoryIndex, new DialogInterface.OnClickListener() {
@@ -172,7 +172,7 @@ public class RecipeDetailsStep extends Fragment implements Step {
                 }
                 else{
                     recipeCategoryText.setText(categories.get(lastChosenCategoryIndex).getName());
-                    AddRecipeActivity.currentCreatedRecipe.setCategory(categories.get(lastChosenCategoryIndex));
+                    AddRecipeActivity.currentCreatedRecipe.setCategory(categories.get(lastChosenCategoryIndex).getName());
                     dialogInterface.cancel();
                 }
             }

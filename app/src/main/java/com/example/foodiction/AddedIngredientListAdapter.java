@@ -50,7 +50,7 @@ public class AddedIngredientListAdapter extends RecyclerView.Adapter<AddedIngred
         Ingredient addedIngredientListItem = addedIngredients.get(position);
         ingredientAmountEditText.setText(addedIngredientListItem.getAmount());
         ingredientAmountTextView.setText(addedIngredientListItem.getAmount());
-        addedIngredientNameTextView.setText(addedIngredientListItem.getName());
+        addedIngredientNameTextView.setText(addedIngredientListItem.getDisplayName());
         Picasso.get().
                 load(addedIngredientListItem.getImageUrl()).
                 placeholder(R.drawable.ic_food_placeholder).

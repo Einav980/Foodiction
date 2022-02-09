@@ -1,7 +1,6 @@
 package com.example.foodiction;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +43,9 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
         if (model.getIs_liked()){
             holder.addToFavBtn.setIconResource(R.drawable.ic_baseline_favorite_24);
         }
+        else{
+            holder.addToFavBtn.setIconResource(R.drawable.ic_baseline_favorite_border_24);
+        }
 
         holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,16 +84,15 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
             @Override
             public void onClick(View v) {
                 if (!model.getIs_liked()){
-                    model.setIs_liked(true);
                     recipeHandler.addToFavorite(model.getID(), true);
                     holder.addToFavBtn.setIconResource(R.drawable.ic_baseline_favorite_24);
-                    Toast.makeText(v.getContext(), "added to favorites", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), String.format("Recipe %s has been added to favorites!", model.getDisplayName()), Toast.LENGTH_SHORT).show();
                 }else{
-                    model.setIs_liked(false);
                     recipeHandler.addToFavorite(model.getID(), false);
                     holder.addToFavBtn.setIconResource(R.drawable.ic_baseline_favorite_border_24);
-                    Toast.makeText(v.getContext(), "removed from favorites", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), String.format("Recipe %s has been removed from favorites", model.getDisplayName()), Toast.LENGTH_SHORT).show();
                 }
+                model.toggle_like();
             }
         });
 
@@ -105,7 +106,6 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
         if(model.getType() == Recipe.RecipeType.URL){
             holder.recipeTypeIcon.setVisibility(View.VISIBLE);
             holder.recipeTypeIcon.setImageResource(R.drawable.ic_baseline_link_24);
-//            holder.recipeTypeIcon.setBackgroundColor(Color.parseColor(String.valueOf(R.color.web_icon_blue)));
         }
         if(model.getType() == Recipe.RecipeType.IMAGE){
             holder.recipeTypeIcon.setVisibility(View.VISIBLE);
@@ -139,7 +139,7 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
 
             recipeTitle = (TextView) itemView.findViewById(R.id.RecipeTitle);
             description = (TextView) itemView.findViewById(R.id.description);
-            makingTime = (TextView) itemView.findViewById(R.id.makingTime);
+            makingTime = (TextView) itemView.findViewById(R.id.single_recipe_making_duration);
             recipeImage = (ImageView) itemView.findViewById(R.id.RecipeImage);
             addToFavBtn = (MaterialButton) itemView.findViewById(R.id.single_recipe_add_to_fav_button);
             deleteBtn = (MaterialButton) itemView.findViewById(R.id.single_recipe_delete_button);

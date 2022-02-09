@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -18,23 +17,25 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.snackbar.Snackbar;
+import com.firebase.ui.database.ObservableSnapshotArray;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Observable;
 
 
 public class HomeFragment extends Fragment {
 
     private static RecyclerView recyclerView;
     static RecipeListAdapter adapter;
-    static DatabaseReference  mbase;
+    static DatabaseReference recipesDatabaseReference;
     static RecipeHandler recipeHandler;
     static ProgressBar progressBar;
+    ArrayList<Recipe> recipes;
 
 
     @Override
@@ -47,15 +48,15 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recipeHandler = new RecipeHandler();
-
+        recipes = new ArrayList<>();
         // Recycle View adapter
-        mbase = FirebaseDatabase.getInstance().getReference("recipes");
+        recipesDatabaseReference = FirebaseDatabase.getInstance().getReference("recipes");
         recyclerView = (RecyclerView) getView().findViewById(R.id.RecipeListView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         FirebaseRecyclerOptions<Recipe> options = new FirebaseRecyclerOptions.Builder<Recipe>()
-                .setQuery(mbase.orderByChild("name"), Recipe.class)
+                .setQuery(recipesDatabaseReference.orderByChild("name"), Recipe.class)
                 .build();
 
         adapter = new RecipeListAdapter(options);
@@ -75,20 +76,18 @@ public class HomeFragment extends Fragment {
         builder.setCancelable(false);
 
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (recipeHandler.deleteRecipe(recipeUUID)){
-                                    recyclerView.setAdapter(adapter);
-                                    dialog.cancel();
-                                    Toast.makeText(recyclerView.getContext(), "Recipe has been deleted successfully", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which)
-                            { dialog.cancel(); }
-                        });
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (recipeHandler.deleteRecipe(recipeUUID)){
+                    recyclerView.setAdapter(adapter);
+                    dialog.cancel();
+                    Toast.makeText(recyclerView.getContext(), "Recipe has been deleted successfully", Toast.LENGTH_SHORT).show();
+                }
+            }}).setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+                { dialog.cancel(); }
+            });
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
@@ -108,17 +107,26 @@ public class HomeFragment extends Fragment {
 
     public static void searchByName(String name) {
         FirebaseRecyclerOptions<Recipe> options = new FirebaseRecyclerOptions.Builder<Recipe>()
-                .setQuery(mbase.orderByChild("name").startAt(name.toLowerCase()).endAt(name.toLowerCase() + "\uf8ff".toLowerCase()), Recipe.class)
+                .setQuery(recipesDatabaseReference.orderByChild("name").startAt(name.toLowerCase()).endAt(name.toLowerCase() + "\uf8ff".toLowerCase()), Recipe.class)
                 .build();
 
         adapter.updateOptions(options);
         recyclerView.setAdapter(adapter);
     }
 
-    //TODO make it work
-    public static void filterByCategories(int category) {
+    public static void filterByCategories(Category category) {
+        ArrayList<Recipe> filteredRecipes = new ArrayList<>();
+        Log.i("Foodiction", "Filtered");
         FirebaseRecyclerOptions<Recipe> options = new FirebaseRecyclerOptions.Builder<Recipe>()
-                .setQuery(mbase.orderByChild("categories").equalTo(String.valueOf(category)), Recipe.class)
+                .setQuery(recipesDatabaseReference.orderByChild("category").equalTo(category.getName()), Recipe.class)
+                .build();
+        adapter.updateOptions(options);
+        recyclerView.setAdapter(adapter);
+    }
+
+    public static void clearFilter() {
+        FirebaseRecyclerOptions<Recipe> options = new FirebaseRecyclerOptions.Builder<Recipe>()
+                .setQuery(recipesDatabaseReference.orderByChild("name"), Recipe.class)
                 .build();
         adapter.updateOptions(options);
         recyclerView.setAdapter(adapter);

@@ -19,7 +19,7 @@ public class Recipe {
     String description = "";
     ArrayList<Ingredient> ingredients;
     ArrayList<Instruction> instructions;
-    Category category;
+    String category;
     String makingDuration = "";
     String userId;
     String imageUrl;
@@ -28,7 +28,7 @@ public class Recipe {
 
     boolean is_liked = false;
 
-    public Recipe(String displayName, Category category, String description, String makingDuration, RecipeType type) {
+    public Recipe(String displayName, String category, String description, String makingDuration, RecipeType type) {
         this.id = UUID.randomUUID().toString();
         this.name = displayName.toLowerCase();
         this.displayName = displayName;
@@ -41,7 +41,7 @@ public class Recipe {
         this.type = type;
     }
 
-    public Recipe(String displayName, Category category, String description, String makingDuration) {
+    public Recipe(String displayName, String category, String description, String makingDuration) {
         this.id = UUID.randomUUID().toString();
         this.name = displayName.toLowerCase();
         this.ingredients = new ArrayList<>();
@@ -105,6 +105,11 @@ public class Recipe {
 
     public boolean getIs_liked() { return is_liked; }
 
+
+    public void toggle_like(){
+        this.is_liked = !this.is_liked;
+    }
+
     public void setIs_liked(boolean is_liked) { this.is_liked = is_liked; }
 
     public ArrayList<Instruction> getInstructions() {
@@ -155,11 +160,11 @@ public class Recipe {
 
     public void setInternetUrl(String internetUrl) { this.internetUrl = internetUrl; }
 
-    public Category getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
@@ -170,7 +175,7 @@ public class Recipe {
     public void setType(RecipeType type) {
         this.type = type;
     }
-    
+
 }
 
 

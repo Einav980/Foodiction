@@ -49,11 +49,10 @@ public class RecipePageDetailsFragment extends Fragment {
                 Toast.makeText(getActivity() , "Error" , Toast.LENGTH_SHORT);
             }
             else {
-                Category recipeCategory = extras.getParcelable("recipe_category");
                 recipeDescription.setText(extras.getString("recipe_description"));
                 recipeMakingDuration.setText(extras.getString("recipe_making_duration"));
                 recipeNameTitle.setText(extras.getString("recipe_display_name"));
-                recipeCategoriesTextView.setText(recipeCategory.getName());
+                recipeCategoriesTextView.setText(extras.getString("recipe_category"));
             }
         }
     }

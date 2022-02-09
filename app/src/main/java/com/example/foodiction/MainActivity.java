@@ -23,28 +23,38 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "FOODICTION";
     private FirebaseAuth mAuth;
-
     public enum GlobalMode { EDIT, VIEW }
     private DrawerLayout drawer;
     public static CharSequence foodCategories[] = {"Italian", "Asian","Meat","Home Cooking","Fish","Salads","Indian","Soups",
             "Sandwiches","Desserts", "Pastries"};
-    int savedPreferences = -1;
+    int lastChosenCategoryIndex;
     private String mSearchQuery= "";
     private static String userGuid;
+    DatabaseReference categoriesDatabaseReference;
+    ArrayList<Category> categories;
+    String[] categoriesArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        categories = new ArrayList<>();
+        categoriesDatabaseReference = FirebaseDatabase.getInstance().getReference("categories");
         mAuth = FirebaseAuth.getInstance();
         MaterialToolbar topBar = findViewById(R.id.main_toolbar);
         setSupportActionBar(topBar);
@@ -66,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         initUserGuid();
+        fetchCategories();
     }
 
     @Override
@@ -199,40 +210,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public boolean  filterByCategories (MenuItem  item){
 //        boolean[] prefrenses= Arrays.copyOf(savedPrefrences, foodCategories.length);
-        int[] preferences = {savedPreferences};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Filter Categories");
-
         builder.setCancelable(false);
         builder.setIcon(R.drawable.ic_baseline_filter_alt_24);
-        builder.setSingleChoiceItems(foodCategories, preferences[0], new DialogInterface.OnClickListener(){
+        builder.setSingleChoiceItems(categoriesArray, lastChosenCategoryIndex, new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                preferences[0] = which;
+                lastChosenCategoryIndex = which;
             }
-        });
-        builder.setPositiveButton("Filter", new DialogInterface.OnClickListener() {
+        }).setPositiveButton("Filter", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //TODO add filter logic according to the categories in the recipe
-//                savedPrefrences = prefrenses[0];
-                HomeFragment.filterByCategories(savedPreferences);
+                HomeFragment.filterByCategories(categories.get(lastChosenCategoryIndex));
                 dialog.cancel();
                 Toast.makeText(MainActivity.this, "Filtered category", Toast.LENGTH_SHORT).show();
             }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which){
-                dialog.cancel();
-            }
-        });
-        builder.setNeutralButton("Clear all", new DialogInterface.OnClickListener() {
+        }).setNeutralButton("Clear", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                //TODO add filter logic according to the categories in the recipe
-                savedPreferences = -1;
+                HomeFragment.clearFilter();
+                dialogInterface.cancel();
+            }
+        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
             }
         });
 
@@ -266,6 +270,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         return true;
+    }
+
+    private void fetchCategories() {
+        categoriesDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot categorySnapshot : snapshot.getChildren()) {
+                    Category category = categorySnapshot.getValue(Category.class);
+                    categories.add(category);
+                }
+                categoriesArray = new String[categories.size()];
+                for(int i = 0 ; i < categories.size(); i++){
+                    categoriesArray[i] = categories.get(i).getName();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
     }
 
 }

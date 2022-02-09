@@ -50,7 +50,7 @@
                 android:textColor="?android:attr/textColorSecondary" />
 
             <TextView
-                android:id="@+id/makingTime"
+                android:id="@+id/single_recipe_making_duration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
