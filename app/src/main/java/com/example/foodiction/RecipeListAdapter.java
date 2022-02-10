@@ -33,7 +33,7 @@ public class RecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, RecipeLis
 
     @Override
     public void onBindViewHolder(@NonNull RecipeListAdapter.ViewHolder holder, int position, @NonNull Recipe model) {
-        holder.setIsRecyclable(false);
+//        holder.setIsRecyclable(false);
         recipeHandler = new RecipeHandler();
         holder.recipeTypeIcon.setClickable(false);
         holder.recipeTitle.setText(model.getName());
